@@ -22,6 +22,7 @@ CREATE TABLE `Benutzer` (
   `KonfBeitraegeJeSeite` tinyint(1) unsigned default '3',
   `KonfStil` varchar(16) default 'std',
   `Atavar` char(1) NOT NULL default 'n',
+  `AtavarData` mediumblob,
   `KonfSignatur` varchar(255) default NULL,
   `KonfSprungSpeichern` smallint(1) unsigned default '0',
   `KonfBaumZeigen` char(1) NOT NULL default 'j',
@@ -32,5 +33,5 @@ CREATE TABLE `Benutzer` (
   `NachrichtAnnehmen` char(1) NOT NULL default 'j',
   `NachrichtAnnehmenAnonym` char(1) NOT NULL default 'n',
   `Ablage` mediumtext,
-   PRIMARY KEY  (`BenutzerId`,`BenutzerId`)
+  PRIMARY KEY  (`BenutzerId`,`BenutzerId`)
 ) TYPE=MyISAM;
