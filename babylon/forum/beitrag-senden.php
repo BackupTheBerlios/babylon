@@ -149,12 +149,13 @@ else if ($K_Egl)
     $tid = $zeile[3];
     $sid = $zeile[4];
     $autor = $zeile[5];
+    $titel = addslashes ($zeile[1]);
     $antwort_verschicken = $zeile[6];
     $ret = strpos ($zeile[1], 'Re: ');
     if ($ret === FALSE or $ret > 0)
-      $titel = 'Re: ' . $zeile[1];
+      $titel = 'Re: ' . $titel;
     else
-      $titel = $zeile[1];
+      $titel = $titel;
     
     $antwort_mail = isset ($_POST['antwort_mail']) ? 'j' : 'n';
     
