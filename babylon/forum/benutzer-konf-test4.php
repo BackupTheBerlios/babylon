@@ -44,6 +44,11 @@ if (isset ($_POST['zurueck']))
     include('benutzer-konf4.php');
   else if (benutzer_eingabe_test ('nname', 'Nachname', 2, 32, 'Kompletten Nachnamen angeben', true))
     include('benutzer-konf4.php');
+  else if (! email_adresse_gueltig ($_POST['email']))
+  {
+    echo '<h2>G&uuml;ltige E-Mail Adresse angeben</h2>';
+    include ('benutzer-konf4.php');
+  }
   else if (strcmp ($_POST['passwort1'], $_POST['passwort2']))
   {
     echo '<h2>Die Passw&ouml;rter stimmen nicht &uuml;berein</h2><p>';
