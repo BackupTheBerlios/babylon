@@ -62,6 +62,7 @@ Namensraeume:
 
 
 Damit ein Stil fuer den Forumsnutzer benutzbar wird muss er im /forum/stil Verzeichniss installiert
-und in /forum/konf/konf.php freigeschaltet sein. In der konf.php Datei ist dem array $B_stile
-der Stil-Basisname (z.B. 'std') hinzuzufuegen.
+und in der Konfiguration freigeschaltet sein. Hierzu muss (momentan noch von Hand) im Schluessel
+B_Stile die Variable WertText um den Stil-Basisname (z.B. 'std') erweitert werden. Die Stilnamen
+sind durch Kommata ohne weitere Leerzeichen zu trennen.
 
