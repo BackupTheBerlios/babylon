@@ -138,7 +138,6 @@ function zeichne_beitrag ($param)
   }
   else
    {
-   echo "kein atavar";
     echo"             <td class=\"col-hell\" valign=\"top\" colspan=\"3\" width=\"100%\">$Inhalt</td>";
   } 
   echo '            </tr>
