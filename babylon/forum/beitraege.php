@@ -350,7 +350,10 @@
         {
           echo '<tr><td>';
           if (isset ($_GET['titel']))
-            echo "Thema <input name=\"titel\" value=\"$_GET[titel]\" size=\"50\"><p>\n";
+          {
+            $titel = htmlentities (stripslashes ($_GET['titel']));
+            echo "Thema <input name=\"titel\" value=\"$titel\" size=\"50\"><p>\n";
+          }
           else
             echo 'Thema <input name="titel" size="50"><p>';
           echo "<input type=\"hidden\" name=\"fid\" value=\"$fid\"  
