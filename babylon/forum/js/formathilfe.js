@@ -2,20 +2,27 @@ function _einfuegen (text, cursor)
 {
   var feld = document.getElementsByName("text")[0]
 
-  if (feld.selectionStart || feld.selectionStart == '0')
+  if (typeof feld.selectionStart != 'undefined' &&
+      feld.selectionStart != '0')
   {
     var start = feld.selectionStart;
     var ende = feld.selectionEnd;
     feld.value = feld.value.substring(0, start)
      + text + feld.value.substring(ende, feld.value.length);
+
+    feld.selectionStart = start + cursor;
+    feld.selectionEnd = start + cursor;
   }
   else
   {
     feld.value += text;
   }
+  
   feld.focus();
-  feld.selectionStart = start + cursor;
-  feld.selectionEnd = start + cursor;
+
+  if (typeof feld.scrollTop != 'undefined' &&
+      typeof feld.scrollHeight != 'undefined')
+    feld.scrollTop = feld.scrollHeight;
 }
 
 formate = new Array (2);
