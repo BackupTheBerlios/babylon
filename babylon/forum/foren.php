@@ -69,7 +69,7 @@
 
   mysql_close ($db);
   echo '          </table>
-       <img src="/grafik/dummy.png" width="1" height="30" alt=""></td>';
+       <img src="/grafik/dummy.png" width="1" height="30" alt="">';
  
   if ($K_AdminForen)
   {

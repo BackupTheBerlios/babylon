@@ -29,7 +29,7 @@ function leiste_unten ($suchtext, $version, $subversion)
                 <a href=\"http://babylon.berlios.de\" title=\"Zu den Seiten des Babylon-Projekts\"><img src=\"/grafik/Babylon$msiepng.png\" border=\"0\" alt=\"Zu den Seiten des Babylon-Projekts\"></a><br>
                 <font color=\"#0000ff\"><sup>Version $version.$subversion</sup></font>
               </td>
-              <td width=\"33%\" height=\"100%\" valign=\"center\" align=\"right\">
+              <td width=\"33%\" height=\"100%\" valign=\"middle\" align=\"right\">
                 <form action=\"suchen.php\" method=\"post\">
                   <input name=\"suchbegriff\" type=\"text\" size=\"30\" maxlength=\"64\"$suche>
                   <button name=\"suchen\" type=\"submit\" title=\"Suchen\">

@@ -1,6 +1,3 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-     "http://www.w3.org/TR/html4/loose.dtd\>
-
 <?PHP;
 /* Copyright 2003, 2004 Detlef Reichl <detlef!reichl()gmx!org>
    Diese Datei gehoert zum Babylon-Forum (babylon.berlios.de).
@@ -30,7 +27,7 @@ function strang_ausgeben (&$daten, $sid, $saetze, $tiefe, $m)
     $inhalt = stripslashes ($daten[$i][5]);
 
     $aus1 = "$baum<a class=\"baum\"
-             href=\"beitraege.php?fid=$_GET[fid]&tid={$daten[$i][0]}&sid={$daten[$i][1]}&bid={$daten[$i][2]}\">$inhalt";
+             href=\"beitraege.php?fid=$_GET[fid]&amp;tid={$daten[$i][0]}&amp;sid={$daten[$i][1]}&amp;bid={$daten[$i][2]}\">$inhalt";
     $aus2 = "{$daten[$i][6]} $datum $zeit</a><br>";
     echo $aus1;
     $lg = strlen ($inhalt) + strlen ($aus2) + strlen ($baum);
@@ -109,7 +106,7 @@ echo "</pre><br>\n";
   
 echo "<img src=\"/grafik/dummy.png\" width=\"1\" height=\"24\" border=\"0\" alt=\"\">
       <br>
-      <a href=\"beitraege.php?tid={$daten[0][0]}&sid=-1&bid=-1\">
+      <a href=\"beitraege.php?tid={$daten[0][0]}&amp;sid=-1&amp;bid=-1\">
       <b>Alle Beitraege auf ein Mal anzeigen</b></a>";
 mysql_close ($db);
 

@@ -67,8 +67,8 @@
 
    // die beitraege die wir darestellen wollen
       echo '        <tr>
-          <td>
-            <table width="100%" cellspacing="0" cellpadding="0" border="0">';
+          <td>';
+//            <table width="100%" cellspacing="0" cellpadding="0" border="0">';
 
       $arg = $ansicht == 't' ? "ThemaId = $tid " : "StrangId = $sid";
       $beitraege = mysql_query ("SELECT BeitragId, Autor, StempelLetzter, Inhalt, Gesperrt
@@ -124,19 +124,20 @@
           $sperren = $zeile[4] == 'j' ? 'n' : 'j';
           $grafik = $sperren == 'n' ? 'gesperrt' : 'lesbar';
       
-          echo "<tr>
+          echo "<table width=\"100%\">
+	    <tr>
               <td colspan=\"4\">
                 <div class=\"admin-leiste\">
-                  <a href=\"beitrag-sperren.php?fid=$fid&tid=$tid&sid=$sid&bid=$zeile[0]&bid_sprung=$bid_sprung&sperren=$sperren\">Lesbar
+                  <a href=\"beitrag-sperren.php?fid=$fid&amp;tid=$tid&amp;sid=$sid&amp;bid=$zeile[0]&amp;bid_sprung=$bid_sprung&sperren=$sperren\">Lesbar
                   <img src=\"/grafik/$grafik.png\" border=\"0\" alt=\"$grafik\"></a>
                 </div>
               </td>
-            </tr>";
+            </tr>
+	  </table>";
         }
       }
 
-      echo '            </table>
-         </td>
+      echo '          </td>
        </tr>';
     }
  
@@ -238,7 +239,7 @@
         $i = $aktuelle_seite - $seiten_vor;
         foreach ($bids_vor as $bids)
         {
-          echo"&nbsp;<a href=\"beitraege.php?fid=$fid&tid=$tid&sid=$sid&bid=$bids\">$i</a>&nbsp;";
+          echo"&nbsp;<a href=\"beitraege.php?fid=$fid&amp;tid=$tid&amp;sid=$sid&amp;bid=$bids\">$i</a>&nbsp;";
           $i++;
         }
       }
@@ -250,7 +251,7 @@
         $i = $aktuelle_seite + 1;
         foreach ($bids_nach as $bids)
         {
-          echo"&nbsp;<a href=\"beitraege.php?fid=$fid&tid=$tid&sid=$sid&bid=$bids\">$i</a>&nbsp;";
+          echo"&nbsp;<a href=\"beitraege.php?fid=$fid&amp;tid=$tid&amp;sid=$sid&amp;bid=$bids\">$i</a>&nbsp;";
           $i++;
         }
 
@@ -261,7 +262,8 @@
   // das wars mit den Beitraegen...
 
     echo "\n          </td>
-        </tr>\n";
+        </tr>
+      </table>\n";
     
     if (1 << $fid & $K_Schreiben and $K_Egl)
     {

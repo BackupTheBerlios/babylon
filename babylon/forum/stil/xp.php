@@ -29,19 +29,19 @@ function zeichne_forum ($param)
               <td>
                 <table border=\"2\" rules=\"rows\" width=\"100%\" cellpadding=\"6\">
                   <tr bgcolor=\"#dddddd\">
-                    <td width=\"100%\"><font size=\"+1\"><b>$Titel</b></td>
+                    <td width=\"100%\"><font size=\"+1\"><b>$Titel</b></font></td>
                     <td align=\"right\"><font size=\"-1\">$datum</font></td>
                     <td align=\"right\"><font size=\"-1\">$zeit</font></td>";
   if ($ForumId == -1)
-    echo "                  <td align=\"right\"><font size=\"-1\"><nobr>Neue Beit&auml;ge: $NumBeitraege</nobr></font></td>
+    echo "                  <td align=\"right\"><font size=\"-1\">Neue&nbsp;Beit&auml;ge:&nbsp;$NumBeitraege</font></td>
                   </tr>
                   <tr>
                     <td bgcolor=\"#ffffff\" colspan=\"4\"><a href=\"posteingang.php\">$Inhalt</a></td>";
   else
-    echo "                  <td align=\"right\"><font size=\"-1\"><nobr>Themen: $NumBeitraege</nobr></font></td>
+    echo "                  <td align=\"right\"><font size=\"-1\">Themen:&nbsp;$NumBeitraege</font></td>
                   </tr>
                   <tr>
-                    <td bgcolor=\"#ffffff\" colspan=\"4\"><a href=\"themen.php?fid=$ForumId&tid=-1\">$Inhalt</a></td>"; 
+                    <td bgcolor=\"#ffffff\" colspan=\"4\"><a href=\"themen.php?fid=$ForumId&amp;tid=-1\">$Inhalt</a></td>"; 
   echo "                  </tr>
                 </table>
               </td>
@@ -86,10 +86,10 @@ function zeichne_thema ($param)
 
   echo "            <tr>
               <td class=\"col-hell\">
-                <font class=\"thema\"><a href=\"$sprung.php?fid=$ForumId&tid=$ThemaId&bid=-1&sid=-1\">$Titel</a></font><br><font class=\"autor\"><a href=\"mitglieder-profil.php?alias=$AutorURL\">$Autor</a></font>
+                <font class=\"thema\"><a href=\"$sprung.php?fid=$ForumId&amp;tid=$ThemaId&amp;bid=-1&amp;sid=-1\">$Titel</a></font><br><font class=\"autor\"><a href=\"mitglieder-profil.php?alias=$AutorURL\">$Autor</a></font>
               </td>
               <td class=\"col-dunkel\" align=\"center\">
-                <font class=\"datum\">$datum $zeit<br><a href=\"mitglieder-profil.php?alias=$AutorLetzterURL\">$AutorLetzter</a></font>
+                <font class=\"datum\">$datum&nbsp;$zeit<br><a href=\"mitglieder-profil.php?alias=$AutorLetzterURL\">$AutorLetzter</a></font>
               </td>
               <td class=\"col-hell\" align=\"center\">$aw</td>
               <td class=\"col-dunkel\"align=\"center\">$NumGelesen</td>
@@ -122,7 +122,8 @@ function zeichne_beitrag ($param)
     echo "      <table class=\"beitrag\" width=\"100%\">
             <tr>
               <th class=\"ueber\" align=\"center\">$Thema</th>
-            </tr>";
+            </tr>
+	  </table>";
 
   echo "       <table class=\"beitrag\" width=\"100%\">
             <tr>
