@@ -18,13 +18,12 @@ table.themen {
   border: 3px;
   border-spacing: 0px;
   border: 1px solid #8888aa;
-  margin-top: 20px;
   margin-bottom: 20px;
 }
 
 table.beitraege {
   width: 100%;
-  margin-top: 20px;
+  margin-top: 2px;
   margin-bottom: 20px;
 }
 
