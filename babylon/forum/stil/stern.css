@@ -31,6 +31,35 @@ td.vorschau {
   color:#0000a0;
 }
 
+th.ueber {
+  font-size: 10px;
+  font-weight: bold;
+  background-image: url("stern07.png");
+  background-repeat: repeat-x;
+  white-space:nowrap;
+  padding: 3px;
+  margin: 0px;
+  border: 0px;
+}
+
+td.col-hell {
+  background-color: #20244a;
+  border: 0px;
+  border-top: 1px solid #624c09;
+  margin: 0px;
+  padding-left: 4px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+td.col-dunkel {
+  background-color: #101010;
+  border: 0px;
+  border-top: 1px solid #413020;
+}
+
+
+
 h1,h2,h3,h4,h5,h6,sub {
   color: #c4a7ff;
 }

@@ -69,6 +69,30 @@ div.konfiguration {
   padding: 6px;
 }
 
+th.ueber {
+  font-size: 12px;
+  font-weight: bold;
+  color: #BF8649;
+  background-color: #dddddd;
+  white-space:nowrap;
+  padding: 3px;
+  margin: 0px;
+}
+
+td.col-hell {
+  background-color: #ffffff;
+  border-top: 1px solid #ffffff;
+  margin: 0px;
+  padding-left: 4px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+td.col-dunkel {
+  background-color: #eeeeee;
+  border-top: 1px solid #eeeeee;
+}
+
 td.reiter_aktiv {
   font-family: arial, helvetica, sans-serif;
   font-size: 20px;
