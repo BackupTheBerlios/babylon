@@ -1,18 +1,9 @@
-body {
-  font-family: arial, helvetica, sans-serif;
-  background-color: #FEFFDD;
-  margin-left:16px;
-  margin-right:16px;
-  margin-top:0px;
-  margin-bottom:24px
-}
-	
-h1,h2,h3,h4,h5,h6,sub {
+a:active {
   color: #BF8649;
 }
 
-a:active {
-  color: #BF8649;
+a.baum {
+  text-decoration:none;
 }
 
 a:link {
@@ -22,14 +13,26 @@ a:visited {
   color: #A09070;
 }
 
-a.baum {
-  text-decoration:none;
+body {
+  font-family: arial, helvetica, sans-serif;
+  background-color: #FEFFDD;
+  margin-left:16px;
+  margin-right:16px;
+  margin-top:0px;
+  margin-bottom:24px;
 }
 
-img.stil_auswahl {
+div.konfiguration {
   border-color: #ffffff;
   border-width:2px;
-  border-style: inset;
+  border-top-width:0px;
+  border-style: outset;
+  -moz-border-radius-topright:20px;
+  -moz-border-radius-bottomleft:20px;
+  -moz-border-radius-bottomright:20px;
+  background-color: #f7f7f9;
+/*  margin: 12px;*/
+  padding: 6px;
 }
 
 div.zitat {
@@ -56,14 +59,27 @@ div.statistik {
   padding-bottom: 0px;
 }
 
-th.ueber {
-  font-size: 12px;
-  font-weight: bold;
+h1,h2,h3,h4,h5,h6,sub {
   color: #BF8649;
-  background-color: #dddddd;
-  white-space:nowrap;
-  padding: 3px;
-  margin: 0px;
+}
+
+img.stil_auswahl {
+  border-color: #ffffff;
+  border-width:2px;
+  border-style: inset;
+}
+
+table.beitrag {
+  padding: 0px;
+  border-width: 1px;
+  border-spacing: 0px;
+  border: 1px solid #888888;
+  margin-top: 10px;
+}
+
+td.col-dunkel {
+  background-color: #eeeeee;
+  border-top: 1px solid #eeeeee;
 }
 
 td.col-hell {
@@ -73,24 +89,6 @@ td.col-hell {
   padding-left: 4px;
   padding-top: 2px;
   padding-bottom: 2px;
-}
-
-td.col-dunkel {
-  background-color: #eeeeee;
-  border-top: 1px solid #eeeeee;
-}
-
-div.konfiguration {
-  border-color: #ffffff;
-  border-width:2px;
-  border-top-width:0px;
-  border-style: outset;
-  -moz-border-radius-topright:20px;
-  -moz-border-radius-bottomleft:20px;
-  -moz-border-radius-bottomright:20px;
-  background-color: #f7f7f9;
-/*  margin: 12px;*/
-  padding: 6px;
 }
 
 td.reiter_aktiv {
@@ -122,3 +120,14 @@ td.reiter_inaktiv {
   background-color: #fafbea;
   padding: 9px;
 }
+
+th.ueber {
+  font-size: 12px;
+  font-weight: bold;
+  color: #BF8649;
+  background-color: #dddddd;
+  white-space:nowrap;
+  padding: 3px;
+  margin: 0px;
+}
+
