@@ -60,20 +60,20 @@
 
   $nachricht = "Dies ist das $B_betreiber Forum
 
-  $absender
+$absender
 
-  laesst Dir folgend Nachricht zukommen:
+laesst Dir folgend Nachricht zukommen:
 
-  --------------------------------------
+-------------------------------------------------------------------------
 
-  $text
+$text
 
-  --------------------------------------
+-------------------------------------------------------------------------
 
-  Du erhaelst diese Nachricht, da Du der Zusendung privater Nachrichten
-  in Deinen persoenlichen Einstellungen des $B_betreiber Forums zugestimmt
-  hast. Bitte antworte nicht an diese Absende Adresse da es sich um eine
-  automatisch vom System generierte Nachricht handelt.";
+ Du erhaelst diese Nachricht, da Du der Zusendung privater Nachrichten
+ in Deinen persoenlichen Einstellungen des $B_betreiber Forums zugestimmt
+ hast. Bitte antworte nicht an die Absendeadresse da es sich um eine
+ automatisch vom System generierte Nachricht handelt.";
 
   $kopf = "From:$B_betreiber Forum<$B_mail_absender>\n";
   $kopf .= 'X-Mailer:Babylon';
