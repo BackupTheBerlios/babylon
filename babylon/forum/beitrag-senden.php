@@ -19,6 +19,9 @@ function interner_fehler ($db)
   mysql_close_db ($db);
   die ();
 }
+
+include_once ('fehler.php');
+
 // Standart Konfiguration. Man darf absolut nix ;-)
 $BenutzerId = -1;
 $K_Egl = FALSE;
@@ -42,7 +45,7 @@ $neu = FALSE;
 include ('get-post.php');
 
 if (id_von_get_post ($fid, $tid, $sid, $bid, $zid, $neu))
-  die ('Illegaler Zugriffsversuch!');
+  fehler (NULL, 0, 1, 'Illegaler Zugriffsversuch!');
 
 include ('beitrag-pharsen.php');
 include ('../gemeinsam/db-verbinden.php');
@@ -53,6 +56,12 @@ benutzer_daten_forum ($BenutzerId, $Benutzer, $K_Egl, $K_Lesen, $K_Schreiben, $K
                       $K_AdminForen,  $K_ThemenJeSeite, $K_BeitraegeJeSeite,
                       $K_Stil, $K_Signatur, $K_SprungSpeichern, $K_BaumZeigen);
 
+$K_Grafik = 'n';
+$K_Links = 'n';
+benutzer_daten_recht ($BenutzerId, $K_Grafik, $K_Links);
+$erlaubte_tags = $K_Grafik == 'j' ? '<img>' : '';
+$erlaubte_tags .= $K_Links == 'j' ? '<a>' : '';
+
 if (isset ($_POST['eltern']))
   $e_tmp = $_POST['eltern'];
 else if (isset ($_GET['eltern']))
@@ -60,18 +69,18 @@ else if (isset ($_GET['eltern']))
 if (is_int (intval ($e_tmp)))
   $eltern = $e_tmp;
 else
-  die ('&UUml;bergebenen Daten sind ung&uuml;ltig');
+  fehler (__FILE__, __LINE__, 1, '&UUml;bergebenen Daten sind ung&uuml;ltig');
 
 if (isset ($_POST['vorschau']))
 {
   if (!$K_Egl)
-    die ('Zwichenablage fuer die Vorschau wurde nicht aktualisiert, da nicht eingeloggt');
+    fehler (__FILE__, __LINE__, 1, 'Zwichenablage fuer die Vorschau wurde nicht aktualisiert, da nicht eingeloggt');
   
-  $text = addslashes (beitrag_pharsen_ohne_smilies ($_POST['text']));
+  $text = addslashes (beitrag_pharsen_ohne_smilies ($_POST['text'], $erlaubte_tags));
   mysql_query ("UPDATE Benutzer
                 SET Ablage = '$text'
                 WHERE BenutzerId = '$BenutzerId'")
-    or die ("F0035: Zwischenablage fuer die Vorschau konnte nicht aktualisiert werden");
+    or fehler (__FILE__, __LINE__, 0, 'Zwischenablage fuer die Vorschau konnte nicht aktualisiert werden');
   $vorschau = 'j';
   $titel = substr (strip_tags ($_POST['titel']), 0, 50);
   include ('gz-beitraege.php');
@@ -85,7 +94,7 @@ else if ($K_Egl)
 {
   $stempel = time ();
   // allen Muell raus
-  $text = addslashes (beitrag_pharsen ($_POST['text']));
+  $text = addslashes (beitrag_pharsen ($_POST['text'], $erlaubte_tags));
 
 // VIEL ZU VIEL DATENBANKZUGRIFFE.....
 
@@ -101,12 +110,12 @@ else if ($K_Egl)
                                  VALUES ('2', '$fid', '$titel',
                                          '0', '$Benutzer', '$stempel',
                                          '$stempel')")
-      or die ('F003: Thema konnte nicht angelegt werden');
+      or fehler (__FILE__, __LINE__, 0, 'Thema konnte nicht angelegt werden');
     $tid = mysql_insert_id ();
     mysql_query ("UPDATE Beitraege
                   SET ThemaId = $tid
                   WHERE BeitragId = $tid")
-      or die ('F004: ThemenId konnte nicht aktuallisiert werden');
+      or fehler (__FILE__, __LINE__, 0, 'ThemenId konnte nicht aktuallisiert werden');
     // Strang  mit Beitrag anlegen
     $antwort_mail = isset ($_POST['antwort_mail']) ? 'j' : 'n';
     
@@ -118,21 +127,21 @@ else if ($K_Egl)
                                          '1', '$titel', '$Benutzer',
                                          '$antwort_mail', '$stempel', '$stempel',
                                          '$text')")
-      or die ('F005: Strang konnte nicht angelegt werden');
+      or fehler (__FILE__, __LINE__, 0, 'Strang konnte nicht angelegt werden');
     $sid = mysql_insert_id ();
     mysql_query ("UPDATE Beitraege
                   SET StrangId = $sid
                   WHERE BeitragId = $sid")
-      or die ('F006: Strangzaehler konnte nicht aktuallisiert werden');
+      or fehler (__FILE__, __LINE__, 0, 'Strangzaehler konnte nicht aktuallisiert werden');
     mysql_query ("UPDATE Beitraege
                   SET NumBeitraege=NumBeitraege+1
                   WHERE BeitragTyp = 1
                     AND ForumId = '$fid'")
-      or die ('F0020: Forum Beitragsz&auml;hler konnten nicht aktualisiert werden');
+      or fehler (__FILE__, __LINE__, 0, 'Forum Beitragsz&auml;hler konnten nicht aktualisiert werden');
     mysql_query ("UPDATE Benutzer
                   SET Themen = Themen+1
                   WHERE BenutzerId = '$BenutzerId'")
-    or die ('Themenzaehler konnte nicht aktuallisiert werden');
+    or fehler (__FILE__, __LINE__, 0, 'Themenzaehler konnte nicht aktuallisiert werden');
       
   }
     // und hier einen neuen Beitrag
@@ -141,9 +150,9 @@ else if ($K_Egl)
     $erg = mysql_query ("SELECT WeitereKinder, Titel, ForumId, ThemaId, StrangId, Autor, AntwortMail
                          FROM Beitraege
                          WHERE BeitragId = $eltern")
-      or die ('F008: Elterndatensatz konnte nicht bestimmt werden');
+      or fehler (__FILE__, __LINE__, 0, 'Elterndatensatz konnte nicht bestimmt werden');
     $zeile = mysql_fetch_row ($erg)
-      or die ('F009: Elterndatensatz konnte nicht ermittelt werden');
+      or fehler (__FILE__, __LINE__, 0, 'Elterndatensatz konnte nicht ermittelt werden');
    // wenn wir in der "nicht Strang" Ansicht sind bekommen wir keine reale sid
     $fid = $zeile[2];
     $tid = $zeile[3];
@@ -170,17 +179,17 @@ else if ($K_Egl)
                                            '$sid', '$Benutzer', '$antwort_mail',
                                            '$titel', '$stempel', '$stempel',
                                            '$eltern', '$text')")
-        or die ('F0010: Beitrag konnte nicht angelegt werden<br>' . mysql_error());
+        or fehler (__FILE__, __LINE__, 0, 'Beitrag konnte nicht angelegt werden');
       $bid = mysql_insert_id ();
       mysql_query ("UPDATE Beitraege
                     SET NumBeitraege=NumBeitraege+1
                     WHERE StrangId = '$sid'
                       AND BeitragTyp & 4 = 4")
-        or die ('F0012: Z&auml;hler konnten nicht aktualisiert werden');
+        or fehler (__FILE__, __LINE__, 0, 'Z&auml;hler konnten nicht aktualisiert werden');
       mysql_query ("UPDATE Beitraege
                     SET WeitereKinder = 'v'
                     WHERE BeitragId = '$eltern'")
-        or die ('F0013: Z&auml;hler konnten nicht aktualisiert werden');
+        or fehler (__FILE__, __LINE__, 0, 'Z&auml;hler konnten nicht aktualisiert werden');
     }
     // es exestier bereits ein kind zu dem Eltern Satz
     else
@@ -193,16 +202,16 @@ else if ($K_Egl)
                                            '1', '$Benutzer', '$antwort_mail',
                                            '$titel', '$stempel', '$stempel',
                                            '$eltern', '$text')")
-        or die ('F0014: Beitrag konnte nicht angelegt werden');
+        or fehler (__FILE__, __LINE__, 0, 'Beitrag konnte nicht angelegt werden');
       $bid = mysql_insert_id ();
        mysql_query ("UPDATE Beitraege
                     SET StrangId = '$bid'
                     WHERE BeitragId = '$bid'")
-        or die ('F0016: Z&auml;hler konnten nicht aktualisiert werden');
+        or fehler (__FILE__, __LINE__, 0, 'Z&auml;hler konnten nicht aktualisiert werden');
       mysql_query ("UPDATE Beitraege
                     SET WeitereKinder = 'j'
                     WHERE BeitragId = '$eltern'")
-        or die ('F0017: Z&auml;hler konnten nicht aktualisiert werden');
+        or fehler (__FILE__, __LINE__, 0, 'Z&auml;hler konnten nicht aktualisiert werden');
     }
 
     // Bei Antowort Mail Funktion
@@ -213,23 +222,23 @@ else if ($K_Egl)
     }
   }
   else
-    die ('F0018: Der Beitrag konnte keinem Forum, keinem Thema, keinem Beitragsstrang oder keinem Beitrag als Antwort zugeordnet werden');
+    fehler (__FILE__, __LINE__, 1, 'Der Beitrag konnte keinem Forum, keinem Thema, keinem Beitragsstrang oder keinem Beitrag als Antwort zugeordnet werden');
   mysql_query ("UPDATE Benutzer
                 SET Beitraege = Beitraege+1,
                   LetzterBeitrag = '$stempel'
                 WHERE BenutzerId = '$BenutzerId'")
-    or die ('Beitragszaehler konnte nicht aktuallisiert werden');
-    mysql_query ("UPDATE Beitraege
-                  SET StempelLetzter = '$stempel'
-                  WHERE BeitragTyp = 1
-                    AND ForumId = '$fid'")
-      or die ('F0020: Forum, Datum des letzten Beitrags konnten nicht aktualisiert werden');
-    mysql_query ("UPDATE Beitraege
-                  SET NumBeitraege = NumBeitraege+1,
-                    StempelLetzter = '$stempel',
-                    AutorLetzter = '$Benutzer'
-                  WHERE ThemaId = '$tid' AND BeitragTyp = 2")
-      or die ('F0011: Z&auml;hler konnten nicht aktualisiert werden');
+    or fehler (__FILE__, __LINE__, 0, 'Beitragszaehler konnte nicht aktuallisiert werden');
+  mysql_query ("UPDATE Beitraege
+                SET StempelLetzter = '$stempel'
+                WHERE BeitragTyp = 1
+                  AND ForumId = '$fid'")
+    or fehler (__FILE__, __LINE__, 0, 'Forum, Datum des letzten Beitrags konnten nicht aktualisiert werden');
+  mysql_query ("UPDATE Beitraege
+                SET NumBeitraege = NumBeitraege+1,
+                  StempelLetzter = '$stempel',
+                  AutorLetzter = '$Benutzer'
+                WHERE ThemaId = '$tid' AND BeitragTyp = 2")
+    or fehler (__FILE__, __LINE__, 0, 'Z&auml;hler konnten nicht aktualisiert werden');
 
 mysql_close ($db);
 

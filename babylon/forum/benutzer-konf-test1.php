@@ -27,19 +27,26 @@ if (isset ($_POST['speichern']))
   include ('../gemeinsam/db-verbinden.php');
   include ('../gemeinsam/benutzer-daten.php');
   include ('beitrag-pharsen.php');
-  
+  include_once ('fehler.php');
 
   $db = db_verbinden ();    
   benutzer_daten_forum ($BenutzerId, $Benutzer, $K_Egl, $K_Lesen, $K_Schreiben, $K_Admin,
                         $K_AdminForen, $K_ThemenJeSeite, $K_BeitraegeJeSeite,
                         $K_Stil, $K_Signatur, $K_SprungSpeichern, $K_BaumZeigen);
 
+  $K_Grafik = 'n';
+  $K_Links = 'n';
+  benutzer_daten_recht ($BenutzerId, $K_Grafik, $K_Links);
+  $erlaubte_tags = $K_Grafik == 'j' ? '<img>' : '';
+  $erlaubte_tags .= $K_Links == 'j' ? '<a>' : '';
+
+
   if (!$K_Egl)
-    die ('Zugriff verweigert');
+    fehler (NULL, 0, 1, 'Zugriff verweigert');
       
   // ##### Signatur #####
   if (isset ($_POST['signatur']))
-    $SIGNATUR = addslashes (beitrag_pharsen_ohne_smilies ($_POST['signatur']));
+    $SIGNATUR = addslashes (beitrag_pharsen_ohne_smilies ($_POST['signatur'], $erlaubte_tags));
   else
     $SIGNATUR = '';
   // ##### Themen / Beitraege Je Seite #####
@@ -92,7 +99,7 @@ if (isset ($_POST['speichern']))
                 KonfSignatur=\"$SIGNATUR\", KonfSprungSpeichern=\"$SPRUNG\",
                 KonfBaumZeigen=\"$BAUM\"
                 WHERE BenutzerId=\"$BenutzerId\"")
-    or die ('F0038: Die Benutzereinstellungen konnten nicht aktuallisiert werden.');
+    or fehler (__FILE__, __LINE__, 0, 'Die Benutzereinstellungen konnten nicht aktuallisiert werden.');
   mysql_close ($db);
 }
 $zu = isset ($_POST['speichern']) ? 'benutzer-konf1' : 'foren';

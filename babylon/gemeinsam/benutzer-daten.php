@@ -9,8 +9,10 @@
 // wir muessen hier auf verschiedene Verzeichnissebenen testen, da diese Datei
 // ebenfals aus verschiedenen Ebenen aufgerufen werden kann.
 
-$pfad = $_SERVER['DOCUMENT_ROOT'] . '/forum/konf/konf.php';
-include_once ($pfad);
+$konf = $_SERVER['DOCUMENT_ROOT'] . '/forum/konf/konf.php';
+include_once ($konf);
+$fehler = $_SERVER['DOCUMENT_ROOT'] . '/forum/fehler.php';
+include_once ($fehler);
 
 function benutzer_cookie (&$K_Egl, &$id, &$sw)
 {
@@ -45,7 +47,8 @@ function benutzer_daten_forum (&$BenutzerId, &$Benutzer, &$K_Egl,
                               KonfSprungSpeichern, KonfBaumZeigen
                        FROM Benutzer
                        WHERE BenutzerId = \"$id\" AND Cookie = \"$sw\" AND Eingeloggt = 'j'")
-    or die ("F0037: Forumdaten des Benutzers konnten nicht aus der Dantenbank gelesen werden");
+    or fehler (__FILE__, __LINE__, 0, 'Forumdaten des Benutzers konnten nicht aus der Dantenbank gelesen werden');
+
   if (mysql_num_rows ($erg) == 0)
   {
     $K_Egl = FALSE;
@@ -67,7 +70,7 @@ function benutzer_daten_forum (&$BenutzerId, &$Benutzer, &$K_Egl,
                               RechtAdminForen
                        FROM BenutzerVorlage
                        WHERE Name = '$zeile[1]'")
-    or die ('Die Gruppendanten des Benutzers konnten nicht ermittelt werden');
+    or fehler (__FILE__, __LINE__, 0, 'Die Gruppendanten des Benutzers konnten nicht ermittelt werden');
   $zeile = mysql_fetch_row ($erg);
 
   $K_Lesen = $zeile[0];
@@ -89,7 +92,8 @@ function benutzer_daten_persoenlich (&$BenutzerId, &$K_Egl, &$K_Stil,
   $erg = mysql_query ("SELECT KonfStil, EMail, Benutzer, VName, NName
                        FROM Benutzer
                        WHERE BenutzerId = \"$id\" AND Cookie = \"$sw\"  AND Eingeloggt = 'j'")
-    or die ("F0037: Pers&ouml;nliche Benutzerdaten konnten nicht aus der Dantenbank gelesen werden");
+    or fehler (__FILE__, __LINE__, 0, 'Pers&ouml;nliche Benutzerdaten konnten nicht aus der Dantenbank gelesen werden');
+    
   if (mysql_num_rows ($erg) == 0)
   {
     $K_Egl = FALSE;
@@ -118,7 +122,7 @@ function benutzer_daten_profil (&$BenutzerId, &$Benutzer, &$K_Egl, &$K_Stil,
   $erg = mysql_query ("SELECT Benutzer, KonfStil, ProfilNameZeigen, ProfilOrt, ProfilEMail, ProfilHomepage
                        FROM Benutzer
                        WHERE BenutzerId = \"$id\" AND Cookie = \"$sw\"  AND Eingeloggt = 'j'")
-    or die ("F0037: Profildaten konnten nicht aus der Dantenbank gelesen werden");
+    or fehler (__FILE__, __LINE__, 0, 'Profildaten konnten nicht aus der Dantenbank gelesen werden');
   if (mysql_num_rows ($erg) == 0)
   {
     $K_Egl = FALSE;
@@ -147,7 +151,7 @@ function benutzer_daten_mitglied (&$K_Mitglied)
   $erg = mysql_query ("SELECT BenutzerId
                        FROM Benutzer
                        WHERE BenutzerId = \"$id\" and Mitglied = 'j' and Eingeloggt = 'j'")
-    or die ("Mitgliedsstatus konnte nicht aus der Dantenbank gelesen werden");
+    or fehler (__FILE__, __LINE__, 0, 'Mitgliedsstatus konnte nicht aus der Dantenbank gelesen werden');
   if (mysql_num_rows ($erg) == 0)
   {
     $K_Egl = FALSE;
@@ -156,6 +160,32 @@ function benutzer_daten_mitglied (&$K_Mitglied)
   }
   $K_Egl = TRUE;
   $K_Mitglied = TRUE;
+}
+
+function benutzer_daten_recht (&$BenutzerId, &$K_Grafik, &$K_Links)
+{
+  $id = -1;
+  $sw = -1;
+  if (!benutzer_cookie ($K_Egl, $id, $sw))
+    return;
+    
+  $erg = mysql_query ("SELECT Gruppe
+                       FROM Benutzer
+                       WHERE BenutzerId = \"$id\"")
+    or fehler (__FILE__, __LINE__, 0, 'Benutzergruppe konnte nicht ermittelt werden');
+    
+  if (mysql_num_rows($erg) != 1)
+    fehler (__FILE__, __LINE__, 1, 'Zu der BenutzerId ist kein oder mehrere Benutzer vorhanden');
+    
+  $zeile = mysql_fetch_row ($erg);
+  $erg = mysql_query ("SELECT RechtLinks, RechtGrafik
+                       FROM BenutzerVorlage
+                       WHERE Name = \"$zeile[0]\"")
+    or fehler (__FILE__, __LINE__, 0, 'Die Zugriffsrechte konnten nicht ermittelt werden');
+  $zeile = mysql_fetch_row ($erg);
+
+  $K_Links = $zeile[0];
+  $K_Grafik = $zeile[1];
 }
 ?>
 
