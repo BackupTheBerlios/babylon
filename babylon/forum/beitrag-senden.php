@@ -99,7 +99,7 @@ else if ($K_Egl)
   if (isset ($_POST['titel']))
   {
     // Thema anlegen
-    $titel = addslashes (strip_tags ($_POST['titel']));
+    $titel = addslashes (substr (strip_tags ($_POST['titel']), 0, 50));
     mysql_query ("INSERT INTO Beitraege (BeitragTyp, ForumId, Titel,
                   NumBeitraege, Autor, StempelStart, StempelLetzter)
                   VALUES (\"2\", \"$fid\", \"$titel\", \"0\", \"$Benutzer\",
@@ -111,10 +111,14 @@ else if ($K_Egl)
                   WHERE BeitragId = $tid")
       or die ('F004: ThemenId konnte nicht aktuallisiert werden');
     // Strang  mit Beitrag anlegen
+    $antwort_mail = isset ($_POST['antwort_mail']) ? 'j' : 'n';
+    
     mysql_query ("INSERT INTO Beitraege (BeitragTyp, ForumId, ThemaId,
-                  NumBeitraege, Titel, Autor, StempelStart, StempelLetzter, Inhalt)
+                  NumBeitraege, Titel, Autor, AntwortMail, StempelStart,
+                  StempelLetzter, Inhalt)
                   VALUES (\"12\", \"$fid\", \"$tid\", \"1\", \"$titel\",
-                  \"$Benutzer\", \"$stempel\", \"$stempel\" ,\"$text\")")
+                  \"$Benutzer\", \"$antwort_mail\", \"$stempel\",
+                  \"$stempel\" ,\"$text\")")
       or die ('F005: Strang konnte nicht angelegt werden');
     $sid = mysql_insert_id ();
     mysql_query ("UPDATE Beitraege
@@ -134,7 +138,7 @@ else if ($K_Egl)
     // und hier einen neuen Beitrag
   else if (isset ($eltern))
   {
-    $erg = mysql_query ("SELECT WeitereKinder, Titel, ForumId, ThemaId, StrangId
+    $erg = mysql_query ("SELECT WeitereKinder, Titel, ForumId, ThemaId, StrangId, Autor, AntwortMail
                          FROM Beitraege
                          WHERE BeitragId = $eltern")
       or die ('F008: Elterndatensatz konnte nicht bestimmt werden');
@@ -144,20 +148,25 @@ else if ($K_Egl)
     $fid = $zeile[2];
     $tid = $zeile[3];
     $sid = $zeile[4];
+    $autor = $zeile[5];
+    $antwort_verschicken = $zeile[6];
     $ret = strpos ($zeile[1], 'Re: ');
     if ($ret === FALSE or $ret > 0)
       $titel = 'Re: ' . $zeile[1];
     else
       $titel = $zeile[1];
-        
+    
+    $antwort_mail = isset ($_POST['antwort_mail']) ? 'j' : 'n';
+    
     // fuer diesen Beitrag gab es nocht keine Antwort
     if ($zeile[0] == 'n')
     {
       mysql_query ("INSERT INTO Beitraege (BeitragTyp, ForumId, ThemaId, StrangId,
-                    Autor, Titel, StempelStart, StempelLetzter, Eltern, Inhalt)
+                    Autor, AntwortMail, Titel, StempelStart, StempelLetzter, Eltern,
+                    Inhalt)
                     VALUES (\"8\", \"$fid\", \"$tid\", \"$sid\",
-                    \"$Benutzer\", \"$titel\", \"$stempel\", \"$stempel\",
-                    \"$eltern\", \"$text\")")
+                    \"$Benutzer\", \"$antwort_mail\", \"$titel\", \"$stempel\",
+                    \"$stempel\", \"$eltern\", \"$text\")")
         or die ('F0010: Beitrag konnte nicht angelegt werden<br>' . mysql_error());
       $bid = mysql_insert_id ();
       mysql_query ("UPDATE Beitraege
@@ -173,11 +182,11 @@ else if ($K_Egl)
     else
     {
       mysql_query ("INSERT INTO Beitraege (BeitragTyp, ForumId, ThemaId,
-                    NumBeitraege, Autor, Titel, StempelStart, StempelLetzter,
-                    Eltern, Inhalt)
+                    NumBeitraege, Autor, AntwortMail, Titel, StempelStart,
+                    StempelLetzter, Eltern, Inhalt)
                     VALUES (\"12\", \"$fid\", \"$tid\", \"1\",
-                    \"$Benutzer\", \"$titel\", \"$stempel\", \"$stempel\",
-                    \"$eltern\", \"$text\")")
+                    \"$Benutzer\", \"$antwort_mail\",  \"$titel\",
+                    \"$stempel\", \"$stempel\", \"$eltern\", \"$text\")")
         or die ('F0014: Beitrag konnte nicht angelegt werden');
       $bid = mysql_insert_id ();
        mysql_query ("UPDATE Beitraege
@@ -189,7 +198,13 @@ else if ($K_Egl)
                     WHERE BeitragId=\"$eltern\"")
         or die ('F0017: Z&auml;hler konnten nicht aktualisiert werden');
     }
-   
+
+    // Bei Antowort Mail Funktion
+    if ($antwort_verschicken == 'j')
+    {
+      include ('antwort-mail.php');
+      antwort_mail ($B_betreiber, $B_mail_absender, $Benutzer, $autor, $titel, $text);
+    }
   }
   else
     die ('F0018: Der Beitrag konnte keinem Forum, keinem Thema, keinem Beitragsstrang oder keinem Beitrag als Antwort zugeordnet werden');

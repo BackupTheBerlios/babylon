@@ -100,7 +100,11 @@
     echo '      <table width="100%">';
 
     if ($K_Egl)
+    {
       echo '    <form action="beitrag-senden.php" method="post">';
+      // benoetigen wir fuer die "bei antwort-mail funktion
+      benutzer_daten_persoenlich ($foo, $foo, $foo, $K_EMail, $foo, $foo, $foo);
+    }
     
     if ($neu == FALSE)
     {
@@ -319,7 +323,7 @@
     echo "\n          </td>
         </tr>\n";
     
-    if (1 << $fid and $K_Schreiben)
+    if (1 << $fid & $K_Schreiben and $K_Egl)
     {
       if (isset ($tid) == FALSE and $neu == FALSE)
         die ('Da kein neues Thema erstellt werden soll, dieser Beitrag aber keine Themenkennung hat liegt anscheinend ein interner Fehler vor. Versuch es nochmals. Wenn der Fehler dann immer noch besteht wende dich bitte an den Seitenmeister.');
@@ -421,42 +425,58 @@
                 <table>
                   <tr>
                     <td>
-                      <button type=\"submit\" name=\"gehe_zu\" value=\"themen\" accesskey=\"s\">
-                        <table>
-                          <tr>
-                            <td>
-                              <img src=\"/grafik/Schicken$msiepng.png\" width=\"24\" height=\"24\" alt=\"\">
-                            </td>
-                            <td>
-                              Beitrag abschicken<br>
-                              <font size=\"-4\">(Alt+s)</font>
-                            </td>
-                          </tr>
-                        </table>
-                      </button>
-                      <input type=\"hidden\" name=\"fid\" value=\"$fid\">      
-                      <input type=\"hidden\" name=\"tid\" value=\"$tid\">
-                      <input type=\"hidden\" name=\"sid\" value=\"$sid\">\n";
-        if ($bid == 0xffffffff)
-          echo '                      <input type="hidden" name="bid" value="-1">';
-        else
-          echo "                      <input type=\"hidden\" name=\"bid\" value=\"$bid\">\n";
-        if ($neu)
-           echo '                      <input type="hidden" name="neu" value="1">'; 
-        echo "                      <button type=\"submit\" name=\"vorschau\" value=\"ja\" accesskey=\"v\">
-                        <table>
-                          <tr>
-                            <td>
-                              <img src=\"/grafik/Vorschau$msiepng.png\" width=\"24\" height=\"24\" alt=\"\">
-                            </td>
-                            <td>
-                              Beitragsvorschau<br>
-                              <font size=\"-4\">(Alt+v)</font>
-                            </td>
-                          </tr>
-                        </table>
-                              
-                      </button>\n";
+                      <table>
+                        <tr>
+                          <td>
+                            <button type=\"submit\" name=\"gehe_zu\" value=\"themen\" accesskey=\"s\">
+                              <table>
+                                <tr>
+                                  <td>
+                                    <img src=\"/grafik/Schicken$msiepng.png\" width=\"24\" height=\"24\" alt=\"\">
+                                  </td>
+                                  <td>
+                                    Beitrag abschicken<br>
+                                    <font size=\"-4\">(Alt+s)</font>
+                                  </td>
+                                </tr>
+                              </table>
+                            </button>
+                            <input type=\"hidden\" name=\"fid\" value=\"$fid\">      
+                            <input type=\"hidden\" name=\"tid\" value=\"$tid\">
+                            <input type=\"hidden\" name=\"sid\" value=\"$sid\">\n";
+             if ($bid == 0xffffffff)
+               echo '                      <input type="hidden" name="bid" value="-1">';
+             else
+               echo "                      <input type=\"hidden\" name=\"bid\" value=\"$bid\">\n";
+             if ($neu)
+               echo '                      <input type="hidden" name="neu" value="1">'; 
+             echo "                    </td>
+                          <td>
+                            <button type=\"submit\" name=\"vorschau\" value=\"ja\" accesskey=\"v\">
+                              <table>
+                                <tr>
+                                  <td>
+                                    <img src=\"/grafik/Vorschau$msiepng.png\" width=\"24\" height=\"24\" alt=\"\">
+                                  </td>
+                                  <td>
+                                    Beitragsvorschau<br>
+                                    <font size=\"-4\">(Alt+v)</font>
+                                  </td>
+                                </tr>
+                              </table>
+                            </button>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td colspan=\"2\">
+                            <input type=\"checkbox\" name=\"antwort_mail\">
+                              <font size=\"-2\">
+                                Antworten auf diesen Beitrag per Mail an <b>$K_EMail</b> schicken
+                              </font>
+                            </input>
+                          </td>
+                        </tr>
+                      </table>\n";
 
 //  #####################################
 //  # Formatierungshilfe-Schaltflaechen #
