@@ -29,20 +29,20 @@ function benutzer_cookie (&$K_Egl, &$id, &$sw)
   return TRUE;
 }
 
-function benutzer_daten_forum (&$BenutzerId, &$Benutzer, &$K_Egl, &$K_Lesen, &$K_Schreiben,
-                               &$K_Admin, &$K_AdminForen,
-                               &$K_ThemenJeSeite, &$K_BeitraegeJeSeite,
-                               &$K_Stil, &$K_Signatur,
-                               &$K_SprungSpeichern, &$K_BaumZeigen)
+function benutzer_daten_forum (&$BenutzerId, &$Benutzer, &$K_Egl,
+                               &$K_Lesen, &$K_Schreiben, &$K_Admin,
+                               &$K_AdminForen, &$K_ThemenJeSeite, &$K_BeitraegeJeSeite,
+                               &$K_Stil, &$K_Signatur, &$K_SprungSpeichern,
+                               &$K_BaumZeigen)
 {
   $id = -1;
   $sw = -1;
   if (!benutzer_cookie ($K_Egl, $id, $sw))
     return;
 
-  $erg = mysql_query ("SELECT Benutzer, RechtLesen, RechtSchreiben, RechtAdmin, RechtAdminForen,
-                       KonfThemenJeSeite, KonfBeitraegeJeSeite,
-                       KonfStil, KonfSignatur, KonfSprungSpeichern, KonfBaumZeigen
+  $erg = mysql_query ("SELECT Benutzer, Gruppe, KonfThemenJeSeite,
+                              KonfBeitraegeJeSeite, KonfStil, KonfSignatur,
+                              KonfSprungSpeichern, KonfBaumZeigen
                        FROM Benutzer
                        WHERE BenutzerId = \"$id\" AND Cookie = \"$sw\" AND Eingeloggt = 'j'")
     or die ("F0037: Forumdaten des Benutzers konnten nicht aus der Dantenbank gelesen werden");
@@ -56,16 +56,24 @@ function benutzer_daten_forum (&$BenutzerId, &$Benutzer, &$K_Egl, &$K_Lesen, &$K
   $BenutzerId = $id;
   $K_Egl = TRUE;
   $Benutzer = $zeile[0];
-  $K_Lesen = $zeile[1];
-  $K_Schreiben = $zeile[2];
-  $K_Admin = $zeile[3];
-  $K_AdminForen = $zeile[4];
-  $K_ThemenJeSeite = $zeile[5];
-  $K_BeitraegeJeSeite = $zeile[6];
-  $K_Stil = $zeile[7];
-  $K_Signatur = $zeile[8];
-  $K_SprungSpeichern = $zeile[9];
-  $K_BaumZeigen = $zeile[10];
+  $K_ThemenJeSeite = $zeile[2];
+  $K_BeitraegeJeSeite = $zeile[3];
+  $K_Stil = $zeile[4];
+  $K_Signatur = $zeile[5];
+  $K_SprungSpeichern = $zeile[6];
+  $K_BaumZeigen = $zeile[7];
+
+  $erg = mysql_query ("SELECT RechtLesen, RechtSchreiben, RechtAdmin,
+                              RechtAdminForen
+                       FROM BenutzerVorlage
+                       WHERE Name = '$zeile[1]'")
+    or die ('Die Gruppendanten des Benutzers konnten nicht ermittelt werden');
+  $zeile = mysql_fetch_row ($erg);
+
+  $K_Lesen = $zeile[0];
+  $K_Schreiben = $zeile[1];
+  $K_Admin = $zeile[2];
+  $K_AdminForen = $zeile[3];
 }
 
 
