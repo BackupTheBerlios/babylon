@@ -67,7 +67,7 @@ function atavar_in_db_wartung ()
   }
 
   mysql_query ("UPDATE Konf
-                SET WertInt = '6'
+                SET WertInt = '7'
                 WHERE Schluessel = 'B_subversion'")
     or die ("Die Forumversion konnte nicht aktuallisiert werden");
                                     
