@@ -121,11 +121,7 @@
                   Breite: $B_atavar_max_breite Pixel<br>
                   H&ouml;he: $B_atavar_max_hoehe Pixel";
           else
-          {
-            $atavar_datei = "atavar/$BenutzerId.jpg";
-            if (is_readable ($atavar_datei))
-              echo "    <img src=\"$atavar_datei\" alt=\"\">";
-          }
+            echo "    <img src=\"atavar-ausgeben.php?atavar=$BenutzerId\">";
           echo "           </td>
         </tr>
         <tr><td colspan=\"3\"><img src=\"/grafik/dummy.png\" width=\"1\" height=\"20\"></td></tr>

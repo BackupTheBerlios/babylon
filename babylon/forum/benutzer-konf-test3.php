@@ -29,45 +29,44 @@ if (isset ($_POST['speichern']))
                          $P_EMail, $P_Homepage);
 
   if (!$K_Egl)
-    die ("Zugriff verweigert");
+    die ('Zugriff verweigert');
 
   if (!empty ($_FILES['atavar']['tmp_name']))
   {
-    $datei = $_FILES['atavar']['tmp_name'];
-    $groesse = $_FILES['atavar']['size'];
+    $atavar_datei = $_FILES['atavar']['tmp_name'];
+    $atavar_groesse = $_FILES['atavar']['size'];
     $info = getimagesize ($datei);
     $breite = $info[0];
     $hoehe = $info[1];
     $typ = $info[2];
   }
-  if ($groesse > ($B_atavar_max_kb * 1024) or $breite > $B_atavar_max_breite or $hoehe > $B_atavar_max_hoehe)
+  if ($atavar_groesse > ($B_atavar_max_kb * 1024) or $breite > $B_atavar_max_breite or $hoehe > $B_atavar_max_hoehe)
     $zu_arg = 'atavar_groesse=';
   else if ($typ > 2)
     $zu_arg = 'atavar_format=';
   else
   {
-    $ATAVAR = 'n';
+    $atavar = 'n';
+    $bild = NULL;
     if (!empty ($_FILES['atavar']['tmp_name']))
     { 
-       $datei = $_FILES['atavar']['tmp_name'];
-       if (!move_uploaded_file ($datei, "atavar/$BenutzerId.jpg"))
-         die ('Beim Hochladen der Datei ist ein Fehler aufgetreten. Versuchs nochmal...');
-       chmod ("atavar/$BenutzerId.jpg" , 0664);
-       $ATAVAR = 'j';
+       $bild = addslashes(fread(fopen($atavar_datei, 'r'), $atavar_groesse));
+       $atavar = 'j';
     }
 
-    $NAME_ZEIGEN = (isset ($_POST['name_zeigen'])) ? 'j' : 'n';
-    $ORT = (strlen ($_POST['ort'])) ? addslashes ($_POST['ort']) : '';
-    $HOMEPAGE = (strlen ($_POST['homepage'])) ? addslashes ($_POST['homepage']) : '';
-    $EMAIL = (strlen ($_POST['email'])) ? addslashes ($_POST['email']) : '';
+    $name_zeigen = (isset ($_POST['name_zeigen'])) ? 'j' : 'n';
+    $ort = (strlen ($_POST['ort'])) ? addslashes ($_POST['ort']) : '';
+    $homepage = (strlen ($_POST['homepage'])) ? addslashes ($_POST['homepage']) : '';
+    $email = (strlen ($_POST['email'])) ? addslashes ($_POST['email']) : '';
 
     mysql_query ("UPDATE Benutzer
-                  SET Atavar=\"$ATAVAR\",
-                      ProfilNameZeigen=\"$NAME_ZEIGEN\",
-                      ProfilOrt=\"$ORT\",
-                      ProfilEMail=\"$EMAIL\",
-                      ProfilHomepage=\"$HOMEPAGE\"
-                  WHERE BenutzerId=\"$BenutzerId\"")
+                  SET Atavar = '$atavar',
+                      AtavarData= '$bild',
+                      ProfilNameZeigen = '$name_zeigen',
+                      ProfilOrt = '$ort',
+                      ProfilEMail = '$email',
+                      ProfilHomepage = '$homepage'
+                  WHERE BenutzerId = '$BenutzerId'")
       or die ('Profildaten konnte nicht aktuallisiert werden.');
   }
 }
