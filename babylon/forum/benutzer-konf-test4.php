@@ -6,12 +6,6 @@
    GNU-GPL Version 2 zu nutzen und/oder modifizieren und/oder weiterzugeben.
    Lies die Datei COPYING fuer weitere Informationen hierzu. */
 
-if (isset ($_POST['zurueck']))
-{
-  $zu = 'foren';
-  include ('gehe-zu.php');
-  die ();
-}
 // Standart Konfiguration. Man darf absolut nix ;-)
   $BenutzerId = -1;
   $K_Egl = FALSE;
@@ -22,7 +16,6 @@ if (isset ($_POST['zurueck']))
 
   include_once ('../gemeinsam/db-verbinden.php');
   include_once ('../gemeinsam/benutzer-daten.php');
-#  include ('./leiste-oben.php');
   include ('./benutzer-eingaben.php');
   
   $db = db_verbinden ();    

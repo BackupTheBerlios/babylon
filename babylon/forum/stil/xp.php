@@ -27,9 +27,9 @@ function zeichne_forum ($param)
 
   echo "            <tr>
               <td>
-                <table border=\"2\" cellpadding=\"6\" rules=\"rows\" width=\"100%\">
+                <table border=\"2\" rules=\"rows\" width=\"100%\" cellpadding=\"6\">
                   <tr bgcolor=\"#dddddd\">
-                    <td width=\"100%\"><h3>$Titel</h3></td>
+                    <td width=\"100%\"><font size=\"+1\"><b>$Titel</b></td>
                     <td align=\"right\"><font size=\"-1\">$datum</font></td>
                     <td align=\"right\"><font size=\"-1\">$zeit</font></td>";
   if ($ForumId == -1)
@@ -54,7 +54,9 @@ function zeichne_thema ($param)
   $ForumId = $param['$ForumId'];
   $ThemaId = $param['ThemaId'];
   $Autor = $param['Autor'];
+  $AutorURL = rawurlencode ($Autor);
   $AutorLetzter = $param['AutorLetzter'];
+  $AutorLetzterURL = rawurlencode ($AutorLetzter);
   $StempelLetzter = $param['StempelLetzter'];
   $Titel = $param['Titel'];
   $NumBeitraege = $param['NumBeitraege'];
@@ -84,10 +86,10 @@ function zeichne_thema ($param)
 
   echo "            <tr>
               <td class=\"col-hell\">
-                <font class=\"thema\"><a href=\"$sprung.php?fid=$ForumId&tid=$ThemaId&bid=-1&sid=-1\">$Titel</a></font><br><font class=\"autor\"><a href=\"mitglieder-profil.php?alias=$Autor\">$Autor</a></font>
+                <font class=\"thema\"><a href=\"$sprung.php?fid=$ForumId&tid=$ThemaId&bid=-1&sid=-1\">$Titel</a></font><br><font class=\"autor\"><a href=\"mitglieder-profil.php?alias=$AutorURL\">$Autor</a></font>
               </td>
               <td class=\"col-dunkel\" align=\"center\">
-                <font class=\"datum\">$datum $zeit<br><a href=\"mitglieder-profil.php?alias=$AutorLetzter\">$AutorLetzter</a></font>
+                <font class=\"datum\">$datum $zeit<br><a href=\"mitglieder-profil.php?alias=$AutorLetzterURL\">$AutorLetzter</a></font>
               </td>
               <td class=\"col-hell\" align=\"center\">$aw</td>
               <td class=\"col-dunkel\"align=\"center\">$NumGelesen</td>
@@ -105,6 +107,7 @@ function zeichne_beitrag ($param)
   $ForumId = $param['ForumId'];
   $BeitragId = $param['BeitragId'];
   $Autor = $param['Autor'];
+  $AutorURL = rawurlencode ($Autor);
   $StempelLetzter = $param['StempelLetzter'];
   $Thema = $param['Thema'];
   $Inhalt = $param['Inhalt'];
@@ -123,7 +126,7 @@ function zeichne_beitrag ($param)
 
   echo "       <table class=\"beitrag\" width=\"100%\">
             <tr>
-              <th class=\"ueber\" align=\"left\" colspan=\"2\"><a href=\"mitglieder-profil.php?alias=$Autor\">$Autor</a></th>
+              <th class=\"ueber\" align=\"left\" colspan=\"2\"><a href=\"mitglieder-profil.php?alias=$AutorURL\">$Autor</a></th>
               <th class=\"ueber\" align=\"right\">$datum $zeit</th>
             </tr>
             <tr>";

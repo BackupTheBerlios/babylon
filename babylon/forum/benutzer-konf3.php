@@ -1,6 +1,3 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-                       "http://www.w3.org/TR/html4/loose.dtd">
-
 <?PHP;
 /* Copyright 2003, 2004 Detlef Reichl <detlef!reichl()gmx!org>
    Diese Datei gehoert zum Babylon-Forum (babylon.berlios.de).
@@ -9,9 +6,8 @@
    GNU-GPL Version 2 zu nutzen und/oder modifizieren und/oder weiterzugeben.
    Lies die Datei COPYING fuer weitere Informationen hierzu. */
 
-  include ('konf/konf.php');
-  include ('wartung/wartung-info.php');
-  include_once ('fehler.php');
+  $titel = 'Babylon - Einstellungen / Profil';
+  include ('kopf.php');
 
 // Standart Konfiguration. Man darf absolut nix ;-)
   $BenutzerId = -1;
@@ -25,25 +21,11 @@
   $P_EMail = '';
   $P_Homepage = '';
 
-  include ('../gemeinsam/benutzer-daten.php');
-  include ('../gemeinsam/msie.php');
-  $msiepng = msie_png ();
-  include ('leiste-oben.php');
-
   benutzer_daten_profil ($BenutzerId, $Benutzer, $K_Egl,
                          $K_Stil, $P_NameZeigen, $P_Nachricht,
                          $P_NachrichtAnonym, $P_Ort, $P_EMail,
                          $P_Homepage);
-  echo '<html>
-  <head>';
-  include ('konf/meta.php');
-  metadata ($_SERVER['SCRIPT_FILENAME']);
 
-  $stil_datei = "stil/$K_Stil.php";
-  include ($stil_datei);
-  css_setzen ();
-
-  echo '    <title>Babylon - Einstellungen / Profil</title>';
 
   if (!$K_Egl)
     fehler (NULL, 0, 1, 'Zugriff verweigert');
@@ -160,16 +142,17 @@
 	</tr>
 	<tr><td colspan=\"3\"><img src=\"/grafik/dummy.png\" width=\"1\" height=\"30\"></td></tr>
         <tr>
-          <td colspan=\"2\">
+          <td colspan=\"3\">
             <button name=\"speichern\"><img src=\"/grafik/Speichern$msiepng.png\" width=\"24\" height=\"24\" alt=\"\">&Auml;nderungen Speichern</button>
           </td>
-          <td align=\"right\">
-            <button name=\"zurueck\"><img src=\"/grafik/PfeilLinks$msiepng.png\" width=\"24\" height=\"24\" alt=\"\">Zur&uuml;ck zum Forum</button>
-          </td>         
-        </tr>
+       </tr>
       </table>
     </form>
-    </div>
-  </body>
-</html>\n";
+    </div>\n";
+
+  include ('leiste-unten.php');
+  leiste_unten (NULL, $B_version, $B_subversion);
+  echo '  </body>
+</html>';
+
 ?>

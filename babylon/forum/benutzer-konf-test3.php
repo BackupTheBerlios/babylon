@@ -6,8 +6,6 @@
    GNU-GPL Version 2 zu nutzen und/oder modifizieren und/oder weiterzugeben.
    Lies die Datei COPYING fuer weitere Informationen hierzu. */
 
-if (isset ($_POST['speichern']))
-{
 // Standart Konfiguration. Man darf absolut nix ;-)
   $BenutzerId = -1;
   $Benutzer = '';
@@ -77,7 +75,7 @@ if (isset ($_POST['speichern']))
                   WHERE BenutzerId = '$BenutzerId'")
       or fehler (__FILE__, __LINE__, 0, 'Profildaten konnte nicht aktuallisiert werden.');
   }
-}
-$zu = isset ($_POST['speichern']) ? 'benutzer-konf3' : 'foren';
+
+$zu = 'benutzer-konf3';
 include ('gehe-zu.php');
 ?>

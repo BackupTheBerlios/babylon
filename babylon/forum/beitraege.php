@@ -1,5 +1,3 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-                       "http://www.w3.org/TR/html4/loose.dtd">
 <?PHP;
 /* Copyright 2003, 2004 Detlef Reichl <detlef!reichl()gmx!org>
    Diese Datei gehoert zum Babylon-Forum (babylon.berlios.de).
@@ -13,79 +11,18 @@
 // #  Initialisierung  #
 // #####################
 
-  include_once ('konf/konf.php');
-  include ('wartung/wartung-info.php');
-
-// Standart Konfiguration. Man darf absolut nix ;-)
-  $BenutzerId = -1;
-  $Benutzer = '';
-  $K_Egl = FALSE;
-  $K_Lesen = 0;
-  $K_Schreiben = 0;
-  $K_Admin = 0;
-  $K_AdminForen = 0;
-  $K_ThemenJeSeite = 6;
-  $K_Signatur = '';
-  $K_SprungSpeichern = 0;
-  $K_BaumZeigen = 'j';
-
-  $fid = 0;
-  $tid = 0;
-  $sid = 0;
-  $bid = 0;
-  $zid = 0;
-  $neu = 0;
-  include ('get-post.php');
-  if (id_von_get_post ($fid, $tid, $sid, $bid, $zid, $neu))
-    die ('Illegaler Zugriffsversuch!');
-
-  include ('../gemeinsam/benutzer-daten.php');
-  include ('../gemeinsam/msie.php');
-  $msiepng = msie_png ();
-  include ('leiste-oben.php');
-  
-  $K_BeitraegeJeSeite = $B_beitraege_je_seite;
-  $K_Stil = $B_standart_stil;
-
-  benutzer_daten_forum ($BenutzerId, $Benutzer, $K_Egl, $K_Lesen, $K_Schreiben, $K_Admin,
-                        $K_AdminForen, $K_ThemenJeSeite, $K_BeitraegeJeSeite,
-                        $K_Stil,  $K_Signatur, $K_SprungSpeichern, $K_BaumZeigen);
-
+  $titel = 'Forum / Beit&auml;ge';
+  $skript = 'j';
+  include_once ('kopf.php');
   include ('beitrag-pharsen.php');
-
-// ##########
-// #  Kopf  #
-// ##########
-
-  echo '<html>
-  <head>
-    <script src="js/formathilfe.js" type="text/javascript"></script>';
-  include ('konf/meta.php');
-  metadata ($_SERVER['SCRIPT_FILENAME']);
-
-  $stil_datei = "stil/$K_Stil.php";
-  include ($stil_datei);
-  css_setzen ();
-
-  echo '    <title>Forum / Foren</title>
-  </head>
-  <body>';
-  wartung_ankuendigung ();
   
   if (!((1 << $fid & $K_Lesen) or (1 << $fid & $B_leserecht)))
   {
-    echo '<h2>Du bist nicht berechtigt dieses Forum zu lesen!</h2>
-          </body></html>';
     mysql_close ($db);
+    die ('<h2>Du bist nicht berechtigt dieses Forum zu lesen!</h2>
+          </body></html>');
   }
-  else
-  {
-    echo '    <table width="100%">';
 
-    $gehe_zu = 'themen';
-    leiste_oben ($K_Egl);
-// Ende der Kopftabelle
-    echo '    </table>';
 // ##################
 // #  Die Beitraege #
 // ##################
@@ -415,7 +352,7 @@
                       <table>
                         <tr>
                           <td>
-                            <button type=\"submit\" name=\"gehe_zu\" value=\"themen\" accesskey=\"s\">
+                            <button type=\"submit\" accesskey=\"s\">
                               <table>
                                 <tr>
                                   <td>
@@ -503,10 +440,8 @@
 //  # Fussleiste #
 //  ##############
 
-    include ('leiste-unten.php');
-    leiste_unten (NULL, $B_version, $B_subversion);
-    echo '    </table>
-  </body>
+  include ('leiste-unten.php');
+  leiste_unten (NULL, $B_version, $B_subversion);
+  echo '  </body>
 </html>';
-  }
 ?>

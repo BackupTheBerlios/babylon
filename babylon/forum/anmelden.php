@@ -83,7 +83,7 @@ echo "  <h2>Anmelden</h2>\n
       </tr>
       <tr>
         <td>
-          <button name=\"gehe_zu\" value=\"$_POST[gehe_zu]\"><img src=\"/grafik/PenWrite.png\" width=\"24\" height=\"24\" alt=\"\">Anmelden</button>
+          <button><img src=\"/grafik/PenWrite.png\" width=\"24\" height=\"24\" alt=\"\">Anmelden</button>
         </td>
         <td>
           <input type=\"hidden\" name=\"param\" value=\"$_POST[param]\"></input>

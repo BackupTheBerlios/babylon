@@ -70,7 +70,9 @@ function zeichne_thema ($param)
   $ForumId = $param['$ForumId'];
   $ThemaId = $param['ThemaId'];
   $Autor = $param['Autor'];
+  $AutorURL = rawurlencode ($Autor);
   $AutorLetzter = $param['AutorLetzter'];
+  $AutorLetzterURL = rawurlencode ($AutorLetzter);
   $StempelLetzter = $param['StempelLetzter'];
   $Titel = $param['Titel'];
   $NumBeitraege = $param['NumBeitraege'];
@@ -94,7 +96,7 @@ function zeichne_thema ($param)
       <td rowspan=2><img src=\"stil/stern01.png\"></td>
       <td rowspan=2><img src=\"stil/stern02.png\"></td>
       <!--td rowspan=2><img src=\"stil/stern03.png\"></td-->
-      <td rowspan=2 style=\"background-image:url(stil/stern03.png)\" class=\"forum_kopf\"><nobr>$Autor</nobr></td>
+      <td rowspan=2 style=\"background-image:url(stil/stern03.png)\" class=\"forum_kopf\"><nobr><a href=\"mitglieder-profil.php?alias=$AutorURL\">$Autor</a></nobr></td>
       <td rowspan=2><img src=\"stil/stern04.png\"></td>
       <td rowspan=2 style=\"background-image:url(stil/stern05.png)\" width=\"100%\"></td>
       <td rowspan=2><img src=\"stil/stern06.png\"></td>
@@ -129,6 +131,7 @@ function zeichne_beitrag ($param)
   $ForumId = $param['ForumId'];
   $BeitragId = $param['BeitragId'];
   $Autor = $param['Autor'];
+  $AutorURL = rawurlencode ($Autor);
   $StempelLetzter = $param['StempelLetzter'];
   $Thema = $param['Thema'];
   $Inhalt = $param['Inhalt'];
@@ -151,7 +154,7 @@ function zeichne_beitrag ($param)
       <td rowspan=2><img src=\"stil/stern01.png\"></td>
       <td rowspan=2><img src=\"stil/stern02.png\"></td>
       <!--td rowspan=2><img src=\"stil/stern03.png\"></td-->
-      <td rowspan=2 style=\"background-image:url(stil/stern03.png)\" class=\"forum_kopf\"><nobr>$Autor</nobr></td>
+      <td rowspan=2 style=\"background-image:url(stil/stern03.png)\" class=\"forum_kopf\"><nobr><a href=\"mitglieder-profil.php?alias=$AutorURL\">$Autor</a></nobr></td>
       <td rowspan=2><img src=\"stil/stern04.png\"></td>
       <td rowspan=2 style=\"background-image:url(stil/stern05.png)\" width=\"100%\"></td>
       <td rowspan=2><img src=\"stil/stern06.png\"></td>

@@ -72,103 +72,49 @@ function strang_ausgeben (&$daten, $sid, $saetze, $tiefe, $m)
       }
     }
 }
-  include_once ('konf/konf.php');
-  include ('wartung/wartung-info.php');
 
-  // Standart Konfiguration. Man darf absolut nix ;-)
-  $BenutzerId = -1;
-  $K_Egl = FALSE;
-  $K_Lesen = 0;
-  $K_Schreiben = 0;
-  $K_Admin = 0;
-  $K_AdminForen = 0;
-  $K_ThemenJeSeite = 6;
-  $K_BeitraegeJeSeite = 3;
-  $K_Signatur = '';
-  $K_SprungSpeichern = 0;
-  $K_BaumZeigen = 'j';
 
-  $fid = 0;
-  $tid = 0;
-  $sid = 0;
-  $bid = 0;
-  $zid = 0;
-  $neu = FALSE;
-  include ('get-post.php');
-  if (id_von_get_post ($fid, $tid, $sid, $bid, $zid, $neu))
-    die ('Illegaler Zugriffsversuch!');
+$titel = 'Forum / Beitr&auml;ge';
+include_once ('kopf.php');
 
-  include ('../gemeinsam/benutzer-daten.php');
-  include ('leiste-oben.php');
-
-  $K_Stil = $B_standart_stil;
-
-  benutzer_daten_forum ($BenutzerId, $Benutzer, $K_Egl, $K_Lesen, $K_Schreiben, $K_Admin,
-                        $K_AdminForen,  $K_ThemenJeSeite, $K_BeitraegeJeSeite,
-                        $K_Stil, $K_Signatur, $K_SprungSpeichern, $K_BaumZeigen);
-
-  echo '<html><head>';
-  include ('konf/meta.php');
-  metadata ($_SERVER['SCRIPT_FILENAME']);
-
-  $stil_datei = "stil/$K_Stil.php";
-  include ($stil_datei);
-  css_setzen ();
-
-  echo '<title>Forum / Beitr&auml;ge</title>
-        </head><body>';
-  wartung_ankuendigung ();
-
-  if (!((1 << $fid & $K_Lesen) or (1 << $fid & $B_leserecht)))
-  {
-    mysql_close ($db);
-    echo '<h2>Du bist nicht berechtigt dieses Forum zu lesen!</h2>
-          </body></html>';
-  }
-  else
-  {
-        echo '<table width="100%">';
-
-  $gehe_zu = 'themen';
-  leiste_oben ($K_Egl);
-
-  $gesperrt = $K_Admin & 1 << $fid ? '' : 'AND Gesperrt  = \'n\'';
-  
-  $beitraege = mysql_query ("SELECT ThemaId, StrangId, BeitragId, WeitereKinder,
-                             Eltern, Titel, Autor, StempelLetzter
-                             FROM Beitraege
-                             WHERE ThemaId=\"$tid\"
-                               AND BeitragTyp & 8 = 8
-                               $gesperrt
-                             ORDER BY StrangID, BeitragId")
-    or die ('F0036: Beitr&auml;ge konnten nicht selektiert werden');
-  $i = 0;
-  
-  while ($zeile = mysql_fetch_row ($beitraege))
-  {
-    $daten[$i] = $zeile;
-    $i++;
-  }
-  setlocale (LC_ALL, 'de_DE@euro', 'de_DE', 'de', 'ge');
-
-  echo '<tr><td><pre style="line-height:150%">';
-  strang_ausgeben ($daten, $daten[0][1], $i, '', 0);
-  echo "</pre></td></tr>";
-  
-  echo "<tr><td><img src=\"/grafik/dummy.png\" width=\"1\" height=\"24\" border=\"0\" alt=\"\">
-        <br>
-        <a href=\"beitraege.php?tid={$daten[0][0]}&sid=-1&bid=-1\">
-        <b>Alle Beitraege auf ein Mal anzeigen</b></a>";
+if (!((1 << $fid & $K_Lesen) or (1 << $fid & $B_leserecht)))
+{
   mysql_close ($db);
+  die ('<h2>Du bist nicht berechtigt dieses Forum zu lesen!</h2>
+        </body></html>');
+}
 
-//  ##############
-//  # Fussleiste #
-//  ##############
+$gesperrt = $K_Admin & 1 << $fid ? '' : 'AND Gesperrt  = \'n\'';
+  
+$beitraege = mysql_query ("SELECT ThemaId, StrangId, BeitragId, WeitereKinder,
+                           Eltern, Titel, Autor, StempelLetzter
+                           FROM Beitraege
+                           WHERE ThemaId=\"$tid\"
+                             AND BeitragTyp & 8 = 8
+                             $gesperrt
+                           ORDER BY StrangID, BeitragId")
+  or die ('F0036: Beitr&auml;ge konnten nicht selektiert werden');
+$i = 0;
+  
+while ($zeile = mysql_fetch_row ($beitraege))
+{
+  $daten[$i] = $zeile;
+  $i++;
+}
+setlocale (LC_ALL, 'de_DE@euro', 'de_DE', 'de', 'ge');
 
-  include ('leiste-unten.php');
-  leiste_unten (NULL, $B_version, $B_subversion);
-  echo '    </table>
-  </body>
+echo '<pre style="line-height:150%">';
+strang_ausgeben ($daten, $daten[0][1], $i, '', 0);
+echo "</pre><br>\n";
+  
+echo "<img src=\"/grafik/dummy.png\" width=\"1\" height=\"24\" border=\"0\" alt=\"\">
+      <br>
+      <a href=\"beitraege.php?tid={$daten[0][0]}&sid=-1&bid=-1\">
+      <b>Alle Beitraege auf ein Mal anzeigen</b></a>";
+mysql_close ($db);
+
+include ('leiste-unten.php');
+leiste_unten (NULL, $B_version, $B_subversion);
+echo '  </body>
 </html>';
-  }
 ?>

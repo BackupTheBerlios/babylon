@@ -57,7 +57,9 @@ function zeichne_thema ($param)
   $ForumId = $param['$ForumId'];
   $ThemaId = $param['ThemaId'];
   $Autor = $param['Autor'];
+  $AutorURL = rawurlencode ($Autor);
   $AutorLetzter = $param['AutorLetzter'];
+  $AutorLetzterURL = rawurlencode($AutorLetzter);
   $StempelLetzter = $param['StempelLetzter'];
   $Titel = $param['Titel'];
   $NumBeitraege = $param['NumBeitraege'];
@@ -74,9 +76,10 @@ function zeichne_thema ($param)
     $sprung = 'beitraege';
 
   if (strlen ($AutorLetzter))
-    $autor = $Autor . ' >>>>> ' . $AutorLetzter;
+    $autor = "<a href=\"mitglieder-profil.php?alias=$AutorURL\">$Autor</a>
+    &gt;&gt;&gt;&gt;&gt; <a href=\"mitglieder-profil.php?alias=$AutorLetzterURL\">$AutorLetzter</a>";
   else
-    $autor = $Autor;
+    $autor = "<a href=\"mitglieder-profil.php?alias=$AutorURL\">$Autor</a>";
 
 
   if (!$Erster)
@@ -111,6 +114,7 @@ function zeichne_beitrag ($param)
   $ForumId = $param['ForumId'];
   $BeitragId = $param['BeitragId'];
   $Autor = $param['Autor'];
+  $AutorURL = rawurlencode ($Autor);
   $StempelLetzter = $param['StempelLetzter'];
   $Thema = $param['Thema'];
   $Inhalt = $param['Inhalt'];
@@ -130,7 +134,7 @@ function zeichne_beitrag ($param)
     
   echo "    <tr>
       <td class=\"ecke2\"></td>
-      <td class=\"leiste-uk\">$Autor</td>
+      <td class=\"leiste-uk\"><a href=\"mitglieder-profil.php?alias=$AutorURL\">$Autor</a></td>
       <td class=\"leiste-uk\" align=\"right\">$datum $zeit</td>
       <td class=\"ecke2\"></td>
     </tr>

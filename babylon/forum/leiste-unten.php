@@ -13,9 +13,7 @@ function leiste_unten ($suchtext, $version, $subversion)
   else
     $suche = '';
 
-  echo '      <tr>
-        <td>
-          <table>
+  echo '          <table>
             <tr>
               <td width="33%" height="100%" valign="bottom">';
 
@@ -28,9 +26,7 @@ function leiste_unten ($suchtext, $version, $subversion)
                 
   echo "               </td>
               <td width=\"34%\" height=\"100%\" valign=\"bottom\" align=\"center\">
-                <a href=\"http://babylon.berlios.de\" alt=\"Zu den Seiten des Babylon-Projekts\" title=\"Zu den Seiten des Babylon-Projekts\">
-                  <img src=\"/grafik/Babylon$msiepng.png\" border=\"0\" alt=\"\">
-                </a><br>
+                <a href=\"http://babylon.berlios.de\" title=\"Zu den Seiten des Babylon-Projekts\"><img src=\"/grafik/Babylon$msiepng.png\" border=\"0\" alt=\"Zu den Seiten des Babylon-Projekts\"></a><br>
                 <font color=\"#0000ff\"><sup>Version $version.$subversion</sup></font>
               </td>
               <td width=\"33%\" height=\"100%\" valign=\"center\" align=\"right\">
@@ -42,8 +38,6 @@ function leiste_unten ($suchtext, $version, $subversion)
                 </form>
               </td>
             </tr>
-          </table>
-        </td>
-      </tr>\n";
+          </table>\n";
 }
 ?>

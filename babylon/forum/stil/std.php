@@ -28,7 +28,7 @@ function zeichne_forum ($param)
               <td>
                 <table border=\"2\" cellpadding=\"6\" rules=\"rows\" width=\"100%\">
                   <tr bgcolor=\"#dddddd\">
-                    <td width=\"100%\"><h3>$Titel</h3></td>
+                    <td width=\"100%\"><font size=\"+1\">$Titel</font></td>
                     <td align=\"right\"><font size=\"-1\">$datum</font></td>
                     <td align=\"right\"><font size=\"-1\">$zeit</font></td>";
   if ($ForumId == -1)
@@ -53,6 +53,7 @@ function zeichne_thema ($param)
   $ForumId = $param['$ForumId'];
   $ThemaId = $param['ThemaId'];
   $Autor = $param['Autor'];
+  $AutorURL = rawurlencode ($Autor);
   $AutorLetzter = $param['AutorLetzter'];
   $StempelLetzter = $param['StempelLetzter'];
   $Titel = $param['Titel'];
@@ -74,7 +75,7 @@ function zeichne_thema ($param)
               <td>
                 <table border=\"2\" cellpadding=\"6\" rules=\"rows\" width=\"100%\">
                   <tr  bgcolor=\"#dddddd\">
-                    <td width=\"100%\"><font size=\"-1\">Autor: <b>$Autor</b></font></td>
+                    <td width=\"100%\"><font size=\"-1\">Autor: <b><a href=\"mitglieder-profil.php?alias=$AutorURL\">$Autor</a></b></font></td>
                     <td align=\"right\"><font size=\"-1\">$datum</font></td>
                     <td align=\"right\"><font size=\"-1\">$zeit</font></td>
                     <td align=\"right\"><font size=\"-1\">Aw:$aw</font></td>
@@ -98,6 +99,7 @@ function zeichne_beitrag ($param)
   $ForumId = $param['ForumId'];
   $BeitragId = $param['BeitragId'];
   $Autor = $param['Autor'];
+  $AutorURL = rawurlencode ($Autor);
   $StempelLetzter = $param['StempelLetzter'];
   $Thema = $param['Thema'];
   $Inhalt = $param['Inhalt'];
@@ -116,7 +118,7 @@ function zeichne_beitrag ($param)
                 <td colspan=\"3\">
                   <table border=\"2\" cellpadding=\"6\" rules=\"rows\" width=\"100%\">
                     <tr bgcolor=\"#dddddd\">
-                      <td width=\"100%\"><font size=\"-1\">Autor: <b>$Autor</font></td>
+                      <td width=\"100%\"><font size=\"-1\">Autor: <b><a href=\"mitglieder-profil.php?alias=$AutorURL\">$Autor</a></font></td>
                       <td align=\"right\"><font size=\"-1\">$datum</font></td>
                       <td align=\"right\"><font size=\"-1\">$zeit</font></td>
                     </tr>

@@ -1,5 +1,3 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-                       "http://www.w3.org/TR/html4/loose.dtd">
 <?PHP;
 /* Copyright 2003, 2004 Detlef Reichl <detlef!reichl()gmx!org>
    Diese Datei gehoert zum Babylon-Forum (babylon.berlios.de).
@@ -8,42 +6,11 @@
    GNU-GPL Version 2 zu nutzen und/oder modifizieren und/oder weiterzugeben.
    Lies die Datei COPYING fuer weitere Informationen hierzu. */
 
-  include_once ('konf/konf.php');
-  include ('wartung/wartung-info.php');
+  $alias = $_GET['alias'];
+  $titel = "Forum / Profil von $alias";
+  include_once ('kopf.php');
 
-// Standart Konfiguration. Man darf absolut nix ;-)
-  $BenutzerId = -1;
-  $Benutzer = '';
-  $K_Egl = FALSE;
-  $K_Lesen = 0;
-  $K_Schreiben = 0;
-  $K_Admin = 0;
-  $K_AdminForen = 0;
-  $K_Signatur = '';
-  $K_SprungSpeichern = 0;
-  $K_BaumZeigen = 'j';
-
-  include ('../gemeinsam/benutzer-daten.php');
-  include ('benutzer-eingaben.php');
-  include_once ('../gemeinsam/msie.php');
-  $msiepng = msie_png ();
-  include ('leiste-oben.php');
-
-  $K_Stil = $B_standart_stil;
-  
-  benutzer_daten_forum ($BenutzerId, $Benutzer, $K_Egl, $K_Lesen, $K_Schreiben, $K_Admin,
-                        $K_AdminForen, $K_ThemenJeSeite, $K_BeitraegeJeSeite,
-                        $K_Stil,  $K_Signatur, $K_SprungSpeichern, $K_BaumZeigen);
-  echo '<html>
-  <head>';
-  include ('konf/meta.php');
-  metadata ($_SERVER['SCRIPT_FILENAME']);
-
-  $stil_datei = "stil/$K_Stil.php";
-  include ($stil_datei);
-  css_setzen ();
-
-  $alias = addslashes ($_GET['alias']);
+  $alias = addslashes ($alias);
 
   $erg = mysql_query ("SELECT BenutzerId, Benutzer, VName,
                               NName, Anmeldung, Beitraege,
@@ -59,18 +26,6 @@
 
   $profil = mysql_fetch_row ($erg);
 
-  echo "  <title>Forum / Profil von $profil[1]</title>
-</head>
-<body>";
-  
-  wartung_ankuendigung ();
-  
-  echo '    <table width="100%">';
-
-  $gehe_zu = 'foren';
-  leiste_oben ($K_Egl);
-  
- 
   if ($profil[9] == 'j')
     $name = "$profil[2] $profil[3]<br>";
   else
@@ -79,7 +34,7 @@
    
   if ($profil[7])
   {
-    setlocale (LC_TIME, "de_DE");
+    setlocale (LC_ALL, 'de_DE@euro', 'de_DE', 'de', 'ge');
     $datum = strftime ("%d.%b.%Y", $profil[7]);
     $zeit = date ("H.i:s", $profil[7]);
     $letzter_beitrag = "Letzter Beitrag am $datum um $zeit<br>";
@@ -90,8 +45,7 @@
   else
     $ort = '';
 
-  echo '    </table>
-        <table border="2" width="100%">
+  echo '    <table border="2" width="100%">
           <tr>
             <td>';
 
@@ -215,7 +169,6 @@
   include ('leiste-unten.php');
   leiste_unten (NULL, $B_version, $B_subversion);
 
-  echo '    </table>
-  </body>
+  echo '    </body>
 </html>';
 ?>

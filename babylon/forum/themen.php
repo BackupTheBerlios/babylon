@@ -1,5 +1,3 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-                       "http://www.w3.org/TR/html4/loose.dtd">
 <?PHP;
 /* Copyright 2003, 2004 Detlef Reichl <detlef!reichl()gmx!org>
    Diese Datei gehoert zum Babylon-Forum (babylon.berlios.de).
@@ -8,74 +6,18 @@
    GNU-GPL Version 2 zu nutzen und/oder modifizieren und/oder weiterzugeben.
    Lies die Datei COPYING fuer weitere Informationen hierzu. */
 
-  include_once ('konf/konf.php');
-  include ('wartung/wartung-info.php');
-
-// Standart Konfiguration. Man darf absolut nix ;-)
-  $BenutzerId = -1;
-  $Benutzer = '';
-  $K_Egl = FALSE;
-  $K_Lesen = 0;
-  $K_Schreiben = 0;
-  $K_Admin = 0;
-  $K_AdminForen = 0;
-  $K_ThemenJeSeite = 6;
-  $K_Signatur = '';
-  $K_SprungSpeichern = 0;
-  $K_BaumZeigen = 'j';
-
-  $fid = 0;
-  $tid = 0;
-  $sid = 0;
-  $bid = 0;
-  $zid = 0;
-  $neu = FALSE;
-  include ('get-post.php');
-  if (id_von_get_post ($fid, $tid, $sid, $bid, $zid, $neu))
-    die ('Illegaler Zugriffsversuch!');
-
-  include ('../gemeinsam/benutzer-daten.php');
-  include ('../gemeinsam/msie.php');
-  $msiepng = msie_png();
-  include ('leiste-oben.php');
-
-  $K_Stil = $B_standart_stil;
-  $K_BeitraegeJeSeite = $B_beitraege_je_seite;
-  
-  benutzer_daten_forum ($BenutzerId, $Benutzer, $K_Egl, $K_Lesen, $K_Schreiben, $K_Admin,
-                        $K_AdminForen,  $K_ThemenJeSeite, $K_BeitraegeJeSeite,
-                        $K_Stil, $K_Signatur, $K_SprungSpeichern, $K_BaumZeigen);
-
-  echo '<html>
-  <head>';
-  include ('konf/meta.php');
-  metadata ($_SERVER['SCRIPT_FILENAME']);
-
-  $stil_datei = "stil/$K_Stil.php";
-  include ($stil_datei);
-  css_setzen ();
-
-  echo '    <title>Forum / Themen</title>
-  </head>
-  <body>';
-  wartung_ankuendigung ();
+  $titel = 'Forum / Themen';
+  include_once ('kopf.php');
 
   if (!((1 << $fid & $K_Lesen) or (1 << $fid & $B_leserecht)))
   {
     echo '<h2>Du bist nicht berechtigt dieses Forum zu lesen!</h2>
           </body></html>';
     mysql_close ($db);
+    die ();
   }
-  else
-  {
   
-  echo '    <table width="100%">';
-
-  $gehe_zu = 'themen';
-  leiste_oben ($K_Egl);
-
-  echo '    </table>
-    <table width="100%" cellspacing="0" cellpadding="0" border="0">
+  echo '    <table width="100%" cellspacing="0" cellpadding="0" border="0">
       <tr>
         <td>';
   
@@ -255,8 +197,7 @@
   
   echo '        </td>
       </tr>
-      <tr>
-        <td>';
+    </table>';
   if ($K_Egl)
   {
     echo "          <form action=\"beitraege.php\" method=\"post\">
@@ -269,21 +210,17 @@
   else
   {
     echo "          <form action=\"login.php\" method=\"post\">
-            <button name=\"gehe_zu\" value=\"beitraege\">
+            <button>
               <img src=\"/grafik/Typewriter$msiepng.png\" width=\"24\" height=\"24\" alt=\"\">Neues Thema
             </button>
             <input type=\"hidden\" name=\"neu\" value=\"1\">
             <input type=\"hidden\" name=\"fid\" value=\"$fid\">
           </form>\n";
   }
-  echo '        </td>
-      </tr>';
 
   include ('leiste-unten.php');
   leiste_unten (NULL, $B_version, $B_subversion);
 
-  echo '    </table>
-  </body>
+  echo '  </body>
 </html>';
-}
 ?>

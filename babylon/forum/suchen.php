@@ -1,5 +1,3 @@
-<!--DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-                       "http://www.w3.org/TR/html4/loose.dtd"-->
 <?PHP;
  /* Copyright 2004 Detlef Reichl <detlef!reichl()gmx!org>
    Diese Datei gehoert zum Babylon-Forum (babylon.berlios.de).
@@ -8,53 +6,10 @@
    GNU-GPL Version 2 zu nutzen und/oder modifizieren und/oder weiterzugeben.
    Lies die Datei COPYING fuer weitere Informationen hierzu. */
 
-  include_once ('konf/konf.php');
-  include ('wartung/wartung-info.php');
-
-// Standart Konfiguration. Man darf absolut nix ;-)
-  $BenutzerId = -1;
-  $Benutzer = '';
-  $K_Egl = FALSE;
-  $K_Lesen = 0;
-  $K_Schreiben = 0;
-  $K_Admin = 0;
-  $K_AdminForen = 0;
-  $K_Signatur = '';
-  $K_SprungSpeichern = 0;
-  $K_BaumZeigen = 'j';
-
-  include ('../gemeinsam/benutzer-daten.php');
-  include_once ('../gemeinsam/msie.php');
-  $msiepng = msie_png ();
-  include ('leiste-oben.php');
-
-  $K_Stil = $B_standart_stil;
-
-  benutzer_daten_forum ($BenutzerId, $Benutzer, $K_Egl, $K_Lesen, $K_Schreiben, $K_Admin,
-                        $K_AdminForen, $K_ThemenJeSeite, $K_BeitraegeJeSeite,
-                        $K_Stil,  $K_Signatur, $K_SprungSpeichern, $K_BaumZeigen);
-
-  echo '<html>
-  <head>';
-  include ('konf/meta.php');
-  metadata ($_SERVER['SCRIPT_FILENAME']);
-
-  $stil_datei = "stil/$K_Stil.php";
-  include ($stil_datei);
-  css_setzen ();
-
-  echo '    <title>Forum / Foren</title>
-  </head>
-  <body>';
-  
-  wartung_ankuendigung (); 
-
-  echo '    <table width="100%">';
-
-  $gehe_zu = 'themen';
-  leiste_oben ($K_Egl);
-
   $begriff = $_POST['suchbegriff'];
+  $titel = "Forum / Suche nach $begriff";
+  include_once ('kopf.php');
+
   $limit = 50;
 
   $erg = mysql_query ('SELECT VERSION()');
@@ -77,9 +32,7 @@
 
   if (mysql_num_rows ($erg))
   {
-    echo '        <tr>
-     <td>
-       <table class="beitrag">
+    echo '      <table class="beitrag">
          <tr>
            <th class="ueber" colspan="2">Thema / Beitrag</th>
            <th class="ueber">Autor</th>
@@ -107,14 +60,21 @@
           <td colspan=\"4\" align=\"left\" class=\"col-hell\" width=\"100%\">$inhalt</td>
         </tr><tr><td><br></td></tr>";
     }
-    echo '</table>
-        </td>
-      </tr>';
+    echo '</table>';
+  }
+  else
+  {
+    $sb = stripslashes ($begriff);
+    echo "  <table border=\"2\" width=\"100%\">
+    <tr>
+      <td align=\"center\">
+        Die Suche nach <i>$sb<i> hat keine Treffer ergeben
+      </tr>
+    </table>";
   }
   
   include ('leiste-unten.php');
   leiste_unten ($begriff, $B_version, $B_subversion);
-  echo '    </table>
-  </body>
+  echo '  </body>
 </html>';
 ;?>

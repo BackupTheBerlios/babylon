@@ -1,5 +1,3 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-                       "http://www.w3.org/TR/html4/loose.dtd">
 <?PHP;
 /* Copyright 2003, 2004 Detlef Reichl <detlef!reichl()gmx!org>
    Diese Datei gehoert zum Babylon-Forum (babylon.berlios.de).
@@ -8,55 +6,10 @@
    GNU-GPL Version 2 zu nutzen und/oder modifizieren und/oder weiterzugeben.
    Lies die Datei COPYING fuer weitere Informationen hierzu. */
 
-  include_once ('konf/konf.php');
-  include ('wartung/wartung-info.php');
+  $titel = 'Forum / Mitglieder';
+  include_once ('kopf.php');
 
-// Standart Konfiguration. Man darf absolut nix ;-)
-  $BenutzerId = -1;
-  $Benutzer = '';
-  $K_Egl = FALSE;
-  $K_Lesen = 0;
-  $K_Schreiben = 0;
-  $K_Admin = 0;
-  $K_AdminForen = 0;
-  $K_Signatur = '';
-  $K_SprungSpeichern = 0;
-  $K_BaumZeigen = 'j';
-
-  include ('../gemeinsam/benutzer-daten.php');
-  include_once ('../gemeinsam/msie.php');
-  include_once ('konf/konf.php');
-  $msiepng = msie_png ();
-  include ('leiste-oben.php');
-
-  $K_Stil = $B_standart_stil;
-  
-  benutzer_daten_forum ($BenutzerId, $Benutzer, $K_Egl, $K_Lesen, $K_Schreiben, $K_Admin,
-                        $K_AdminForen, $K_ThemenJeSeite, $K_BeitraegeJeSeite,
-                        $K_Stil,  $K_Signatur, $K_SprungSpeichern, $K_BaumZeigen);
-  echo '<html>
-  <head>';
-  include ('konf/meta.php');
-  metadata ($_SERVER['SCRIPT_FILENAME']);
-
-  $stil_datei = "stil/$K_Stil.php";
-  include ($stil_datei);
-  css_setzen ();
-
-  echo '  <title>Forum / Mitglieder</title>
-</head>
-<body>';
-  wartung_ankuendigung ();
-  echo '    <table width="100%">';
-
-  $gehe_zu = 'themen';
-  leiste_oben ($K_Egl);
-
-  
-
-
-  echo '    </table>
-    <table width="100%" cellspacing="0" cellpadding="0" border="2">
+  echo '  <table width="100%" cellspacing="0" cellpadding="0" border="2">
       <tr>';
 
   $kopf_post = array ('alias', 'angemeldet', 'beitraege', 'themen', 'letzter');
@@ -74,7 +27,7 @@
   else
   {
     $wahl = 'letzter';
-    $sort = 'h';
+    $sort = 'r';
   }
   $nsort = $sort == 'h' ? 'r' : 'h';
   $db_wahl = 'letzter';
@@ -114,6 +67,7 @@
                        ORDER BY '$db_wahl' $db_sort")
     or die ('Benutzerdaten konnte nicht ermittelt werden');
   
+  setlocale (LC_ALL, 'de_DE@euro', 'de_DE', 'de', 'ge');
   while ($zeile = mysql_fetch_row ($erg))
   {
     $alias = rawurlencode ($zeile[0]);
@@ -129,14 +83,11 @@
             <td align=\"center\" class=\"col-hell\">$letzter</td>
           </tr>";
   } 
-   echo '          </table>
-        </td>
-      </tr>';
+   echo '          </table>';
 
   include ('leiste-unten.php');
   leiste_unten (NULL, $B_version, $B_subversion);
 
-  echo '    </table>
-  </body>
+  echo '  </body>
 </html>';
 ?>

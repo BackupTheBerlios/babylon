@@ -1,6 +1,3 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-                       "http://www.w3.org/TR/html4/loose.dtd">
-
 <?PHP;
 /* Copyright 2003, 2004 Detlef Reichl <detlef!reichl()gmx!org>
    Diese Datei gehoert zum Babylon-Forum (babylon.berlios.de).
@@ -9,54 +6,12 @@
    GNU-GPL Version 2 zu nutzen und/oder modifizieren und/oder weiterzugeben.
    Lies die Datei COPYING fuer weitere Informationen hierzu. */
 
-  include_once ('konf/konf.php');
-  include ('wartung/wartung-info.php');
-
-// Standart Konfiguration. Man darf absolut nix ;-)
-  $BenutzerId = -1;
-  $Benutzer = '';
-  $K_Egl = FALSE;
-  $K_Lesen = 0;
-  $K_Schreiben = 0;
-  $K_Admin = 0;
-  $K_AdminForen = 0;
-  $K_ThemenJeSeite = 6;
-  $K_BeitraegeJeSeite = 3;
-  $K_Signatur = '';
-  $K_SprungSpeichern = 0;
-  $K_BaumZeigen = 'j';
-
-  include ('../gemeinsam/benutzer-daten.php');
-  include ('../gemeinsam/msie.php');
-  include_once ('konf/konf.php');
-  $msiepng = msie_png ();
-  include ('leiste-oben.php');
-
-  $K_Stil = $B_standart_stil;
-  
-  benutzer_daten_forum ($BenutzerId, $Benutzer, $K_Egl, $K_Lesen, $K_Schreiben, $K_Admin,
-                        $K_AdminForen, $K_ThemenJeSeite, $K_BeitraegeJeSeite,
-                        $K_Stil, $K_Signatur, $K_SprungSpeichern, $K_BaumZeigen);
-
-  echo '<html>
-  <head>';
-  include ('konf/meta.php');
-  metadata ($_SERVER['SCRIPT_FILENAME']);
-  
-  $stil_datei = "stil/$K_Stil.php";
-  include ($stil_datei);
-  css_setzen ();
-
-  echo '    <title>Babylon - Einstellungen / Aussehen</title>';
+  $titel = 'Babylon - Einstellungen / Aussehen';
+  include_once ('kopf.php');
 
   if (!$K_Egl)
     die ('Zugriff verweigert');
 
-  echo '  </head>
-  <body>';
-  
-  wartung_ankuendigung ();
-  
   echo '    <h2>Forumseinstellungen</h2>
     <table cellspacing="0" cellpadding"0">
       <tr>
@@ -141,21 +96,15 @@
         </tr>
         <tr>
           <td>
-            <table width=\"100%\">
-              <tr>
-                <td>
-                  <button name=\"speichern\"><img src=\"/grafik/Speichern$msiepng.png\" width=\"24\" height=\"24\" alt=\"\">&Auml;nderungen speichern</button>
-                </td>
-                <td align=\"right\">
-                  <button name=\"zurueck\"><img src=\"/grafik/PfeilLinks$msiepng.png\" width=\"24\" height=\"24\" alt=\"\">Zur&uuml;ck zum Forum</button>
-                </td>         
-              </tr>
-            </table>
+            <button name=\"speichern\"><img src=\"/grafik/Speichern$msiepng.png\" width=\"24\" height=\"24\" alt=\"\">&Auml;nderungen speichern</button>
           </td>
         </tr>
       </table>
     </form>
-    </div>
-  </body>
-</html>\n";
+    </div>\n";
+
+include ('leiste-unten.php');
+leiste_unten (NULL, $B_version, $B_subversion);
+  echo '  </body>
+</html>';
 ?>

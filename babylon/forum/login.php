@@ -10,7 +10,6 @@
   $msiepng = msie_png();
   include ('konf/konf.php');
   $Benutzer = $_POST['benutzer'];
-  $GeheZu = $P_POST['gehe_zu'];
   $Param = $P_POST['param'];
   
   echo "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">
@@ -36,7 +35,7 @@
       </tr>
       <tr>
         <td colspan=\"2\">
-          <button type=\"submit\" name=\"gehe_zu\" value=\"$GeheZu\"><img src=\"/grafik/Key$msiepng.png\" width=\"24\" height=\"24\" alt=\"\">Einloggen</button>
+          <button type=\"submit\"><img src=\"/grafik/Key$msiepng.png\" width=\"24\" height=\"24\" alt=\"\">Einloggen</button>
           <input type=\"hidden\" name=\"param\" value=\"$Param\"></input>
         </td>
       </tr>

@@ -61,10 +61,7 @@ function passwort_ok ($db, $benutzer)
     or die ('F0049: Es ist nicht m&ouml;glich die Datenbank informationen zu aktuallisieren');
   mysql_close ($db);
 
-  if (strcmp ($_POST['gehe_zu'], 'mypflug') == 0)
-    include('gz-mypflug.php');
-  else
-    include('gz-foren.php');
+  include('gz-foren.php');
 }
 
 
