@@ -53,11 +53,11 @@
   echo "    </table>
     <table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"2\">
       <tr>
-        <th>Alias</th>
-        <th>Angemeldet<br>seit</th>
-        <th>Beitr&auml;ge<br>geschrieben</th>
-        <th>Themen<br>er&ouml;ffnet</th>
-        <th>letzter<br>Beitrag</th>
+        <th class=\"ueber\">Alias</th>
+        <th class=\"ueber\">Angemeldet<br>seit</th>
+        <th class=\"ueber\">Beitr&auml;ge<br>geschrieben</th>
+        <th class=\"ueber\">Themen<br>er&ouml;ffnet</th>
+        <th class=\"ueber\">letzter<br>Beitrag</th>
       </tr>\n";
    
   $erg = mysql_query ("SELECT Benutzer, Anmeldung, Beitraege, Themen, LetzterBeitrag
@@ -69,11 +69,13 @@
     $anmeldung = strftime ('%d.%b.%Y', intval ($zeile[1]));
     $letzter =  strftime ('%d.%b.%Y %H:%M', $zeile[4]);
     echo "<tr>
-            <td align=\"center\">$zeile[0]</td>
-            <td align=\"center\">$anmeldung</td>
-            <td align=\"center\">$zeile[2]</td>
-            <td align=\"center\">$zeile[3]</td>
-            <td align=\"center\">$letzter</td>
+            <td align=\"center\" class=\"col-hell\">              
+              <a href=\"mitglieder-profil.php?alias=$zeile[0]\">$zeile[0]</a>
+            </td>
+            <td align=\"center\" class=\"col-dunkel\">$anmeldung</td>
+            <td align=\"center\" class=\"col-hell\">$zeile[2]</td>
+            <td align=\"center\" class=\"col-dunkel\">$zeile[3]</td>
+            <td align=\"center\" class=\"col-hell\">$letzter</td>
           </tr>";
   } 
    echo "          </table>

@@ -44,7 +44,7 @@
 
   $alias = addslashes ($_GET[alias]);
 
-  $erg = mysql_query ("SELECT Benutzer, VName, NName, Anmeldung, Beitraege,
+  $erg = mysql_query ("SELECT BenutzerId, Benutzer, VName, NName, Anmeldung, Beitraege,
                               Themen, LetzterBeitrag, Atavar, ProfilNameZeigen,
                               ProfilEMail, ProfilHomepage, ProfilOrt
                        FROM Benutzer
@@ -55,7 +55,7 @@
 
   $profil = mysql_fetch_row ($erg);
 
-  echo "  <title>Forum / Profil von $profil[0]</title>
+  echo "  <title>Forum / Profil von $profil[1]</title>
 </head>
 <body>
   <table width=\"100%\">\n";
@@ -63,45 +63,51 @@
   $gehe_zu = "foren";
   leiste_oben ($K_Egl);
   
-  if ($profil[8] == 'j')
-    $name = "$profil[1] $profil[2]<br>";
+  if ($profil[9] == 'j')
+    $name = "$profil[2] $profil[3]<br>";
   else
     $name = "";
     
-  if ($profil[6])
+  if ($profil[7])
   {
     setlocale (LC_TIME, "de_DE");
-    $datum = strftime ("%d.%b.%Y", $profil[6]);
-    $zeit = date ("H.i:s", $profil[6]);
+    $datum = strftime ("%d.%b.%Y", $profil[7]);
+    $zeit = date ("H.i:s", $profil[7]);
     $letzter_beitrag = "Letzter Beitrag am $datum um $zeit<br>";
   }
 
-  if ($profil[11])
-    $ort = "Wohnort: $profil[11]";
+  if ($profil[12])
+    $ort = "Wohnort: $profil[12]";
   else
     $ort = "";
   
+
   echo "    </table>
         <table border=\"2\">
           <tr>
+            <td>";
+  $atavar_datei = "atavar/$profil[0].jpg";
+  if (is_readable ($atavar_datei))
+    echo "<img src=\"$atavar_datei\" alt=\"\">";
+  else
+    echo "Kein Atavar<br>eingerichtet";
+ 
+  echo "            </td>
             <td>
-              Atavar
-            </td>
-            <td>
-              $profil[0]<br>
+              $profil[1]<br>
               $name
               $ort
             </td>
             <td>
-              $profil[4] Beitr&auml;ge geschrieben<br>
-              $profil[5] Themen er&ouml;ffnet<br>
+              $profil[5] Beitr&auml;ge geschrieben<br>
+              $profil[6] Themen er&ouml;ffnet<br>
               $letzter_beitrag
             </td>
           </tr>
           <tr>
             <td colspan=\"3\">
-              Email: $profil[9]<br>
-              Homepage: $profil[10]
+              Email: $profil[10]<br>
+              Homepage: $profil[11]
             </td>
           </tr>
         </table>";
