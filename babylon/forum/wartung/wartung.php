@@ -42,7 +42,7 @@
         <tr>
           <td align="center">
             Begin der Wartung in:<br>
-            <select name="start">
+            <select name="start" size="1">
               <option>sofort</option>
               <option>5 Minuten</option>
               <option>10 Minuten</option>
@@ -54,7 +54,7 @@
           </td>
           <td align="center">
             Dauer der Wartung:<br>
-            <select name="dauer">
+            <select name="dauer" size="1">
               <option>5 Minuten</option>
               <option>15 Minuten</option>
               <option>30 Minuten</option>
