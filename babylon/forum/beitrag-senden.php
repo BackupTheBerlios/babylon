@@ -102,7 +102,7 @@ else if ($K_Egl)
     $titel = addslashes (strip_tags ($_POST[titel]));
     mysql_query ("INSERT INTO Beitraege (BeitragTyp, ForumId, Titel,
                   NumBeitraege, Autor, StempelStart, StempelLetzter)
-                  VALUES (\"2\", \"$fid\", \"$titel\", \"1\", \"$Benutzer\",
+                  VALUES (\"2\", \"$fid\", \"$titel\", \"0\", \"$Benutzer\",
                   \"$stempel\", \"$stempel\")")
       or die ("F003: Thema konnte nicht angelegt werden");
     $tid = mysql_insert_id ();
@@ -189,10 +189,6 @@ else if ($K_Egl)
                     WHERE BeitragId=\"$eltern\"")
         or die ("F0017: Z&auml;hler konnten nicht aktualisiert werden");
     }
-    mysql_query ("UPDATE Beitraege
-                  SET NumBeitraege=NumBeitraege+1, StempelLetzter=\"$stempel\"
-                  WHERE ThemaId=\"$tid\" AND BeitragTyp = 2")
-      or die ("F0011: Z&auml;hler konnten nicht aktualisiert werden");
    
   }
   else
@@ -205,6 +201,10 @@ else if ($K_Egl)
                   SET StempelLetzter=\"$stempel\"
                   WHERE BeitragTyp = 1 AND ForumId=\"$fid\"")
       or die ("F0020: Forum, Datum des letzten Beitrags konnten nicht aktualisiert werden");
+    mysql_query ("UPDATE Beitraege
+                  SET NumBeitraege=NumBeitraege+1, StempelLetzter=\"$stempel\", AutorLetzter = \"$Benutzer\"
+                  WHERE ThemaId=\"$tid\" AND BeitragTyp = 2")
+      or die ("F0011: Z&auml;hler konnten nicht aktualisiert werden");
 
 mysql_close ($db);
 
