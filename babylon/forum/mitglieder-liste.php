@@ -116,11 +116,12 @@
   
   while ($zeile = mysql_fetch_row ($erg))
   {
+    $alias = rawurlencode ($zeile[0]);
     $anmeldung = strftime ('%d.%b.%Y', intval ($zeile[1]));
     $letzter =  $zeile[4] ? strftime ('%d.%b.%Y %H:%M', $zeile[4]) : '-';
     echo "<tr>
             <td align=\"center\" class=\"col-hell\">              
-              <a href=\"mitglieder-profil.php?alias=$zeile[0]\">$zeile[0]</a>
+              <a href=\"mitglieder-profil.php?alias=$alias\">$zeile[0]</a>
             </td>
             <td align=\"center\" class=\"col-dunkel\">$anmeldung</td>
             <td align=\"center\" class=\"col-hell\">$zeile[2]</td>

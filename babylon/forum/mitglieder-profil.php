@@ -192,7 +192,7 @@
 
     echo "<form action=\"benutzer-gruppe-aendern-test.php\" method=\"post\">
           Benutzer $profil[1] in Benutzergruppe
-          <select name=\"vorlage\" size=\"1\" title=\"Benutzergruppe ausw&auml;hlen\">";
+            <select name=\"vorlage\" size=\"1\" title=\"Benutzergruppe ausw&auml;hlen\">";
 
     while ($zeile = mysql_fetch_row ($erg))
     {
@@ -202,11 +202,13 @@
         echo "<option value=\"$zeile[0]\">$zeile[1]</option>";
     }
 
-    $alias = $_GET['alias'];
-    echo "</select>
-          <input type=\"hidden\" name=\"benutzerid\" value=\"$profil[0]\">
-          <input type=\"hidden\" name=\"alias\" value=\"$alias\">
-          <button type=\"submit\">verschieben</button><br>
+    $alias = rawurlencode ($_GET['alias']);
+    echo "  </select>
+            <input type=\"hidden\" name=\"benutzerid\" value=\"$profil[0]\">
+            <input type=\"hidden\" name=\"alias\" value=\"$alias\">
+            <button type=\"submit\">verschieben</button>
+	  </form>
+	  <br>
           <a href=\"benutzer-vorlage.php\">Benutzervorlagen verwalten</a>";
   }
  

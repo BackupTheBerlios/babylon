@@ -121,14 +121,15 @@
     {
       if (!((1 << $zeile[0] & $K_Lesen) or (1 << $zeile[0] & $B_leserecht)))
         continue;
-        
+       
+      $alias = rawurlencode ($zeile[5]);
       setlocale (LC_TIME, 'de_DE');
       $datum = strftime ("%d.%b.%Y", $zeile[4]);
       $zeit = date ("H.i:s", $zeile[4]);
 
       echo "       <tr>
           <td class=\"col-hell\" width=\"100%\"><a href=\"beitraege.php?fid=&tid=$zeile[1]&bid=$zeile[2]&sid=-1\">$zeile[3]</a></td>
-          <td align=\"center\" class=\"col-dunkel\"><a href=\"mitglieder-profil.php?alias=$zeile[5]\">$zeile[5]</a></td>
+          <td align=\"center\" class=\"col-dunkel\"><a href=\"mitglieder-profil.php?alias=$alias\">$zeile[5]</a></td>
           <td align=\"center\" class=\"col-hell\"><nobr>$datum $zeit</nobr></td>
         </tr>";
     }

@@ -90,7 +90,8 @@
     {
       if (!((1 << $zeile[0] & $K_Lesen) or (1 << $zeile[0] & $B_leserecht)))
         continue;
-        
+       
+      $alias = rawurlencode ($zeile[6]);
       setlocale (LC_TIME, 'de_DE');
       $datum = strftime ("%d.%b.%Y", $zeile[5]);
       $zeit = date ("H.i:s", $zeile[5]);
@@ -99,7 +100,7 @@
       echo "       <tr>
           <td class=\"col-dunkel\" width=\"100%\"><a href=\"beitraege.php?fid=&tid=$zeile[1]&bid=$zeile[2]&sid=-1\">$zeile[3]</a></td>
           <td class=\"col-dunkel\"><a href=\"beitraege.php?fid=&tid=$zeile[1]&bid=-1&sid=-1\"><nobr>(Alle Beitr&auml;ge)</nobr></a></td>
-          <td align=\"center\" class=\"col-dunkel\"><a href=\"mitglieder-profil.php?alias=$zeile[6]\">$zeile[6]</a></td>
+          <td align=\"center\" class=\"col-dunkel\"><a href=\"mitglieder-profil.php?alias=$alias\">$zeile[6]</a></td>
           <td align=\"center\" class=\"col-dunkel\"><nobr>$datum $zeit</nobr></td>
         </tr>
         <tr>
