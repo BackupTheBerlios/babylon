@@ -1,3 +1,18 @@
+a {
+  color: #ffdd30;
+  text-decoration: none;
+}
+
+a.baum {
+  font-weight: bold;
+}
+
+a:active,
+a:hover {
+  color: #ffee70;
+  text-decoration: underline overline;
+}
+
 body {
   background-image: url("nandb-hinh.png"); 
   font-family: arial, helvetica, sans-serif;
@@ -8,15 +23,6 @@ body {
   margin-bottom: 24px
 }
 
-a {
-  color: #ffdd30;
-  text-decoration: none;
-}
-
-a.baum {
-  font-weight: bold;
-}
-
 button {
   background-image: url("nandb-input.png");
   color: #ffff00;
@@ -25,22 +31,12 @@ button {
   font-weight: bold;
 }
 
-a:active,
-a:hover {
-  color: #ffee70;
-  text-decoration: underline overline;
-}
-
-th.ueber {
-  font-size: 10px;
-  font-weight: bold;
-  color: #ffff00;
-  background-image: url("nandb-input.png");
-  background-repeat: repeat-x;
-  white-space:nowrap;
-  padding: 3px;
-  margin: 0px;
-  border: 0px;
+table.beitrag {
+  padding: 0px;
+  border-width: 1px;
+  border-spacing: 0px;
+  border: 1px solid #000000;
+  margin-top: 10px;
 }
 
 td.col-hell {
@@ -58,7 +54,6 @@ td.col-dunkel {
   border: 0px;
   border-top: 1px dotted #000000;
 }
-
 
 td.ecke {
   background-image: url("nandb-eckeg.png");
@@ -101,6 +96,36 @@ div.atavar {
   margin: 0px;
   margin-right: 16px;
   padding: 0px;
+}
+
+div.konfiguration {
+  border-color: #777777;
+  border-width:2px;
+  border-top-width:0px;
+  border-style: outset;
+  -moz-border-radius-topright:20px;
+  -moz-border-radius-bottomleft:20px;
+  -moz-border-radius-bottomright:20px;
+  background-color: #999999;
+/*  margin: 12px;*/
+  padding: 6px;
+}
+
+div.zitat {
+  border-color: #999999;
+  color: #ffffbb;
+  border-width: 2px;
+  border-style: outset;
+  background-image: url("nandb-hinh.png"); 
+  margin: 8px;
+  margin-right: 2px;
+  padding: 6px;
+}
+
+img.stil_auswahl {
+  border-color: #ffffff;
+  border-width: 2px;
+  border-style: inset;
 }
 
 td.leiste-og {
@@ -153,36 +178,6 @@ td.leiste-uk {
   padding-right: 20px;
 }
 
-img.stil_auswahl {
-  border-color: #ffffff;
-  border-width: 2px;
-  border-style: inset;
-}
-
-div.zitat {
-  border-color: #999999;
-  color: #ffffbb;
-  border-width: 2px;
-  border-style: outset;
-  background-image: url("nandb-hinh.png"); 
-  margin: 8px;
-  margin-right: 2px;
-  padding: 6px;
-}
-
-div.konfiguration {
-  border-color: #777777;
-  border-width:2px;
-  border-top-width:0px;
-  border-style: outset;
-  -moz-border-radius-topright:20px;
-  -moz-border-radius-bottomleft:20px;
-  -moz-border-radius-bottomright:20px;
-  background-color: #999999;
-/*  margin: 12px;*/
-  padding: 6px;
-}
-
 td.reiter_aktiv {
   font-family: arial, helvetica, sans-serif;
   font-size: 20px;
@@ -211,4 +206,16 @@ td.reiter_inaktiv {
   -moz-border-radius-topright:1.0em;
   background-color: #777777;
   padding: 9px;
+}
+
+th.ueber {
+  font-size: 10px;
+  font-weight: bold;
+  color: #ffff00;
+  background-image: url("nandb-input.png");
+  background-repeat: repeat-x;
+  white-space:nowrap;
+  padding: 3px;
+  margin: 0px;
+  border: 0px;
 }
