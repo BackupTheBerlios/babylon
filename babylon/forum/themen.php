@@ -17,9 +17,7 @@
     die ();
   }
   
-  echo '    <table width="100%" cellspacing="0" cellpadding="0" border="0">
-      <tr>
-        <td>';
+  echo "    <table class=\"themen\">\n";
   
   $erg = mysql_query ("SELECT NumBeitraege
                        FROM Beitraege
@@ -85,9 +83,9 @@
         </tr>";
     }
   } 
-   echo '          </table>
+/*   echo "          </table>
         </td>
-      </tr>';
+      </tr>\n";*/
 
    $limit = $tjs * 6;
   // wir holen die Themen nach dem gewuenschten Satz, fuer die Seitenumschalter;
@@ -156,10 +154,11 @@
   mysql_close ($db);
 
   // die Seitenauswahl
-  echo '      <tr align="center">
-        <td height="50" valign="middle">';
-  if ($saetze > $tjs)
+    if ($saetze > $tjs)
   {
+    echo "      <tr align=\"center\">
+        <td>\n";
+
     $seiten = ceil ($saetze/ $tjs);
     $aktuelle_seite = floor(($saetze - $folgethemen - 1) / $tjs) + 1;
 
@@ -172,7 +171,7 @@
       $i = $aktuelle_seite - $seiten_vor;
       foreach ($tids_vor as $tids)
       {
-        echo "&nbsp;<a href=\"themen.php?fid=$fid&tid=$tids\">$i</a>&nbsp; ";
+        echo "&nbsp;<a href=\"themen.php?fid=$fid&amp;tid=$tids\">$i</a>&nbsp; ";
         $i++;
       }
     }
@@ -184,7 +183,7 @@
       $i = $aktuelle_seite + 1;
       foreach ($tids_nach as $tids)
       {
-        echo "&nbsp;<a href=\"themen.php?fid=$fid&tid=$tids\">$i</a>&nbsp; ";
+        echo "&nbsp;<a href=\"themen.php?fid=$fid&amp;tid=$tids\">$i</a>&nbsp; ";
         $i++;
       }
 
@@ -195,27 +194,27 @@
   // das wars mit den Themen...
 
   
-  echo '        </td>
+  echo "        </td>
       </tr>
-    </table>';
+    </table>\n";
   if ($K_Egl)
   {
-    echo "          <form action=\"beitraege.php\" method=\"post\">
-            <button name=\"neu\" value=\"1\">
-              <img src=\"/grafik/Typewriter$msiepng.png\" width=\"24\" height=\"24\" alt=\"\">Neues Thema
-            </button>
-            <input type=\"hidden\" name=\"fid\" value=\"$fid\">
-          </form>\n";
+    echo "    <form action=\"beitraege.php\" method=\"post\">
+      <button name=\"neu\" value=\"1\">
+        <img src=\"/grafik/Typewriter$msiepng.png\" width=\"24\" height=\"24\" alt=\"\">Neues Thema
+      </button>
+      <input type=\"hidden\" name=\"fid\" value=\"$fid\">
+    </form>\n";
   }
   else
   {
-    echo "          <form action=\"login.php\" method=\"post\">
-            <button>
-              <img src=\"/grafik/Typewriter$msiepng.png\" width=\"24\" height=\"24\" alt=\"\">Neues Thema
-            </button>
-            <input type=\"hidden\" name=\"neu\" value=\"1\">
-            <input type=\"hidden\" name=\"fid\" value=\"$fid\">
-          </form>\n";
+    echo "    <form action=\"login.php\" method=\"post\">
+      <button>
+        <img src=\"/grafik/Typewriter$msiepng.png\" width=\"24\" height=\"24\" alt=\"\">Neues Thema
+      </button>
+     <input type=\"hidden\" name=\"neu\" value=\"1\">
+     <input type=\"hidden\" name=\"fid\" value=\"$fid\">
+    </form>\n";
   }
 
   include ('leiste-unten.php');

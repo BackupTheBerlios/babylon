@@ -76,7 +76,7 @@ if (isset ($_POST['vorschau']))
   if (!$K_Egl)
     fehler (__FILE__, __LINE__, 1, 'Zwichenablage fuer die Vorschau wurde nicht aktualisiert, da nicht eingeloggt');
   
-  $text = addslashes (beitrag_pharsen_ohne_smilies ($_POST['text'], $erlaubte_tags));
+  $text = addslashes ($_POST['text']);
   mysql_query ("UPDATE Benutzer
                 SET Ablage = '$text'
                 WHERE BenutzerId = '$BenutzerId'")

@@ -34,14 +34,14 @@
       else $ansicht = 's';
     }
 
-    echo '      <table width="100%">';
-
     if ($K_Egl)
     {
-      echo '    <form action="beitrag-senden.php" method="post">';
+      echo "    <form action=\"beitrag-senden.php\" method=\"post\">\n";
       // benoetigen wir fuer die "bei antwort-mail funktion
       benutzer_daten_persoenlich ($foo, $foo, $foo, $K_EMail, $foo, $foo, $foo);
     }
+    
+    echo "    <table class=\"beitraege\">\n";
     
     if ($neu == FALSE)
     {
@@ -64,11 +64,6 @@
     // so gehen wir bestimmt hinter den letzten satz
        if ($bid == -1)
            $bid = 0xffffffff;
-
-   // die beitraege die wir darestellen wollen
-      echo '        <tr>
-          <td>';
-//            <table width="100%" cellspacing="0" cellpadding="0" border="0">';
 
       $arg = $ansicht == 't' ? "ThemaId = $tid " : "StrangId = $sid";
       $beitraege = mysql_query ("SELECT BeitragId, Autor, StempelLetzter, Inhalt, Gesperrt
@@ -124,22 +119,18 @@
           $sperren = $zeile[4] == 'j' ? 'n' : 'j';
           $grafik = $sperren == 'n' ? 'gesperrt' : 'lesbar';
       
-          echo "<table width=\"100%\">
-	    <tr>
-              <td colspan=\"4\">
+          echo "	    <tr>
+              <td colspan=\"3\">
                 <div class=\"admin-leiste\">
                   <a href=\"beitrag-sperren.php?fid=$fid&amp;tid=$tid&amp;sid=$sid&amp;bid=$zeile[0]&amp;bid_sprung=$bid_sprung&sperren=$sperren\">Lesbar
                   <img src=\"/grafik/$grafik.png\" border=\"0\" alt=\"$grafik\"></a>
                 </div>
               </td>
-            </tr>
-	  </table>";
+            </tr>";
         }
       }
-
-      echo '          </td>
-       </tr>';
     }
+    echo "    </table>\n";
  
     $limit = $bjs * 6;
   // wir holen die Beitraege nach dem gewuenschten Satz, fuer die Seitenumschalter;
@@ -222,8 +213,9 @@
 //  # die Seitenauswahl #
 //  #####################
 
-    echo '        <tr align="center">
-          <td height="50" valign="middle">';
+    echo "    <table width=\"100%\">
+      <tr align=\"center\">
+        <td colspan=\"3\">\n";
 
     if ($saetze > $bjs)
     {
@@ -261,9 +253,9 @@
     }
   // das wars mit den Beitraegen...
 
-    echo "\n          </td>
-        </tr>
-      </table>\n";
+    echo "\n        </td>
+      </tr>
+    </table>\n";
     
     if (1 << $fid & $K_Schreiben and $K_Egl)
     {
@@ -271,7 +263,7 @@
         die ('Da kein neues Thema erstellt werden soll, dieser Beitrag aber keine Themenkennung hat liegt anscheinend ein interner Fehler vor. Versuch es nochmals. Wenn der Fehler dann immer noch besteht wende dich bitte an den Seitenmeister.');
       else
       {
-      
+        echo "    <table>\n";
 //  ################
 //  # Die Vorschau #
 //  ################
@@ -279,7 +271,8 @@
         if (isset ($_GET['vorschau']) and $_GET['vorschau'] == 'j')
         {
           include ('beitraege-vorschau.php');
-          $vorschau_inhalt = beitrag_vorschau_inhalt ($BenutzerId);
+	  $vorschau = beitrag_vorschau_inhalt ($BenutzerId);
+          $vorschau_inhalt = beitrag_pharsen ($vorschau);
           beitrag_vorschau ($vorschau_inhalt);
         }
 
@@ -306,17 +299,17 @@
 //  # Beitragseingabe #
 //  ###################
 
-        echo '        <tr>
-          <td>
-            <table>
-              <tr>
-                <td>
-                  <a name="textarea"></a>';
+        echo "      <tr>
+        <td>
+          <table>
+            <tr>
+              <td>
+                <a name=\"textarea\"></a>\n";
         if (isset ($_GET['vorschau']) and $_GET['vorschau'] == 'j')
-          beitrag_vorschau_textarea ($vorschau_inhalt);
+          beitrag_vorschau_textarea (beitrag_pharsen_ohne_smilies ($vorschau));
         else
         {
-          echo '                  <textarea name="text" cols="80" rows="12">';
+          echo "                <textarea name=\"text\" cols=\"80\" rows=\"12\">";
 
 //  ##########
 //  # Zitate #
@@ -331,99 +324,103 @@
 
             echo "<div class=\"zitat\"><b>$zitat_autor tat am $zitat_datum um $zitat_zeit der Welt folgendes kund:</b><p>$zitat</div>";
           }
-          echo '</textarea>
-                  <p>';
+          echo "</textarea>
+                <p>\n";
          }
 
 //  ##########################
 //  # Smielie-Schaltflaechen #
 //  ##########################
-         echo "                  <script type=\"text/javascript\">
-                    <!--
-                      tabelle_smilies_erstellen ();
-                    //-->;
-                  </script>
-                </td>
-              </tr>
-            </table>
+         echo "                <script type=\"text/javascript\">
+                  <!--
+                    tabelle_smilies_erstellen ();
+                  //-->;
+                </script>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <table>
             <tr>
               <td>
                 <table>
                   <tr>
                     <td>
-                      <table>
-                        <tr>
-                          <td>
-                            <button type=\"submit\" accesskey=\"s\">
-                              <table>
-                                <tr>
-                                  <td>
-                                    <img src=\"/grafik/Schicken$msiepng.png\" width=\"24\" height=\"24\" alt=\"\">
-                                  </td>
-                                  <td>
-                                    Beitrag abschicken<br>
-                                    <font size=\"-4\">(Alt+s)</font>
-                                  </td>
-                                </tr>
-                              </table>
-                            </button>
-                            <input type=\"hidden\" name=\"fid\" value=\"$fid\">      
-                            <input type=\"hidden\" name=\"tid\" value=\"$tid\">
-                            <input type=\"hidden\" name=\"sid\" value=\"$sid\">\n";
+                      <button type=\"submit\" accesskey=\"s\">
+                        <table>
+                          <tr>
+                            <td>
+                              <img src=\"/grafik/Schicken$msiepng.png\" width=\"24\" height=\"24\" alt=\"\">
+                            </td>
+                            <td>
+                              Beitrag abschicken<br>
+                              <font size=\"-4\">(Alt+s)</font>
+                            </td>
+                          </tr>
+                        </table>
+                      </button>
+                      <input type=\"hidden\" name=\"fid\" value=\"$fid\">      
+                      <input type=\"hidden\" name=\"tid\" value=\"$tid\">
+                      <input type=\"hidden\" name=\"sid\" value=\"$sid\">\n";
              if ($bid == 0xffffffff)
-               echo '                      <input type="hidden" name="bid" value="-1">';
+               echo "                      <input type=\"hidden\" name=\"bid\" value=\"-1\">\n";
              else
                echo "                      <input type=\"hidden\" name=\"bid\" value=\"$bid\">\n";
              if ($neu)
-               echo '                      <input type="hidden" name="neu" value="1">'; 
+               echo "                      <input type=\"hidden\" name=\"neu\" value=\"1\">";
              echo "                    </td>
-                          <td>
-                            <button type=\"submit\" name=\"vorschau\" value=\"j\" accesskey=\"v\">
-                              <table>
-                                <tr>
-                                  <td>
-                                    <img src=\"/grafik/Vorschau$msiepng.png\" width=\"24\" height=\"24\" alt=\"\">
-                                  </td>
-                                  <td>
-                                    Beitragsvorschau<br>
-                                    <font size=\"-4\">(Alt+v)</font>
-                                  </td>
-                                </tr>
-                              </table>
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td colspan=\"2\">
-                            <input type=\"checkbox\" name=\"antwort_mail\">
-                              <font size=\"-2\">
-                                Antworten auf diesen Beitrag per Mail an <b>$K_EMail</b> schicken
-                              </font>
-                            </input>
-                          </td>
-                        </tr>
-                      </table>\n";
+                    <td>
+                      <button type=\"submit\" name=\"vorschau\" value=\"j\" accesskey=\"v\">
+                        <table>
+                          <tr>
+                            <td>
+                              <img src=\"/grafik/Vorschau$msiepng.png\" width=\"24\" height=\"24\" alt=\"\">
+                            </td>
+                            <td>
+                              Beitragsvorschau<br>
+                              <font size=\"-4\">(Alt+v)</font>
+                            </td>
+                          </tr>
+                        </table>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan=\"2\">
+                      <input type=\"checkbox\" name=\"antwort_mail\">
+                      <font size=\"-2\">
+                        Antworten auf diesen Beitrag per Mail an <b>$K_EMail</b> schicken
+                      </font>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+              <td>\n";
 
 //  #####################################
 //  # Formatierungshilfe-Schaltflaechen #
 //  #####################################
 
-         echo '                  <script type="text/javascript">
-                    <!--
-                      tabelle_formate_erstellen ();
-                    //-->;
-                  </script>
-                  <noscript>
-                    </td>
-                    <td>
-                      <font size="-1">Mit aktivem JavaScript erh&auml;ltst Du diverse Formatierungshilfen</font>
-                  </noscript>
-                </td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-      </form>';
+         echo "                <script type=\"text/javascript\">
+                  <!--
+                    tabelle_formate_erstellen ();
+                  //-->
+                </script>
+              </td>
+              <td>
+                <noscript>
+                <font size=\"-1\">Mit aktivem JavaScript erh&auml;ltst Du diverse Formatierungshilfen</font>
+                </noscript>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </form>\n";
       }
     }
 

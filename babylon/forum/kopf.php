@@ -1,4 +1,11 @@
 <?PHP;
+/* Copyright 2004 Detlef Reichl <detlef!reichl()gmx!org>
+   Diese Datei gehoert zum Babylon-Forum (babylon.berlios.de).
+   
+   Babylon ist Freie Software. Du bist berechtigt sie nach Vorgabe der
+   GNU-GPL Version 2 zu nutzen und/oder modifizieren und/oder weiterzugeben.
+   Lies die Datei COPYING fuer weitere Informationen hierzu. */
+
   include_once ('konf/konf.php');
   include_once ('fehler.php');
   include_once ('wartung/wartung-info.php');
@@ -40,15 +47,15 @@
                         $K_AdminForen, $K_ThemenJeSeite, $K_BeitraegeJeSeite,
                         $K_Stil, $K_Signatur, $K_SprungSpeichern, $K_BaumZeigen);
 
-  echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
+  echo "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\"
+   \"http://www.w3.org/TR/html4/loose.dtd\">
 
 <html>
-  <head>';
+  <head>\n";
   metadata ($_SERVER['SCRIPT_FILENAME']);
 
   if (isset ($skript) && $skript == 'j')
-    echo '  <script src="js/formathilfe.js" type="text/javascript"></script>';
+    echo "  <script src=\"js/formathilfe.js\" type=\"text/javascript\"></script>\n";
 
   $stil_datei = "stil/$K_Stil.php";
   include ($stil_datei);

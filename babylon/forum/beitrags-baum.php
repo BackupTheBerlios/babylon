@@ -26,9 +26,8 @@ function strang_ausgeben (&$daten, $sid, $saetze, $tiefe, $m)
     $zeit = date ("H.i:s", $daten[$i][7]);
     $inhalt = stripslashes ($daten[$i][5]);
 
-    $aus1 = "$baum<a class=\"baum\"
-             href=\"beitraege.php?fid=$_GET[fid]&amp;tid={$daten[$i][0]}&amp;sid={$daten[$i][1]}&amp;bid={$daten[$i][2]}\">$inhalt";
-    $aus2 = "{$daten[$i][6]} $datum $zeit</a><br>";
+    $aus1 = "$baum<a class=\"baum\" href=\"beitraege.php?fid=$_GET[fid]&amp;tid={$daten[$i][0]}&amp;sid={$daten[$i][1]}&amp;bid={$daten[$i][2]}\">$inhalt";
+    $aus2 = "{$daten[$i][6]} $datum $zeit</a>\n";
     echo $aus1;
     $lg = strlen ($inhalt) + strlen ($aus2) + strlen ($baum);
 
@@ -104,10 +103,9 @@ echo '<pre style="line-height:150%">';
 strang_ausgeben ($daten, $daten[0][1], $i, '', 0);
 echo "</pre><br>\n";
   
-echo "<img src=\"/grafik/dummy.png\" width=\"1\" height=\"24\" border=\"0\" alt=\"\">
-      <br>
-      <a href=\"beitraege.php?tid={$daten[0][0]}&amp;sid=-1&amp;bid=-1\">
-      <b>Alle Beitraege auf ein Mal anzeigen</b></a>";
+echo "    <a href=\"beitraege.php?tid={$daten[0][0]}&amp;sid=-1&amp;bid=-1\">
+      <b>Alle Beitraege auf ein Mal anzeigen</b>
+    </a>\n";
 mysql_close ($db);
 
 include ('leiste-unten.php');

@@ -9,7 +9,7 @@
   $titel = 'Forum / Foren';
   include_once ('kopf.php');
 
-  echo '            <table width="100%" cellpadding="0" cellspacing="0" border="0">';
+  echo "    <table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">\n";
   
   $beitraege = mysql_query ("SELECT ForumId, NumBeitraege, StempelLetzter, Titel, Inhalt
                              FROM Beitraege
@@ -34,7 +34,6 @@
     }
     $f++;
   }
-
   // ...und jetzt noch den Posteingang
   if ($K_Egl)
   {
@@ -68,14 +67,14 @@
   }
 
   mysql_close ($db);
-  echo '          </table>
-       <img src="/grafik/dummy.png" width="1" height="30" alt="">';
+  echo "    </table>
+      <img src=\"/grafik/dummy.png\" width=\"1\" height=\"30\" alt=\"\">\n";
  
   if ($K_AdminForen)
   {
-    echo "      <form action=\"forum-anlegen.php\" method=\"post\">
-            <button type=\"submit\"><img src=\"/grafik/Typewriter$msiepng.png\" width=\"24\" height=\"24\" alt=\"\">Neues Forum</button>
-          </form>\n";
+    echo "    <form action=\"forum-anlegen.php\" method=\"post\">
+      <button type=\"submit\"><img src=\"/grafik/Typewriter$msiepng.png\" width=\"24\" height=\"24\" alt=\"\">Neues Forum</button>
+    </form>\n";
   }
   include ('leiste-unten.php');
   leiste_unten (NULL, $B_version, $B_subversion);

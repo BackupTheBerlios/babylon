@@ -46,7 +46,7 @@ function formate_ausgeben (typ)
 
 function tabelle_formate_erstellen ()
 {
-  document.writeln ("<\/td><td><img src=\"../grafik/dummy.png\" width=\"24\" height=\"1\"<\/td><td>");
+  document.writeln ("<td><img src=\"../grafik/dummy.png\" width=\"24\" height=\"1\"<\/td><td>");
   document.writeln ("<table>");
   for (y = 0; y < 3; y++)
   {
@@ -58,7 +58,7 @@ function tabelle_formate_erstellen ()
     }
     document.writeln ("<\/tr>");
   }
-  document.writeln ("<\/table>");
+  document.writeln ("<\/table><\/td>");
 }
 
 smilies = new Array (2);

@@ -26,7 +26,7 @@ function beitrag_vorschau (&$beitrag)
             <table width="100%" border="1" cellpadding="10">
               <tr>
                 <td background="/grafik/vorschau-hintergrund.png" width="100%" class="vorschau">';
-          echo stripslashes (beitrag_pharsen_smilies ($beitrag));
+          echo stripslashes (beitrag_pharsen_ohne_smilies ($beitrag));
           echo '                </td>
               </tr>
             </table><br>
@@ -37,7 +37,7 @@ function beitrag_vorschau (&$beitrag)
 
 function beitrag_vorschau_textarea (&$beitrag)
 {
-  $vorschau = stripslashes (str_replace ("<br />", "\n", $beitrag));
+  $vorschau = str_replace ("&", "&amp;", stripslashes (str_replace ("<br />", "\n", $beitrag)));
   echo "                  <textarea name=\"text\" cols=\"80\" rows=\"12\"\">$vorschau</textarea><p>\n";
 
 }

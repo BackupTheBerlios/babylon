@@ -10,7 +10,7 @@
 
 function css_setzen ()
 {
-  echo '    <link href="stil/nandb.css" rel="stylesheet" type="text/css">';
+  echo "    <link href=\"stil/nandb.css\" rel=\"stylesheet\" type=\"text/css\">\n";
 }
 
 function zeichne_forum ($param)
@@ -44,7 +44,7 @@ function zeichne_forum ($param)
     echo "    <td class=\"leiste-uk\"><a href=\"posteingang.php\">$Inhalt</a></td>
       <td class=\"leiste-uk\" align=\"right\">Neue Beitr&auml;ge: $NumBeitraege</td>";
   else
-    echo "    <td class=\"leiste-uk\"><a href=\"themen.php?fid=$ForumId&tid=-1\">$Inhalt</a></td>
+    echo "    <td class=\"leiste-uk\"><a href=\"themen.php?fid=$ForumId&amp;tid=-1\">$Inhalt</a></td>
       <td class=\"leiste-uk\" align=\"right\">Themen: $NumBeitraege</td>";
 
   echo '    <td class="ecke2"></td>
@@ -97,7 +97,7 @@ function zeichne_thema ($param)
     </tr>
     <tr>
       <td class=\"ecke\"></td>
-      <td class=\"leiste-og\"><a href=\"$sprung.php?fid=$ForumId&tid=$ThemaId&bid=-1&sid=-1\">$Titel</a></td>
+      <td class=\"leiste-og\"><a href=\"$sprung.php?fid=$ForumId&amp;tid=$ThemaId&amp;bid=-1&amp;sid=-1\">$Titel</a></td>
       <td class=\"leiste-ok\" align=\"right\">Lesungen: $NumGelesen &nbsp; Antworten: $aw</td>
       <td class=\"ecke\"></td>
     </tr>";

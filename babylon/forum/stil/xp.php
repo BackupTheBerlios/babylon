@@ -75,8 +75,7 @@ function zeichne_thema ($param)
     
   if ($Erster)
   {
-    echo '          <table class="thema">
-            <tr>
+    echo '            <tr>
               <th class="ueber" width="100%" align="left">Thema / Erstellt von</th>
               <th class="ueber">Letzter Beitrag</th>
               <th class="ueber">Antworten</th>
@@ -119,18 +118,18 @@ function zeichne_beitrag ($param)
   $zeit = date ("H.i:s", $StempelLetzter);
 
   if ($Erster)
-    echo "      <table class=\"beitrag\" width=\"100%\">
-            <tr>
-              <th class=\"ueber\" align=\"center\">$Thema</th>
-            </tr>
-	  </table>";
+    echo "      <tr>
+        <th class=\"ueber\" align=\"center\" width=\"100%\" colspan=\"2\">$Thema</th>
+      </tr>\n";
 
-  echo "       <table class=\"beitrag\" width=\"100%\">
+  echo "      <tr>
+        <td colspan=\"2\">
+          <table class=\"beitrag\">
             <tr>
               <th class=\"ueber\" align=\"left\" colspan=\"2\"><a href=\"mitglieder-profil.php?alias=$AutorURL\">$Autor</a></th>
               <th class=\"ueber\" align=\"right\">$datum $zeit</th>
             </tr>
-            <tr>";
+            <tr>\n";
   if ($Atavar > -1)
   {
     echo"              <td class=\"col-dunkel\" valign=\"top\">
@@ -138,28 +137,28 @@ function zeichne_beitrag ($param)
                   <img src=\"atavar-ausgeben.php?atavar=$Atavar\">
                 </div>
               </td>
-              <td class=\"col-hell\" valign=\"top\" colspan=\"2\" width=\"100%\">$Inhalt</td>";
+              <td class=\"col-hell\" valign=\"top\" colspan=\"2\" width=\"100%\">$Inhalt</td>\n";
   }
   else
    {
-    echo"             <td class=\"col-hell\" valign=\"top\" colspan=\"3\" width=\"100%\">$Inhalt</td>";
+    echo"              <td class=\"col-hell\" valign=\"top\" colspan=\"3\" width=\"100%\">$Inhalt</td>\n";
   } 
-  echo '            </tr>
-          </table>';
+  echo "            </tr>
+          </table>
+        </td>
+      </tr>\n";
 
   // Die Antwort Zeile
   if ($Egl)
   {
-      echo "            <table width=\"100%\">
-      <tr>
-                <td><font size=\"-1\"><input type=\"radio\" name=\"eltern\" value=$BeitragId";
+      echo "      <tr>
+        <td><font size=\"-1\"><input type=\"radio\" name=\"eltern\" value=$BeitragId";
                 
       if ($Erster)
         echo ' checked';
-      echo ">Antworten auf diesen Beitrag</input></font></td>
-                <td align=\"right\"><font size=\"-1\"><button type=\"submit\" name=\"zid\" value=$BeitragId>zitieren</button></td>
-              </tr>
-            </table>\n";
+      echo ">Antworten auf diesen Beitrag</font></td>
+        <td align=\"right\"><font size=\"-1\"><button type=\"submit\" name=\"zid\" value=$BeitragId>zitieren</button></font></td>
+      </tr>\n";
   }
 }
 ?>
