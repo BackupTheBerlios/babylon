@@ -115,3 +115,45 @@ div.zitat {
   margin: 12px;
   padding: 6px;
 }
+
+div.konfiguration {
+  border-color: #202441;
+  border-width:2px;
+  border-top-width:0px;
+  border-style: outset;
+  -moz-border-radius-topright:20px;
+  -moz-border-radius-bottomleft:20px;
+  -moz-border-radius-bottomright:20px;
+  background-color: #202441;
+  padding: 6px;
+}
+
+td.reiter_aktiv {
+  font-family: arial, helvetica, sans-serif;
+  font-size: 20px;
+  color: #BF8649;
+  border-color: #202441;
+  border-width:2px;
+  border-bottom-width:0px;
+  border-style: outset;
+  -moz-border-radius-topleft:1.0em;
+  -moz-border-radius-topright:1.0em;
+  background-color: #202441;
+  padding: 9px;
+}	
+
+td.reiter_inaktiv {
+  font-family: arial, helvetica, sans-serif;
+  font-size: 20px;
+  color: #dFa669;
+  border-color: #202441;
+  border-width:2px;
+  border-bottom-width:1px;
+  border-bottom-color: #000000;
+  border-style: outset;
+  border-bottom-style: solid;
+  -moz-border-radius-topleft:1.0em;
+  -moz-border-radius-topright:1.0em;
+  background-color: #101010;
+  padding: 9px;
+}
