@@ -13,5 +13,5 @@ echo "  <a name=\"installation\"><img Name=\"b7\" src=\"/web/grafik/links02.png\
   \"DocumentRoot\").
   
   <h3>Einrichtung des Systems</h3>
-  begib Dich <a href=\"forum/installation/start.php\">zum Installationssystem</a> und folge einfach den Angaben.";
+  begib Dich <a href=\"forum/install/start.php\">zum Installationssystem</a> und folge einfach den Angaben.";
 ;?>
