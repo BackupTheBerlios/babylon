@@ -8,11 +8,9 @@
 
 // wir muessen hier auf verschiedene Verzeichnissebenen testen, da diese Datei
 // ebenfals aus verschiedenen Ebenen aufgerufen werden kann.
-if (file_exists ("konf/konf.php"))
-  include_once ("konf/konf.php");
-else if (file_exists ("../konf/konf.php"))
-  include_once ("../konf/konf.php");
-else die ("Forumskonfiguration konnte nicht gelesen werden.");
+
+$pfad = $_SERVER["DOCUMENT_ROOT"] . '/forum/konf/konf.php';
+include_once ($pfad);
 
 function benutzer_cookie (&$K_Egl, &$id, &$sw)
 {
