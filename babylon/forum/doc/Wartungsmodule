@@ -1,0 +1,58 @@
+die Dateinamen der Module duerfen nur aus Buchstaben, Ziffern und Unterstrichen bestehen.
+Sie muessen grundsaetzlich mit einem Buchstaben oder einer Ziffer anfangen.
+
+
+
+Jedes Module muss drei Standartfunktionen enthalten:
+
+xxx_titel ()
+xxx_beschreibung ()
+xxx_wartung ()
+
+xxx ist der Dateiname des Moduls ohne das abschliessende ".php".
+
+_titel ()
+  gibt den namen des Moduls aus
+_beschreibung ()
+  gibt eine ausfuehrliche Beschreibung der Funktionalitaet des Moduls
+_wartung ()
+  ist die eingentliche Funktion des Moduls, die die Arbeit erledigt.
+
+
+
+wenn ein Modul interaktiv arbeitet und eine weitere Datei aufrufen muss, ist derren Dateiname
+immer der Dateianme des Moduls mit einem vorangestellten Punkt. Dadurch wird sie beim Start des
+Wartungssystems nicht als Wartungsmodul erkannt. Sind mehrere Dateien noetig werden sie vor der
+Endung ".php" durchnummeriert. Zwischen dem Modulnamen und den Ziffern darf ein Unterstrich sein.
+Die Durchnummerierung ist zwar technisch nicht notwendig, mann koennte auch die Dateien komplett
+unterschiedlich benennen (sofern sie immer mit einem Punkt beginnen), doch wird hierdurch die
+Uebersicht erhoeht.
+
+Beispiele:
+
+- Ein Wartungsmodul dass ohne Interaktion eine Aufgabe erledigt
+
+  mein_modul.php                // Das Modul
+
+- Ein Wartungsmodul dass interaktiv eine Aufgabe erledigt
+
+  mein_module.php               // Das Modul
+  .mein_modul.php               // eine zugehoerige aufgerufene Datei
+
+- Ein Wartungsmodul dass interaktiv eine Aufgabe erledigt und in mehrere Dateien verzweigen kann
+
+  mein_module.php               // Das Modul
+  .mein_modul_01.php            // zugehoerige aufgerufende Dateien
+  .mein_modul_02.php
+  .mein_modul_03.php
+
+
+
+Die Wartungsmodule haben grundsaetzlich zu pruefen,
+- ob der Anwender berechtig ist das Modul zu nutzen
+- ob das Modul fuer die entsprechende Version des Forums geeignet ist
+- ob das Forum zur Nutzung gesperrt ist (diese Funktion darf entfallen, wenn man sich sicher ist,
+  das es zu keinerlei Konflikten kommen kann.
+
+
+
