@@ -108,17 +108,14 @@
     
     if ($neu == FALSE)
     {
-      $gesperrt = $K_Admin & 1 << $fid ? '' : 'AND Gesperrt  = \'n\'';
-      if ($ansicht == 't')
-        $erg = mysql_query ("SELECT Titel, NumBeitraege
-                             FROM Beitraege
-                             WHERE ThemaId=\"$tid\" AND BeitragTyp = 2 $gesperrt")
+      $arg = $ansicht == 't' ? "ThemaId = '$tid' AND BeitragTyp = 2" : "StrangId = '$sid' AND BeitragTyp & 4 = 4";
+      $gesperrt = $K_Admin & 1 << $fid ? '' : "AND Gesperrt  = 'n'";
+
+      $erg = mysql_query ("SELECT Titel, NumBeitraege
+                           FROM Beitraege
+                           WHERE $arg $gesperrt")
           or die ('F0021: Beitragszahl konnte nicht ermittelt werden');
-      else
-        $erg = mysql_query ("SELECT Titel, NumBeitraege
-                             FROM Beitraege
-                             WHERE StrangId=\"$sid\" AND BeitragTyp & 4 = 4 $gesperrt")
-          or die ('F0022: Beitragszahl konnte nicht ermittelt werden');
+
       $zeile = mysql_fetch_row ($erg);
       $saetze = $zeile[1];
       $thema = stripslashes ($zeile[0]);
@@ -135,24 +132,16 @@
       echo '        <tr>
           <td>
             <table width="100%" cellspacing="0" cellpadding="0" border="0">';
-      if ($ansicht == 't')
-          $beitraege = mysql_query ("SELECT BeitragId, Autor, StempelLetzter, Inhalt, Gesperrt
-                                     FROM Beitraege
-                                     WHERE ThemaId = $tid 
-                                       AND BeitragTyp & 8 = 8
-                                       AND BeitragId <= $bid
-                                       $gesperrt
-                                     ORDER BY BeitragId DESC LIMIT $bjs")
+
+      $arg = $ansicht == 't' ? "ThemaId = $tid " : "StrangId = $sid";
+      $beitraege = mysql_query ("SELECT BeitragId, Autor, StempelLetzter, Inhalt, Gesperrt
+                                 FROM Beitraege
+                                 WHERE $arg
+                                   AND BeitragTyp & 8 = 8
+                                   AND BeitragId <= $bid
+                                   $gesperrt
+                                 ORDER BY BeitragId DESC LIMIT $bjs")
         or die ('F0023: Beitr&auml;ge konnten nicht gelesen werden');
-      else
-        $beitraege = mysql_query ("SELECT BeitragId, Autor, StempelLetzter, Inhalt, Gesperrt
-                                   FROM Beitraege
-                                   WHERE StrangId = $sid
-                                     AND BeitragTyp & 8 = 8
-                                     AND BeitragId <= $bid
-                                     $gesperrt
-                                   ORDER BY BeitragId DESC LIMIT $bjs")
-        or die ('F0024: Beitr&auml;ge konnten nicht gelesen werden');
 
       $erster = TRUE;
       while ($zeile = mysql_fetch_row ($beitraege))
@@ -164,19 +153,21 @@
           $zitat_inhalt = stripslashes ($zeile[3]);
         }
 
-        $erg = mysql_query ("SELECT BenutzerId, Atavar
+        $erg = mysql_query ("SELECT BenutzerId, Atavar, KonfSignatur
                              FROM Benutzer
                              WHERE Benutzer = \"$zeile[1]\"")
           or die ('Es konnte die BenutzerId des Benutzers fuer den Atavar nicht ermittelt werden');
-        if (mysql_num_rows ($erg) == 1)
-        {
-          $atavar_zeile = mysql_fetch_row ($erg);
-          $atavar = $atavar_zeile[1] == 'j' ? $atavar_zeile[0] : '-1';
-        }
-        else
-          $atavar = -1;
+        if (mysql_num_rows ($erg) != 1)
+          die ('F&uuml;r den &uuml;bergebenen Bentuzernamen ist kein oder mehrere Eintr&auml;ge vorhanden');
 
-        $inhalt = stripslashes ($zeile[3]);
+        $benutzer_zeile = mysql_fetch_row ($erg);
+        $atavar = $benutzer_zeile[1] == 'j' ? $benutzer_zeile[0] : '-1';
+
+        if ($benutzer_zeile[2] != NULL)
+          $inhalt = $zeile[3] . '<br /><br/>--<br/>' . beitrag_pharsen ($benutzer_zeile[2]);
+        else
+          $inhalt = $zeile[3];
+        $inhalt = stripslashes ($inhalt);
       
         $param = array ('Erster' => $erster,
                         'ForumId' => $fid,
@@ -215,26 +206,16 @@
     $limit = $bjs * 6;
   // wir holen die Beitraege nach dem gewuenschten Satz, fuer die Seitenumschalter;
   // ausreichend fuer 5 Seiten ...
-    if ($ansicht == 't')
-      $erg = mysql_query ("SELECT BeitragId
-                           FROM Beitraege
-                           WHERE BeitragTyp & 8 = 8
-                             AND ThemaId = $tid
-                             AND BeitragId <=$bid
-                             $gesperrt
-                           ORDER BY BeitragId DESC
-                           LIMIT $limit")
-        or die ('F0025: BeitragIds f&uuml;r die Seitenumschalter konnten nicht geholt werden');
-    else
-       $erg = mysql_query ("SELECT BeitragId
-                           FROM Beitraege
-                           WHERE BeitragTyp & 8 = 8
-                             AND StrangId = $sid
-                             AND BeitragId <=$bid
-                             $gesperrt
-                           ORDER BY BeitragId DESC
-                           LIMIT $limit")
-        or die ('F0026: BeitragIds f&uuml;r die Seitenumschalter konnten nicht geholt werden'); 
+    $arg = $ansicht == 't' ? "ThemaId = $tid" : "StrangId = $sid";
+    $erg = mysql_query ("SELECT BeitragId
+                         FROM Beitraege
+                         WHERE BeitragTyp & 8 = 8
+                           AND $arg
+                           AND BeitragId <=$bid
+                           $gesperrt
+                         ORDER BY BeitragId DESC
+                         LIMIT $limit")
+      or die ('F0025: BeitragIds f&uuml;r die Seitenumschalter konnten nicht geholt werden');
 
     $zeilen = mysql_num_rows ($erg);
     if ($zeilen > $bjs)
@@ -257,24 +238,15 @@
         $folgebeitraege = $zeilen - ($bjs - 1);
       else
       {
-        if ($ansicht == 't')
-          $folge = mysql_query ("SELECT BeitragId
-                                 FROM Beitraege
-                                 WHERE BeitragTyp & 8 = 8
-                                   AND ThemaId = $tid
-                                   AND BeitragId < $bid
-                                   $gesperrt
-                                 ORDER BY BeitragId DESC")
+        $arg = $ansicht == 't' ? "ThemaId = $tid" : "StrangId = $sid";
+        $folge = mysql_query ("SELECT BeitragId
+                               FROM Beitraege
+                               WHERE BeitragTyp & 8 = 8
+                                 AND $arg
+                                 AND BeitragId < $bid
+                                 $gesperrt
+                               ORDER BY BeitragId DESC")
           or die ('F0027: Anzahl der Folgebeitr&auml;ge konnte nicht ermittelt werden');
-        else
-          $folge = mysql_query ("SELECT BeitragId
-                                 FROM Beitraege
-                                 WHERE BeitragTyp & 8 = 8
-                                   AND StrangId = $sid
-                                   AND BeitragId < $bid
-                                   $gesperrt
-                                 ORDER BY BeitragId DESC")
-          or die ('F0028: Anzahl der Folgebeitr&auml;ge konnte nicht ermittelt werden');
         $folgebeitraege = mysql_num_rows ($folge) - ($bjs - 1);
       }
     }
@@ -283,26 +255,16 @@
 
   // ... und dann holen wir auch noch die Beitraege die davor liegen
     $limit = $bjs * 5;
-    if ($ansicht == 't')
-      $erg = mysql_query ("SELECT BeitragId
-                           FROM Beitraege
-                           WHERE BeitragTyp & 8 = 8
-                             AND ThemaId = $tid
-                             AND BeitragId > $bid
-                             $gesperrt
-                           ORDER BY BeitragId DESC
-                           LIMIT $limit")
-        or die ('F0029: Die Beitr&auml;ge vor dem aktuellen konnten nicht ermittelt werden');
-    else
-      $erg = mysql_query ("SELECT BeitragId
-                           FROM Beitraege
-                           WHERE BeitragTyp & 8 = 8
-                             AND StrangId = $sid
-                             AND BeitragId > $bid
-                             $gesperrt
-                           ORDER BY BeitragId DESC
-                           LIMIT $limit")
-        or die ('F0030: Die Beitr&auml;ge vor dem aktuellen konnten nicht ermittelt werden');
+    $arg = $ansicht == 't' ? "ThemaId = $tid" : "StrangId = $sid";
+    $erg = mysql_query ("SELECT BeitragId
+                         FROM Beitraege
+                         WHERE BeitragTyp & 8 = 8
+                           AND $arg
+                           AND BeitragId > $bid
+                           $gesperrt
+                         ORDER BY BeitragId DESC
+                         LIMIT $limit")
+      or die ('F0029: Die Beitr&auml;ge vor dem aktuellen konnten nicht ermittelt werden');
 		       
     if (mysql_num_rows ($erg) > 0)
     {

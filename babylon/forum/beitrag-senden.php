@@ -69,8 +69,8 @@ if (isset ($_POST['vorschau']))
   
   $text = addslashes (beitrag_pharsen_ohne_smilies ($_POST['text']));
   mysql_query ("UPDATE Benutzer
-                SET Ablage=\"$text\"
-                WHERE BenutzerId=$BenutzerId")
+                SET Ablage = '$text'
+                WHERE BenutzerId = '$BenutzerId'")
     or die ("F0035: Zwischenablage fuer die Vorschau konnte nicht aktualisiert werden");
   $vorschau = 'j';
   $titel = substr (strip_tags ($_POST['titel']), 0, 50);
@@ -85,12 +85,7 @@ else if ($K_Egl)
 {
   $stempel = time ();
   // allen Muell raus
-  if ($K_Signatur != NULL)
-    $text = beitrag_pharsen ($_POST['text'] . "<br /><br />--<br />" . $K_Signatur);
-  else
-    $text = beitrag_pharsen ($_POST['text']);
-    // wir haben ein neues Thema
-  $text = addslashes ($text);
+  $text = addslashes (beitrag_pharsen ($_POST['text']));
 
 // VIEL ZU VIEL DATENBANKZUGRIFFE.....
 
@@ -101,9 +96,11 @@ else if ($K_Egl)
     // Thema anlegen
     $titel = addslashes (substr (strip_tags ($_POST['titel']), 0, 50));
     mysql_query ("INSERT INTO Beitraege (BeitragTyp, ForumId, Titel,
-                  NumBeitraege, Autor, StempelStart, StempelLetzter)
-                  VALUES (\"2\", \"$fid\", \"$titel\", \"0\", \"$Benutzer\",
-                  \"$stempel\", \"$stempel\")")
+                                         NumBeitraege, Autor, StempelStart,
+                                         StempelLetzter)
+                                 VALUES ('2', '$fid', '$titel',
+                                         '0', '$Benutzer', '$stempel',
+                                         '$stempel')")
       or die ('F003: Thema konnte nicht angelegt werden');
     $tid = mysql_insert_id ();
     mysql_query ("UPDATE Beitraege
@@ -114,11 +111,13 @@ else if ($K_Egl)
     $antwort_mail = isset ($_POST['antwort_mail']) ? 'j' : 'n';
     
     mysql_query ("INSERT INTO Beitraege (BeitragTyp, ForumId, ThemaId,
-                  NumBeitraege, Titel, Autor, AntwortMail, StempelStart,
-                  StempelLetzter, Inhalt)
-                  VALUES (\"12\", \"$fid\", \"$tid\", \"1\", \"$titel\",
-                  \"$Benutzer\", \"$antwort_mail\", \"$stempel\",
-                  \"$stempel\" ,\"$text\")")
+                                         NumBeitraege, Titel, Autor,
+                                         AntwortMail, StempelStart, StempelLetzter,
+                                         Inhalt)
+                                 VALUES ('12', '$fid', '$tid',
+                                         '1', '$titel', '$Benutzer',
+                                         '$antwort_mail', '$stempel', '$stempel',
+                                         '$text')")
       or die ('F005: Strang konnte nicht angelegt werden');
     $sid = mysql_insert_id ();
     mysql_query ("UPDATE Beitraege
@@ -127,11 +126,12 @@ else if ($K_Egl)
       or die ('F006: Strangzaehler konnte nicht aktuallisiert werden');
     mysql_query ("UPDATE Beitraege
                   SET NumBeitraege=NumBeitraege+1
-                  WHERE BeitragTyp = 1 AND ForumId=\"$fid\"")
+                  WHERE BeitragTyp = 1
+                    AND ForumId = '$fid'")
       or die ('F0020: Forum Beitragsz&auml;hler konnten nicht aktualisiert werden');
     mysql_query ("UPDATE Benutzer
-                SET Themen=Themen+1
-                WHERE BenutzerId=$BenutzerId")
+                  SET Themen = Themen+1
+                  WHERE BenutzerId = '$BenutzerId'")
     or die ('Themenzaehler konnte nicht aktuallisiert werden');
       
   }
@@ -162,41 +162,46 @@ else if ($K_Egl)
     // fuer diesen Beitrag gab es nocht keine Antwort
     if ($zeile[0] == 'n')
     {
-      mysql_query ("INSERT INTO Beitraege (BeitragTyp, ForumId, ThemaId, StrangId,
-                    Autor, AntwortMail, Titel, StempelStart, StempelLetzter, Eltern,
-                    Inhalt)
-                    VALUES (\"8\", \"$fid\", \"$tid\", \"$sid\",
-                    \"$Benutzer\", \"$antwort_mail\", \"$titel\", \"$stempel\",
-                    \"$stempel\", \"$eltern\", \"$text\")")
+      mysql_query ("INSERT INTO Beitraege (BeitragTyp, ForumId, ThemaId,
+                                           StrangId, Autor, AntwortMail,
+                                           Titel, StempelStart, StempelLetzter,
+                                           Eltern, Inhalt)
+                                   VALUES ('8', '$fid', '$tid',
+                                           '$sid', '$Benutzer', '$antwort_mail',
+                                           '$titel', '$stempel', '$stempel',
+                                           '$eltern', '$text')")
         or die ('F0010: Beitrag konnte nicht angelegt werden<br>' . mysql_error());
       $bid = mysql_insert_id ();
       mysql_query ("UPDATE Beitraege
                     SET NumBeitraege=NumBeitraege+1
-                    WHERE StrangId=\"$sid\" AND BeitragTyp & 4 = 4")
+                    WHERE StrangId = '$sid'
+                      AND BeitragTyp & 4 = 4")
         or die ('F0012: Z&auml;hler konnten nicht aktualisiert werden');
       mysql_query ("UPDATE Beitraege
-                    SET WeitereKinder='v'
-                    WHERE BeitragId=\"$eltern\"")
+                    SET WeitereKinder = 'v'
+                    WHERE BeitragId = '$eltern'")
         or die ('F0013: Z&auml;hler konnten nicht aktualisiert werden');
     }
     // es exestier bereits ein kind zu dem Eltern Satz
     else
     {
       mysql_query ("INSERT INTO Beitraege (BeitragTyp, ForumId, ThemaId,
-                    NumBeitraege, Autor, AntwortMail, Titel, StempelStart,
-                    StempelLetzter, Eltern, Inhalt)
-                    VALUES (\"12\", \"$fid\", \"$tid\", \"1\",
-                    \"$Benutzer\", \"$antwort_mail\",  \"$titel\",
-                    \"$stempel\", \"$stempel\", \"$eltern\", \"$text\")")
+                                           NumBeitraege, Autor, AntwortMail,
+                                           Titel, StempelStart, StempelLetzter,
+                                           Eltern, Inhalt)
+                                   VALUES ('12', '$fid', '$tid',
+                                           '1', '$Benutzer', '$antwort_mail',
+                                           '$titel', '$stempel', '$stempel',
+                                           '$eltern', '$text')")
         or die ('F0014: Beitrag konnte nicht angelegt werden');
       $bid = mysql_insert_id ();
        mysql_query ("UPDATE Beitraege
-                    SET StrangId=\"$bid\"
-                    WHERE BeitragId=\"$bid\"")
+                    SET StrangId = '$bid'
+                    WHERE BeitragId = '$bid'")
         or die ('F0016: Z&auml;hler konnten nicht aktualisiert werden');
       mysql_query ("UPDATE Beitraege
-                    SET WeitereKinder='j'
-                    WHERE BeitragId=\"$eltern\"")
+                    SET WeitereKinder = 'j'
+                    WHERE BeitragId = '$eltern'")
         or die ('F0017: Z&auml;hler konnten nicht aktualisiert werden');
     }
 
@@ -210,16 +215,20 @@ else if ($K_Egl)
   else
     die ('F0018: Der Beitrag konnte keinem Forum, keinem Thema, keinem Beitragsstrang oder keinem Beitrag als Antwort zugeordnet werden');
   mysql_query ("UPDATE Benutzer
-                SET Beitraege=Beitraege+1, LetzterBeitrag=\"$stempel\"
-                WHERE BenutzerId=$BenutzerId")
+                SET Beitraege = Beitraege+1,
+                  LetzterBeitrag = '$stempel'
+                WHERE BenutzerId = '$BenutzerId'")
     or die ('Beitragszaehler konnte nicht aktuallisiert werden');
     mysql_query ("UPDATE Beitraege
-                  SET StempelLetzter=\"$stempel\"
-                  WHERE BeitragTyp = 1 AND ForumId=\"$fid\"")
+                  SET StempelLetzter = '$stempel'
+                  WHERE BeitragTyp = 1
+                    AND ForumId = '$fid'")
       or die ('F0020: Forum, Datum des letzten Beitrags konnten nicht aktualisiert werden');
     mysql_query ("UPDATE Beitraege
-                  SET NumBeitraege=NumBeitraege+1, StempelLetzter=\"$stempel\", AutorLetzter = \"$Benutzer\"
-                  WHERE ThemaId=\"$tid\" AND BeitragTyp = 2")
+                  SET NumBeitraege = NumBeitraege+1,
+                    StempelLetzter = '$stempel',
+                    AutorLetzter = '$Benutzer'
+                  WHERE ThemaId = '$tid' AND BeitragTyp = 2")
       or die ('F0011: Z&auml;hler konnten nicht aktualisiert werden');
 
 mysql_close ($db);
