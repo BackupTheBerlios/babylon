@@ -64,7 +64,11 @@
   echo "    <title>$titel</title>
   </head>\n";
 
-  if (isset ($skript) && $skript == 'j'&& 1 << $fid & $K_Schreiben and $K_Egl and $neu)
+  if (isset ($skript) && $skript == 'j'
+      && 1 << $fid & $K_Schreiben
+      && $K_Egl
+      && $neu
+      && $_GET['vorschau'] != 'j')
     echo "<body onLoad=\"document.eform.titel.focus()\">\n";
   else
     echo "<body>\n";
