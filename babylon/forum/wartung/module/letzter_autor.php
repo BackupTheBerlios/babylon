@@ -1,14 +1,19 @@
 <?PHP;
+function letzter_autor_titel ()
+{
+  echo "Letzter Autor";
+}
+
 function letzter_autor_beschreibung ()
 {
   echo "Durchsucht alle Beitr&auml;ge und setzt f&uuml;r jedes Thema das Feld
- AutorLetzter auf den Wert des Autors der den letzten Beitrag verfasst hat.<p>
-
- Dies ist in der Regel nur beim Umstieg von einer alten Version notwendig.<p>
-
+ AutorLetzter auf den Wert des Autors der den letzten Beitrag verfasst hat.
+ Dies ist in der Regel nur beim Umstieg von einer alten Version notwendig.
  Ein wiederholter Aufruf verursacht allerdings auch keine Sch&auml;den";
 }
 
+function letzter_autor_wartung ()
+{
 // Standart Konfiguration. Man darf absolut nix ;-)
   $BenutzerId = -1;
   $K_Egl = FALSE;
@@ -21,9 +26,9 @@ function letzter_autor_beschreibung ()
   $K_SprungSpeichern = 0;
   $K_BaumZeigen = 'j';
 
-  include ("../../gemeinsam/db-verbinden.php");
-  include ("../../gemeinsam/benutzer-daten.php");
-  include_once ("../konf/konf.php");
+  include_once ("../../gemeinsam/db-verbinden.php");
+  include_once ("../../gemeinsam/benutzer-daten.php");
+  include ("../konf/konf.php");
 
   $db = db_verbinden ();    
   benutzer_daten_forum ($BenutzerId, $K_Egl, $K_Lesen, $K_Schreiben, $K_Admin,
@@ -66,4 +71,5 @@ function letzter_autor_beschreibung ()
   
     echo "gesetzt.<br>";
   }
+}
 ?>

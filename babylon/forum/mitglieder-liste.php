@@ -8,6 +8,8 @@
    GNU-GPL Version 2 zu nutzen und/oder modifizieren und/oder weiterzugeben.
    Lies die Datei COPYING fuer weitere Informationen hierzu. */
 
+  include_once ("konf/konf.php");
+  include ("wartung/wartung-info.php");
 
 // Standart Konfiguration. Man darf absolut nix ;-)
   $BenutzerId = -1;
@@ -45,8 +47,9 @@
 
   echo "  <title>Forum / Mitglieder</title>
 </head>
-<body>
-  <table width=\"100%\">\n";
+<body>";
+  wartung_ankuendigung ();
+  echo "    <table width=\"100%\">\n";
 
   $gehe_zu = "themen";
   leiste_oben ($K_Egl);

@@ -75,6 +75,8 @@ function strang_ausgeben (&$daten, $sid, $saetze, $tiefe, $m)
       }
     }
 }
+  include_once ("konf/konf.php");
+  include ("wartung/wartung-info.php");
 
   // Standart Konfiguration. Man darf absolut nix ;-)
   $BenutzerId = -1;
@@ -101,7 +103,6 @@ function strang_ausgeben (&$daten, $sid, $saetze, $tiefe, $m)
 
   include ("../gemeinsam/db-verbinden.php");
   include ("../gemeinsam/benutzer-daten.php");
-  include_once ("konf/konf.php");
   include ("leiste-oben.php");
 
   $K_Stil = $B_standart_stil;
@@ -121,6 +122,7 @@ function strang_ausgeben (&$daten, $sid, $saetze, $tiefe, $m)
 
   echo "<title>Forum / Beitr&auml;ge</title>
         </head><body>";
+  wartung_ankuendigung ();
 
   if (!((1 << $fid & $K_Lesen) or (1 << $fid & $B_leserecht)))
   {

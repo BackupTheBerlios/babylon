@@ -8,6 +8,9 @@
    GNU-GPL Version 2 zu nutzen und/oder modifizieren und/oder weiterzugeben.
    Lies die Datei COPYING fuer weitere Informationen hierzu. */
 
+  include_once ("konf/konf.php");
+  include ("wartung/wartung-info.php");
+
 // Standart Konfiguration. Man darf absolut nix ;-)
   $BenutzerId = -1;
   $Benutzer = "";
@@ -34,7 +37,6 @@
   include ("../gemeinsam/db-verbinden.php");
   include ("../gemeinsam/benutzer-daten.php");
   include ("../gemeinsam/msie.php");
-  include_once ("konf/konf.php");
   $msiepng = msie_png();
   include ("leiste-oben.php");
 
@@ -59,6 +61,7 @@
   echo "    <title>Forum / Themen</title>
   </head>
   <body>\n";
+  wartung_ankuendigung ();
 
   if (!((1 << $fid & $K_Lesen) or (1 << $fid & $B_leserecht)))
   {

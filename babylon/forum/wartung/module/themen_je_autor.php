@@ -1,13 +1,18 @@
 <?PHP;
+function themen_je_autor_titel ()
+{
+  echo "Themen je Autor";
+}
+
 function themen_je_autor_beschreibung ()
 {
-  echo "Aktualisiert die Anzahl Themen die ein Autor verfasst hat<p>
-
- Dies ist in der Regel nur beim Umstieg von einer alten Version notwendig.<p>
-
+  echo "Aktualisiert die Anzahl Themen die ein Autor verfasst hat
+ Dies ist in der Regel nur beim Umstieg von einer alten Version notwendig.
  Ein wiederholter Aufruf verursacht allerdings auch keine Sch&auml;den";
 }
 
+function themen_je_autor_wartung ()
+{
 // Standart Konfiguration. Man darf absolut nix ;-)
   $BenutzerId = -1;
   $K_Egl = FALSE;
@@ -20,12 +25,12 @@ function themen_je_autor_beschreibung ()
   $K_SprungSpeichern = 0;
   $K_BaumZeigen = 'j';
 
-  include ("../../gemeinsam/db-verbinden.php");
-  include ("../../gemeinsam/benutzer-daten.php");
-  include_once ("../konf/konf.php");
+  include_once ("../../gemeinsam/db-verbinden.php");
+  include_once ("../../gemeinsam/benutzer-daten.php");
+  include ("../konf/konf.php");
 
   $db = db_verbinden ();    
-  benutzer_daten_forum ($BenutzerId, $K_Egl, $K_Lesen, $K_Schreiben, $K_Admin,
+  benutzer_daten_forum ($BenutzerId, $Benutzer, $K_Egl, $K_Lesen, $K_Schreiben, $K_Admin,
                         $K_AdminForen, $K_ThemenJeSeite, $K_BeitraegeJeSeite,
                         $K_Stil,  $K_Signatur, $K_SprungSpeichern, $K_BaumZeigen);
 
@@ -62,4 +67,5 @@ function themen_je_autor_beschreibung ()
   
     echo "gesetzt.<br>";
   }
+}
 ?>

@@ -6,24 +6,28 @@ function konf_schreiben ($var, $wert)
   if (!$K_AdminForen)
     die ("Zugriff verweigert");
 
-  $fd = fopen ("../konf/konf-test.php", "r+");
+  $fd = fopen ("../konf/konf.php", "r+");
 
   $pos = 0;
+  $gefunden = FALSE;
 
-  while ($zeile = fgets ($fd, 300))
+  while ($zeile = fgets ($fd, 1000))
   {
-    echo "$zeile<br>";
-    if (!strpos ($zeile, $var))
+    $pat =  "/.$var\s?=\s?\d+;.*/";
+    if (preg_match ($pat, $zeile))
+    {
+      $gefunden = TRUE;
       break;
+    }
     $pos = ftell ($fd);
   }
-  if (!isset ($zeile))
+  
+  if (!$gefunden)
     die ("Zu schreibende Variable konnte in der Konfigurationsdatei nicht gefunden werden.");
 
-  $pos -= strlen ($zeile);
   fseek ($fd, $pos);
-  
-  $zeile = "$var = $wert";
+  $zeile = "\$$var = $wert;";
+  $zeile = str_pad ($zeile, 63, ' ');
   fputs ($fd, $zeile);
   fclose ($fd);
 }

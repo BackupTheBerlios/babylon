@@ -6,6 +6,9 @@
    GNU-GPL Version 2 zu nutzen und/oder modifizieren und/oder weiterzugeben.
    Lies die Datei COPYING fuer weitere Informationen hierzu. */
 
+  include_once ("konf/konf.php");
+  include ("wartung/wartung-info.php");
+  
 // Standart Konfiguration. Man darf absolut nix ;-)
 $BenutzerId = -1;
 $K_Egl = FALSE;
@@ -28,7 +31,6 @@ $neu = FALSE;
 
 include ("../gemeinsam/db-verbinden.php");
 include ("../gemeinsam/benutzer-daten.php");
-include ("konf/konf.php");
 
 $db = db_verbinden ();
 benutzer_daten_forum ($BenutzerId, $Benutzer, $K_Egl, $K_Lesen, $K_Schreiben, $K_Admin,
@@ -42,8 +44,11 @@ if ($K_Schreiben == 0){
   <link href=\"/forum/stil/std.css\" rel=\"stylesheet\" type=\"text/css\">
   <title>$B_seitentitel_start / Forum Anmeldung</title>
 </head>
-<body>
-  <h2>Anmelden</h2>\n
+<body>";
+
+wartung_ankuendigung ();
+
+echo "  <h2>Anmelden</h2>\n
   <table>
     <form action=\"anmelden-test.php\" method=\"post\">
       <tr>

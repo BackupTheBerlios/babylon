@@ -17,23 +17,25 @@
   include ("konf-schreiben.php");
   
   $db = db_verbinden ();    
-  benutzer_daten_forum ($BenutzerId, $K_Egl, $K_Lesen, $K_Schreiben, $K_Admin,
+  benutzer_daten_forum ($BenutzerId, $Benutzer, $K_Egl, $K_Lesen, $K_Schreiben, $K_Admin,
                         $K_AdminForen, $K_ThemenJeSeite, $K_BeitraegeJeSeite,
                         $K_Stil,  $K_Signatur, $K_SprungSpeichern, $K_BaumZeigen);
 
   if (!$K_AdminForen)
     die ("Zugriff verweigert");
 
-  $start = intval ($_POST[start]);
-  $dauer = intval ($_POST[dauer]);
-  
+  $start = intval ($_POST[start]) * 60;
+  $dauer = intval ($_POST[dauer]) * 60;
+
   if ($dauer <= 2)
     $dauer *= 60;
 
   $stempel = time ();
   $start += $stempel;
-  $ende += ($stempel + $dauer);
+  $ende = $start + $dauer;
 
-  konf_schreiben ('$B_wartung_ende', $start);
-  konf_schreiben ('$B_wartung_start', $ende);
+  konf_schreiben ('B_wartung_start', $start);
+  konf_schreiben ('B_wartung_ende', $ende);
+  $zu = 'wartung';
+  include ("gehe-zu.php");
 ?>
