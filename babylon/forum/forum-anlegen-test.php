@@ -32,7 +32,7 @@
   $inhalt = addslashes ($_POST['inhalt']);
  
   if ($forum_id < 0 or $forum_id > 30)
-    die ('Illegaler Forumindex')
+    die ('Illegaler Forumindex');
  
   mysql_query ("UPDATE Beitraege
                 SET Gesperrt='n', Titel=\"$titel\", Inhalt=\"$inhalt\"
