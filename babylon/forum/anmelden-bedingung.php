@@ -29,7 +29,7 @@ echo "  <img src=\"/grafik/dummy.png\" width=\"1\" height=\"40\" border=\"0\" al
         <input type=\"checkbox\" name=\"gelesen\">Ich habe die kompletten Bedingungen gelesen</input><p>
         <input type=\"checkbox\" name=\"verstanden\">Ich habe den Inhalt der Bedingungen verstanden</input><p>
         <input type=\"checkbox\" name=\"zustimmen\">Ich stimme dem Bedingungen zu</input><p>
-        <button name=\"gehe_zu\" value=\"$_POST['gehe_zu']\"><img src=\"/grafik/PfeilRechts$msiepng.png\" width=\"24\" height=\"24\" alt=\"\">Weiter</button>
+        <button name=\"gehe_zu\" value=\"$_POST[gehe_zu]\"><img src=\"/grafik/PfeilRechts$msiepng.png\" width=\"24\" height=\"24\" alt=\"\">Weiter</button>
       </td>
     </tr>
   </table>

@@ -54,7 +54,7 @@ echo "  <h2>Anmelden</h2>\n
       </tr>
       <tr>
         <td>Benutzername</td>
-        <td><input name=\"benutzer\" type=\"text\" size=\"30\" maxlength=\"32\" value=\"$_POST['benutzer']\"></td>
+        <td><input name=\"benutzer\" type=\"text\" size=\"30\" maxlength=\"32\" value=\"$_POST[benutzer]\"></td>
       </tr>
       <tr>
         <td>Passwort</td>
@@ -72,21 +72,21 @@ echo "  <h2>Anmelden</h2>\n
       <tr/>
       <tr>
         <td>E-mail</td>
-        <td><input name=\"email\" type=\"text\" size=\"30\" maxlength=\"255\" value=\"$_POST['email']\"></td>
+        <td><input name=\"email\" type=\"text\" size=\"30\" maxlength=\"255\" value=\"$_POST[email]\"></td>
       </tr>
       <tr>
         <td>Vor- / Nachname</td>
-        <td><input name=\"vname\" type=\"text\" size=\"30\" maxlength=\"32\" value=\"$_POST['vname']\"><input name=\"nname\" type=\"text\" size=\"30\" maxlength=\"32\" value=\"$_POST['nname']\"><p></td>
+        <td><input name=\"vname\" type=\"text\" size=\"30\" maxlength=\"32\" value=\"$_POST[vname]\"><input name=\"nname\" type=\"text\" size=\"30\" maxlength=\"32\" value=\"$_POST[nname]\"><p></td>
       </tr>
       <tr>
         <td colspan=\"2\">&nbsp;<p></td>
       </tr>
       <tr>
         <td>
-          <button name=\"gehe_zu\" value=\"$_POST['gehe_zu']\"><img src=\"/grafik/PenWrite.png\" width=\"24\" height=\"24\" alt=\"\">Anmelden</button>
+          <button name=\"gehe_zu\" value=\"$_POST[gehe_zu]\"><img src=\"/grafik/PenWrite.png\" width=\"24\" height=\"24\" alt=\"\">Anmelden</button>
         </td>
         <td>
-          <input type=\"hidden\" name=\"param\" value=\"$_POST['param']\"></input>
+          <input type=\"hidden\" name=\"param\" value=\"$_POST[param]\"></input>
         </td>
       </tr>
       <tr>
