@@ -73,7 +73,7 @@ if (isset ($_POST['vorschau']))
                 WHERE BenutzerId=$BenutzerId")
     or die ("F0035: Zwischenablage fuer die Vorschau konnte nicht aktualisiert werden");
   $vorschau = 'ja';
-  $titel = addslashes (strip_tags ($_POST['titel']));
+  $titel = addslashes (substr (strip_tags ($_POST['titel']), 0, 50));
   include ('gz-beitraege.php');
 }
 else if (isset ($_POST['zid']))
@@ -158,7 +158,7 @@ else if ($K_Egl)
                     VALUES (\"8\", \"$fid\", \"$tid\", \"$sid\",
                     \"$Benutzer\", \"$titel\", \"$stempel\", \"$stempel\",
                     \"$eltern\", \"$text\")")
-        or die ('F0010: Beitrag konnte nicht angelegt werden');
+        or die ('F0010: Beitrag konnte nicht angelegt werden<br>' . mysql_error());
       $bid = mysql_insert_id ();
       mysql_query ("UPDATE Beitraege
                     SET NumBeitraege=NumBeitraege+1
