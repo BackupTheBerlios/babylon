@@ -10,23 +10,25 @@
    GNU-GPL Version 2 zu nutzen und/oder modifizieren und/oder weiterzugeben.
    Lies die Datei COPYING fuer weitere Informationen hierzu. */
 
-if (isset ($vorschau) and strcmp ($vorschau, "ja") == 0)
+if (isset ($vorschau) and $vorschau == 'j')
   $vb = "#vorschau_bereich";
 else
-  $gz = "";
-if (isset ($zid))
-  $textarea = "#textarea";
+{
+  $vb = '';
+  if (isset ($zid))
+    $textarea = "#textarea";
+}
 
 echo "<script type=\"text/javascript\">
       <!--
-      window.location.href = \"beitraege.php?fid=$fid&tid=$tid&sid=$sid&bid=$bid&zid=$zid&titel=$titel&vorschau=$vorschau&neu=$neu$textarea\";
+      window.location.href = \"beitraege.php?fid=$fid&tid=$tid&sid=$sid&bid=$bid&zid=$zid&titel=$titel&vorschau=$vorschau&neu=$neu$vb$textarea\";
       //-->
       </script>
       
       <noscript>
-      <meta http-equiv=\"refresh\" content=\"0; URL=beitraege.php?fid=$fid&tid=$tid&sid=$sid&bid=$bid&zid=$zid&titel=$titel&vorschau=$vorschau&neu=$neu$textarea\">
+      <meta http-equiv=\"refresh\" content=\"0; URL=beitraege.php?fid=$fid&tid=$tid&sid=$sid&bid=$bid&zid=$zid&titel=$titel&vorschau=$vorschau&neu=$neu$vb$textarea\">
       <title></title></head><body>
-      <a href=\"beitraege.php?fid=$fid&tid=$tid&sid=$sid&bid=$bid&zid=$zid&titel=$titel&vorschau=$vorschau&neu=$neu$textarea\">Weiter...</a>
+      <a href=\"beitraege.php?fid=$fid&tid=$tid&sid=$sid&bid=$bid&zid=$zid&titel=$titel&vorschau=$vorschau&neu=$neu$vb$textarea\">Weiter...</a>
       </noscript>";      
 ?>
 </body>

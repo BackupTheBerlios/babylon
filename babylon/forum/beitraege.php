@@ -334,26 +334,11 @@
 //  # Die Vorschau #
 //  ################
 
-        if (isset ($_GET['vorschau']) and strcmp($_GET['vorschau'], 'ja') == 0)
+        if (isset ($_GET['vorschau']) and $_GET['vorschau'] == 'j')
         {
-          $erg = mysql_query ("SELECT Ablage
-                               FROM Benutzer
-                               WHERE BenutzerId = $BenutzerId")
-            or die ('F0031: Zwischenablage konnte nicht gelesen werden');
-          $zeile = mysql_fetch_row ($erg);
-        
-          echo '        <tr>
-          <td>
-            <table width="100%" border="1" cellpadding="10">
-              <tr>
-                <td background="/grafik/vorschau-hintergrund.png" width="100%" class="vorschau">';
-          echo beitrag_pharsen_smilies ($zeile[0]);
-          echo '                </td>
-              </tr>
-            </table><br>
-            <img src="/grafik/dummy.png" width="18" height="1" border="0" alt="">
-          </td>
-        </tr>';
+          include ('beitraege-vorschau.php');
+          $vorschau_inhalt = beitrag_vorschau_inhalt ($BenutzerId);
+          beitrag_vorschau ($vorschau_inhalt);
         }
 
 
@@ -382,11 +367,8 @@
               <tr>
                 <td>
                   <a name="textarea"></a>';
-        if (isset ($_GET['vorschau']) and (strcmp ($_GET['vorschau'], 'ja') == 0))
-        {
-          $vorschau = str_replace ("<br />", "\n", $zeile[0]);
-          echo "                  <textarea name=\"text\" cols=\"80\" rows=\"12\"\">$vorschau</textarea><p>\n";
-        }
+        if (isset ($_GET['vorschau']) and $_GET['vorschau'] == 'j')
+          beitrag_vorschau_textarea ($vorschau_inhalt);
         else
         {
           echo '                  <textarea name="text" cols="80" rows="12">';
@@ -419,7 +401,6 @@
                 </td>
               </tr>
             </table>
-            <a name=\"vorschau_bereich\"></a>
             <tr>
               <td>
                 <table>
@@ -452,7 +433,7 @@
                echo '                      <input type="hidden" name="neu" value="1">'; 
              echo "                    </td>
                           <td>
-                            <button type=\"submit\" name=\"vorschau\" value=\"ja\" accesskey=\"v\">
+                            <button type=\"submit\" name=\"vorschau\" value=\"j\" accesskey=\"v\">
                               <table>
                                 <tr>
                                   <td>

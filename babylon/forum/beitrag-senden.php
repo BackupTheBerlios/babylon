@@ -72,7 +72,7 @@ if (isset ($_POST['vorschau']))
                 SET Ablage=\"$text\"
                 WHERE BenutzerId=$BenutzerId")
     or die ("F0035: Zwischenablage fuer die Vorschau konnte nicht aktualisiert werden");
-  $vorschau = 'ja';
+  $vorschau = 'j';
   $titel = addslashes (substr (strip_tags ($_POST['titel']), 0, 50));
   include ('gz-beitraege.php');
 }
