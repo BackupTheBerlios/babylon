@@ -150,8 +150,20 @@
           $zitat_stempel = $zeile[2];
           $zitat_inhalt = $zeile[3];
         }
-        $atavar_datei = "atavar/$BenutzerId.jpg";
-        $atavar = (is_readable ($atavar_datei)) ? $BenutzerId : '-1';
+
+        $erg = mysql_query ("SELECT BenutzerId
+                             FROM Benutzer
+                             WHERE Benutzer = \"$zeile[1]\"")
+          or die ("Es konnte die BenutzerId des Benutzers fuer den Atavar nicht ermittelt werden");
+        if (mysql_num_rows ($erg) == 1)
+        {
+          $atavar_zeile = mysql_fetch_row ($erg);
+          $atavar_datei = "atavar/$atavar_zeile[0].jpg";
+          $atavar = (is_readable ($atavar_datei)) ? $atavar_zeile[0] : '-1';
+        }
+        else
+          $atavar = -1;
+
         $inhalt = stripslashes ($zeile[3]);
           
         zeichne_beitrag ($erster, $fid, $zeile[0], $zeile[1], $zeile[2], $thema, $inhalt, $K_Egl, $atavar);
