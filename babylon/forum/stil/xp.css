@@ -12,14 +12,24 @@ h1,h2,h3,h4,h5,h6,sub {
   color: #BF8649;
 }
 
-table.thema {
+table.themen {
+  width: 100%;
   padding: 3px;
-  border-width: 1px;
+  border: 3px;
   border-spacing: 0px;
   border: 1px solid #8888aa;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+table.beitraege {
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 table.beitrag {
+  width: 100%;
   padding: 3px;
   border-width: 1px;
   border-spacing: 0px;

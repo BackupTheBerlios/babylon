@@ -69,17 +69,37 @@ img.stil_auswahl {
   border-style: inset;
 }
 
+table.thema {
+  width: 100%;
+  border-spacing: 0px;
+  border: 1px solid #888888;
+}
+
+table.themen {
+  width: 100%;
+  border-spacing: 0px;
+  border: 0px solid #888888;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+table.beitraege {
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
 table.beitrag {
-  padding: 0px;
-  border-width: 1px;
+  width: 100%;
   border-spacing: 0px;
   border: 1px solid #888888;
   margin-top: 10px;
 }
 
 td.col-dunkel {
-  background-color: #eeeeee;
-  border-top: 1px solid #eeeeee;
+  background-color: #dddddd;
+  border-top: 1px solid #dddddd;
+  padding: 3px;
 }
 
 td.col-hell {

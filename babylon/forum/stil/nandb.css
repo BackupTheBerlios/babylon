@@ -31,11 +31,18 @@ button {
   font-weight: bold;
 }
 
-table.beitrag {
-  padding: 0px;
-  border-width: 1px;
+table.themen {
+  width: 100%;
   border-spacing: 0px;
-  border: 1px solid #000000;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+table.beitraege {
+  width: 100%;
+  padding: 0px;
+  border-spacing: 0px;
+  border: 0px solid #000000;
   margin-top: 10px;
 }
 

@@ -77,6 +77,14 @@ img.stil_auswahl {
   border-style: inset;
 }
 
+table.themen {
+  width: 100%;
+}
+
+table.beitraege {
+  width: 100%;
+}
+
 table.beitrag {
   padding: 3px;
   border-width: 1px;
