@@ -34,7 +34,7 @@ if (isset ($_POST[speichern]))
   if (!$K_Egl)
     die ("Zugriff verweigert");
 
-  if (isset ($_FILES[atavar]))
+  if (!empty ($_FILES[atavar][tmp_name]))
   {
     $datei = $_FILES[atavar][tmp_name];
     $groesse = $_FILES[atavar][size];
@@ -50,7 +50,7 @@ if (isset ($_POST[speichern]))
   else
   {
     $ATAVAR = 'n';
-    if (isset ($_FILES[atavar]))
+    if (!empty ($_FILES[atavar][tmp_name]))
     { 
        $datei = $_FILES[atavar][tmp_name];
        if (!move_uploaded_file ($datei, "atavar/$BenutzerId.jpg"))
