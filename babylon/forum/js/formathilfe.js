@@ -1,6 +1,10 @@
 function _einfuegen (text, cursor)
 {
   var feld = document.getElementsByName("text")[0]
+  var top = 0;
+  
+  if (typeof feld.scrollTop != 'undefined')
+    top = feld.scrollTop;
 
   if (typeof feld.selectionStart != 'undefined' &&
       feld.selectionStart != '0')
@@ -20,9 +24,8 @@ function _einfuegen (text, cursor)
   
   feld.focus();
 
-  if (typeof feld.scrollTop != 'undefined' &&
-      typeof feld.scrollHeight != 'undefined')
-    feld.scrollTop = feld.scrollHeight;
+  if (typeof feld.scrollTop != 'undefined')
+    feld.scrollTop = top;
 }
 
 formate = new Array (2);
