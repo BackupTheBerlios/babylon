@@ -13,7 +13,7 @@ function konf_schreiben ($var, $wert)
 
   while ($zeile = fgets ($fd, 1000))
   {
-    $pat =  "/.$var\s?=\s?\d+;.*/";
+    $pat =  "/^.$var\s?=\s?\d+;.*/";
     if (preg_match ($pat, $zeile))
     {
       $gefunden = TRUE;
