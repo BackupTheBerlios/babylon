@@ -83,9 +83,7 @@
         </tr>";
     }
   } 
-/*   echo "          </table>
-        </td>
-      </tr>\n";*/
+  echo "          </table>\n";
 
    $limit = $tjs * 6;
   // wir holen die Themen nach dem gewuenschten Satz, fuer die Seitenumschalter;
@@ -156,8 +154,7 @@
   // die Seitenauswahl
     if ($saetze > $tjs)
   {
-    echo "      <tr align=\"center\">
-        <td>\n";
+    echo "      <div align=\"center\">\n";
 
     $seiten = ceil ($saetze/ $tjs);
     $aktuelle_seite = floor(($saetze - $folgethemen - 1) / $tjs) + 1;
@@ -190,18 +187,26 @@
       if ($folgethemen > $tjs * 5)
         echo '...';
     }
+    echo "</div>\n";
   }
   // das wars mit den Themen...
 
   
-  echo "        </td>
-      </tr>
-    </table>\n";
   if ($K_Egl)
   {
     echo "    <form action=\"beitraege.php\" method=\"post\">
-      <button name=\"neu\" value=\"1\">
-        <img src=\"/grafik/Typewriter$msiepng.png\" width=\"24\" height=\"24\" alt=\"\">Neues Thema
+      <button type=\"submit\" name=\"neu\" value=\"1\" accesskey=\"t\">
+        <table>
+          <tr>
+            <td>
+              <img src=\"/grafik/Typewriter$msiepng.png\" width=\"24\" height=\"24\" alt=\"\">
+            </td>
+            <td>
+              Neues&nbsp;Thema<br>
+              <font size=\"-4\">(Alt+t)</font>
+            </td>
+          </tr>
+        </table>
       </button>
       <input type=\"hidden\" name=\"fid\" value=\"$fid\">
     </form>\n";
