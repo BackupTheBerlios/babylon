@@ -45,34 +45,61 @@
     
     if ($neu == FALSE)
     {
-      $arg = $ansicht == 't' ? "ThemaId = '$tid' AND BeitragTyp = 2" : "StrangId = '$sid' AND BeitragTyp & 4 = 4";
+      $bjs = $K_BeitraegeJeSeite;
       $gesperrt = $K_Admin & 1 << $fid ? '' : "AND Gesperrt  = 'n'";
+      $arg = $ansicht == 't' ? "ThemaId = $tid" : "StrangId = $sid";
+      $erg = mysql_query ("SELECT BeitragId
+                           FROM Beitraege
+                           WHERE BeitragTyp & 8 = 8
+                             AND $arg
+                             $gesperrt
+                           ORDER BY BeitragId DESC")
+        or die ('F0025: BeitragIds f&uuml;r die Seitenumschalter konnten nicht geholt werden');
 
-      $erg = mysql_query ("SELECT Titel, NumBeitraege
+      $saetze = mysql_num_rows ($erg);
+      $bids = array();
+      while ($zeile = mysql_fetch_row ($erg))
+        $bids[] = $zeile[0];
+      reset ($bids);
+
+      // Wir extrahieren die bids von den Beitraegen die wir darstellen wollen
+      if ($bid == -1)
+        $beitraege = array_slice ($bids, 0, $bjs);
+      else
+      {
+       $i = 0;
+        while ($val = current ($bids))
+        {
+          if ($val == $bid)
+            break;
+          next ($bids);
+          $i++;
+        }
+        if ($val != $bid)
+          die ('Illegale bid uebergeben');
+        // wir wollen immer auf saubere Seitengrenzen springen
+        $akt_seite = intval (floor ($i / $bjs));
+        $i = $akt_seite * $bjs;
+        $beitraege = array_slice ($bids, $i, $bjs);
+      }
+
+      $erg = mysql_query ("SELECT Titel
                            FROM Beitraege
                            WHERE $arg $gesperrt")
-          or die ('F0021: Beitragszahl konnte nicht ermittelt werden');
+          or die ('F0021: Titel konnte nicht ermittelt werden');
 
       $zeile = mysql_fetch_row ($erg);
-      $saetze = $zeile[1];
       $thema = stripslashes ($zeile[0]);
       
-      $bjs = $K_BeitraegeJeSeite;
-
       $bid_sprung = $bid;
-    // wir kommen direkt aus den Themen und setzend die tid auf 2^31 -1;
-    // so gehen wir bestimmt hinter den letzten satz
-       if ($bid == -1)
-           $bid = 0xffffffff;
-
+      $bids_holen = implode (' OR BeitragId = ', $beitraege);
       $arg = $ansicht == 't' ? "ThemaId = $tid " : "StrangId = $sid";
       $beitraege = mysql_query ("SELECT BeitragId, Autor, StempelLetzter, Inhalt, Gesperrt
                                  FROM Beitraege
                                  WHERE $arg
                                    AND BeitragTyp & 8 = 8
-                                   AND BeitragId <= $bid
-                                   $gesperrt
-                                 ORDER BY BeitragId DESC LIMIT $bjs")
+                                   AND (BeitragId = $bids_holen)
+                                 ORDER BY BeitragId DESC")
         or die ('F0023: Beitr&auml;ge konnten nicht gelesen werden');
 
       $erster = TRUE;
@@ -131,132 +158,43 @@
       }
     }
     echo "    </table>\n";
- 
-    $limit = $bjs * 6;
-  // wir holen die Beitraege nach dem gewuenschten Satz, fuer die Seitenumschalter;
-  // ausreichend fuer 5 Seiten ...
-    $arg = $ansicht == 't' ? "ThemaId = $tid" : "StrangId = $sid";
-    $erg = mysql_query ("SELECT BeitragId
-                         FROM Beitraege
-                         WHERE BeitragTyp & 8 = 8
-                           AND $arg
-                           AND BeitragId <=$bid
-                           $gesperrt
-                         ORDER BY BeitragId DESC
-                         LIMIT $limit")
-      or die ('F0025: BeitragIds f&uuml;r die Seitenumschalter konnten nicht geholt werden');
 
-    $zeilen = mysql_num_rows ($erg);
-    if ($zeilen > $bjs)
-    {
-    // wir ueberlesen den kompletten ersten satz daten, da sie ja schon dargestellt sind
-      for ($i = 0; $i < $bjs; $i++)
-        mysql_fetch_row ($erg);
-      $i = 0;
-      $n = 0;
-      while ($zeile = mysql_fetch_row ($erg))
-      {
-        if (($i % $bjs) == 0)
-        {
-          $bids_nach[$n] = $zeile[0];
-          $n++;
-        }
-        $i++;
-      }
-      if ($zeilen < $limit)
-        $folgebeitraege = $zeilen - ($bjs - 1);
-      else
-      {
-        $arg = $ansicht == 't' ? "ThemaId = $tid" : "StrangId = $sid";
-        $folge = mysql_query ("SELECT BeitragId
-                               FROM Beitraege
-                               WHERE BeitragTyp & 8 = 8
-                                 AND $arg
-                                 AND BeitragId < $bid
-                                 $gesperrt
-                               ORDER BY BeitragId DESC")
-          or die ('F0027: Anzahl der Folgebeitr&auml;ge konnte nicht ermittelt werden');
-        $folgebeitraege = mysql_num_rows ($folge) - ($bjs - 1);
-      }
-    }
-    else
-      $folgebeitraege = 0;
 
-  // ... und dann holen wir auch noch die Beitraege die davor liegen
-    $limit = $bjs * 5;
-    $arg = $ansicht == 't' ? "ThemaId = $tid" : "StrangId = $sid";
-    $erg = mysql_query ("SELECT BeitragId
-                         FROM Beitraege
-                         WHERE BeitragTyp & 8 = 8
-                           AND $arg
-                           AND BeitragId > $bid
-                           $gesperrt
-                         ORDER BY BeitragId DESC
-                         LIMIT $limit")
-      or die ('F0029: Die Beitr&auml;ge vor dem aktuellen konnten nicht ermittelt werden');
-		       
-    if (mysql_num_rows ($erg) > 0)
-    {
-      $i = 0;
-      $n = 0;
-      while ($zeile = mysql_fetch_row ($erg))
-      {
-        if ($i % $bjs == 0)
-        {
-          $bids_vor[$n] = $zeile[0];
-          $n++;
-        }
-        $i++;
-      }
-    }
 //  #####################
 //  # die Seitenauswahl #
 //  #####################
 
-    echo "    <table width=\"100%\">
-      <tr align=\"center\">
-        <td colspan=\"3\">\n";
-
     if ($saetze > $bjs)
     {
-      $seiten = ceil ($saetze/ $bjs);
-      $aktuelle_seite = floor(($saetze - $folgebeitraege - 1) / $bjs) + 1;
-
-      if (isset ($bids_vor))
+      echo "<div align=\"center\">";
+      $seiten = ceil ($saetze / $bjs);
+      $vor = max ($akt_seite - 5, 0);
+      $nach = min ($akt_seite + 6, $seiten);
+     
+      if ($vor > 0)
+        echo '... ';
+      for ($x = $vor; $x < $akt_seite; $x++)
       {
-        if (($saetze - $folgebeitraege - $bjs) > $bjs * 5)
-          echo '...';
-    
-        $seiten_vor = sizeof ($bids_vor);
-        $i = $aktuelle_seite - $seiten_vor;
-        foreach ($bids_vor as $bids)
-        {
-          echo"&nbsp;<a href=\"beitraege.php?fid=$fid&amp;tid=$tid&amp;sid=$sid&amp;bid=$bids\">$i</a>&nbsp;";
-          $i++;
-        }
+        $i = $x * $bjs;
+        $j = $x +1;
+        echo"&nbsp;<a href=\"beitraege.php?fid=$fid&amp;tid=$tid&amp;sid=$sid&amp;bid=$bids[$i]\">$j</a>&nbsp;";
       }
-
-      echo "$aktuelle_seite ";
-    
-      if (isset ($bids_nach))
-      {    
-        $i = $aktuelle_seite + 1;
-        foreach ($bids_nach as $bids)
-        {
-          echo"&nbsp;<a href=\"beitraege.php?fid=$fid&amp;tid=$tid&amp;sid=$sid&amp;bid=$bids\">$i</a>&nbsp;";
-          $i++;
-        }
-
-        if ($folgebeitraege > $bjs * 5)
-          echo '...';
+      $i = $akt_seite + 1;
+      echo "<b>$i</b> ";
+      for ($x = $akt_seite + 1; $x < $nach; $x++)
+      {
+        $i = $x * $bjs;
+        $j = $x +1;
+        echo"&nbsp;<a href=\"beitraege.php?fid=$fid&amp;tid=$tid&amp;sid=$sid&amp;bid=$bids[$i]\">$j</a>&nbsp;";
       }
+      if ($nach < $seiten)
+        echo ' ...';
+ 
+      echo "</div>\n";
     }
-  // das wars mit den Beitraegen...
 
-    echo "\n        </td>
-      </tr>
-    </table>\n";
-    
+
+
     if (1 << $fid & $K_Schreiben and $K_Egl)
     {
       if (isset ($tid) == FALSE and $neu == FALSE)
