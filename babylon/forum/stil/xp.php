@@ -78,10 +78,16 @@ function zeichne_beitrag ($erster, $ForumId, $BeitragId, $Autor, $StempelLetzter
   $datum = strftime ("%d.%b.%Y", $StempelLetzter);
   $zeit = date ("H.i:s", $StempelLetzter);
 
+  if ($erster)
+    echo "      <table class=\"beitrag\" width=\"100%\">
+            <tr>
+              <th class=\"ueber\" align=\"center\">$Thema</th>
+            </tr>";
+
   echo "       <table class=\"beitrag\" width=\"100%\">
             <tr>
-              <th class=\"ueber\" align=\"left\" colspan=\"2\"><a href=\"mitglieder-profil.php?alias=$Autor\">$Autor</a></td>
-              <th class=\"ueber\" align=\"right\">$datum $zeit</td>
+              <th class=\"ueber\" align=\"left\" colspan=\"2\"><a href=\"mitglieder-profil.php?alias=$Autor\">$Autor</a></th>
+              <th class=\"ueber\" align=\"right\">$datum $zeit</th>
             </tr>
             <tr>";
   if ($Atavar > -1)
