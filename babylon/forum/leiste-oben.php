@@ -9,7 +9,7 @@
 function leiste_oben ($egl, $startseite_link)
 {
   $startseite_link = htmlentities (stripslashes ($startseite_link));
-  echo "    <table width=\"100%\">
+  echo "    <table width=\"100%\" class=\"leiste-oben\">
       <tr>
         <td align=\"left\" style=\"width:100%\">
           <table width=\"100%\">\n";
