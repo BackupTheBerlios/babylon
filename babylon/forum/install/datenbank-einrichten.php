@@ -20,7 +20,7 @@ function datenbank_auswaehlen ($dbname)
   echo 'Datenbank ausw&auml;hlen... ';
 
   mysql_select_db ($dbname)
-    or die ('Die Auswahl der Datenbank ist fehl geschlagen');
+    or die ("Die Auswahl der Datenbank $dbname ist fehl geschlagen");
 
   echo 'OK<br>';
 }
@@ -79,7 +79,7 @@ if (! (isset ($_POST['datenbank']) && strcmp ($_POST['datenbank'], 'vorhanden') 
   }
 
   $dbname = $_POST['dbname'];
-  $host =$_POST['host'];
+  $host = $_POST['host'];
   $benutzer = $_POST['benutzer'];
   $passwort = $_POST['passwort'];
     
@@ -114,9 +114,9 @@ if (! (isset ($_POST['datenbank']) && strcmp ($_POST['datenbank'], 'vorhanden') 
     echo 'OK<br>';
 }
 else
-  server_verbinden ($host, $benutzer, $passwort);
+  server_verbinden ($_POST['host'], $_POST['benutzer'], $_POST['passwort']);
 
-datenbank_auswaehlen ($dbname);
+datenbank_auswaehlen ($_POST['dbname']);
 tabellen_erstellen ();
  
      
