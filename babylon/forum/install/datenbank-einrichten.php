@@ -27,7 +27,7 @@ function datenbank_auswaehlen ($dbname)
 
 function tabellen_erstellen ()
 {
-  $tabellen = array ('Beitraege', 'Benutzer', 'Konf');
+  $tabellen = array ('Beitraege', 'Benutzer', 'BenutzerVorlage', 'Konf');
   
   while ($tabelle = current ($tabellen))
   {
@@ -43,7 +43,7 @@ function tabellen_erstellen ()
 
   reset ($tabellen);
 
-  $tabellen = array ('Beitraege', 'Konf');
+  $tabellen = array ('Beitraege', 'Konf', 'BenutzerVorlage');
   while ($tabelle = current ($tabellen))
   {
       echo "Tabelle $tabelle mit Startwerten f&uuml;llen: ";

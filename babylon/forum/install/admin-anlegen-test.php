@@ -52,11 +52,10 @@ else
     $sw =  md5 (rand () . microtime ());
    
     mysql_query ("INSERT INTO Benutzer (Benutzer, VName, NName, Cookie, Eingeloggt, Passwort,
-                                        EMail, Anmeldung, RechtLesen, RechtSchreiben, RechtAdmin,
-                                        RechtAdminForen)
+                                        EMail, Anmeldung, Gruppe)
                   VALUES (\"$benutzer\", \"$vname\", \"$nname\", \"$sw\", \"j\",
                           \"$pass\", \"$email\", \"$stempel\",
-                          4294967295, 4294967295, 4294967295, 1)")
+                          \"Admin\")")
       or die ("Forenadministrator konnte nicht angelegt werden.");
  
     $erg = mysql_query ("SELECT BenutzerId FROM Benutzer
