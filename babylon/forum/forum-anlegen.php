@@ -24,7 +24,8 @@
   $erg = mysql_query ("SELECT ForumId, Gesperrt, Titel, Inhalt
                        FROM Beitraege
                        WHERE BeitragTyp = 1
-                       ORDER BY ForumId")
+                       ORDER BY ForumId
+                       LIMIT 31")
     or die ('Die bestehenden Foren konnten nicht ermittelt werden');
 
   echo "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">

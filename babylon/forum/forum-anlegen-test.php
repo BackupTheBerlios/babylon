@@ -30,7 +30,10 @@
   $forum_id = intval ($_POST['forum_id']);
   $titel = addslashes ($_POST['titel']);
   $inhalt = addslashes ($_POST['inhalt']);
-  
+ 
+  if ($forum_id < 0 or $forum_id > 30)
+    die ('Illegaler Forumindex')
+ 
   mysql_query ("UPDATE Beitraege
                 SET Gesperrt='n', Titel=\"$titel\", Inhalt=\"$inhalt\"
                 WHERE BeitragTyp = '1' AND ForumId=\"$forum_id\"")
