@@ -78,7 +78,7 @@ function zeichne_beitrag ($erster, $ForumId, $BeitragId, $Autor, $StempelLetzter
   $datum = strftime ("%d.%b.%Y", $StempelLetzter);
   $zeit = date ("H.i:s", $StempelLetzter);
 
-  echo "       <table class=\"beitrag\">
+  echo "       <table class=\"beitrag\" width=\"100%\">
             <tr>
               <th class=\"ueber\" align=\"left\" colspan=\"2\"><a href=\"mitglieder-profil.php?alias=$Autor\">$Autor</a></td>
               <th class=\"ueber\" align=\"right\">$datum $zeit</td>
