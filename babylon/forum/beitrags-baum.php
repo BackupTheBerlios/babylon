@@ -149,6 +149,7 @@ function strang_ausgeben (&$daten, $sid, $saetze, $tiefe, $m)
     $daten[$i] = $zeile;
     $i++;
   }
+  setlocale (LC_ALL, 'de_DE@euro', 'de_DE', 'de', 'ge');
 
   echo '<tr><td><pre style="line-height:150%">';
   strang_ausgeben ($daten, $daten[0][1], $i, '', 0);
