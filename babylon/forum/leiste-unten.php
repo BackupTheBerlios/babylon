@@ -6,8 +6,13 @@
    GNU-GPL Version 2 zu nutzen und/oder modifizieren und/oder weiterzugeben.
    Lies die Datei COPYING fuer weitere Informationen hierzu. */
 
-function leiste_unten ()
+function leiste_unten ($suchtext)
 {
+  if ($suchtext)
+    $suche = ' value="' . stripslashes (htmlentities ($suchtext)) . '"';
+  else
+    $suche = '';
+
   echo '      <tr>
         <td>
           <table>
@@ -29,7 +34,7 @@ function leiste_unten ()
               </td>
               <td width=\"33%\" height=\"100%\" valign=\"center\" align=\"right\">
                 <form action=\"suchen.php\" method=\"post\">
-                  <input name=\"benutzer\" type=\"text\" size=\"30\" maxlength=\"64\">
+                  <input name=\"suchbegriff\" type=\"text\" size=\"30\" maxlength=\"64\"$suche>
                   <button name=\"suchen\" type=\"submit\" title=\"Suchen\">
                     <img src=\"/grafik/Suchen$msiepng.png\" width=\"24\" height=\"24\" alt=\"\">Suchen
                   </button>
