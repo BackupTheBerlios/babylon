@@ -48,7 +48,7 @@
   $erg = mysql_query ("SELECT BenutzerId, Benutzer, VName, NName, Anmeldung, Beitraege,
                               Themen, LetzterBeitrag, Atavar, ProfilNameZeigen,
                               ProfilEMail, ProfilHomepage, ProfilOrt,
-                              NachrichtAnnehmen, NachrichtAnnehmenAnonym
+                              NachrichtAnnehmen, NachrichtAnnehmenAnonym, AtavarData
                        FROM Benutzer
                        WHERE Benutzer = \"$alias\"")
     or die ('Profildaten konnten nicht ermittelt werden');
@@ -91,9 +91,9 @@
         <table border="2">
           <tr>
             <td>';
-  $atavar_datei = "atavar/$profil[0].jpg";
-  if (is_readable ($atavar_datei))
-    echo "<img src=\"$atavar_datei\" alt=\"\">";
+
+  if ($profil[8] == 'j')
+    echo "<img src=\"atavar-ausgeben.php?atavar=$profil[0]\">";
   else
     echo 'Kein Atavar<br>eingerichtet';
  

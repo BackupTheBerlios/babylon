@@ -141,8 +141,10 @@ function zeichne_beitrag ($param)
           <tr>";
   if ($Atavar > -1)
   {
-    $datei = "atavar/$Atavar.jpg";
-echo "            <td valign=\"top\"><div class=\"atavar\"><img src=\"$datei\"></div></td>
+echo "            <td valign=\"top\">
+              <div class=\"atavar\">
+                <img src=\"atavar-ausgeben.php?atavar=$Atavar\">
+              </div></td>
             <td class=\"inhalt\" valign=\"top\" width=\"100%\">$Inhalt</td>";
   }
   else

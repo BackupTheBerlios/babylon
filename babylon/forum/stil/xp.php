@@ -129,12 +129,16 @@ function zeichne_beitrag ($param)
             <tr>";
   if ($Atavar > -1)
   {
-    $datei = "atavar/$Atavar.jpg";
-    echo"              <td class=\"col-dunkel\" valign=\"top\"><div class=\"atavar\"><img src=\"$datei\"></div></td>
+    echo"              <td class=\"col-dunkel\" valign=\"top\">
+                <div class=\"atavar\">
+                  <img src=\"atavar-ausgeben.php?atavar=$Atavar\">
+                </div>
+              </td>
               <td class=\"col-hell\" valign=\"top\" colspan=\"2\" width=\"100%\">$Inhalt</td>";
   }
   else
    {
+   echo "kein atavar";
     echo"             <td class=\"col-hell\" valign=\"top\" colspan=\"3\" width=\"100%\">$Inhalt</td>";
   } 
   echo '            </tr>

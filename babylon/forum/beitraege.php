@@ -164,15 +164,14 @@
           $zitat_inhalt = stripslashes ($zeile[3]);
         }
 
-        $erg = mysql_query ("SELECT BenutzerId
+        $erg = mysql_query ("SELECT BenutzerId, Atavar
                              FROM Benutzer
                              WHERE Benutzer = \"$zeile[1]\"")
           or die ('Es konnte die BenutzerId des Benutzers fuer den Atavar nicht ermittelt werden');
         if (mysql_num_rows ($erg) == 1)
         {
           $atavar_zeile = mysql_fetch_row ($erg);
-          $atavar_datei = "atavar/$atavar_zeile[0].jpg";
-          $atavar = (is_readable ($atavar_datei)) ? $atavar_zeile[0] : '-1';
+          $atavar = $atavar_zeile[1] == 'j' ? $atavar_zeile[0] : '-1';
         }
         else
           $atavar = -1;
