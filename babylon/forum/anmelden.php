@@ -36,21 +36,23 @@ benutzer_daten_forum ($BenutzerId, $Benutzer, $K_Egl, $K_Lesen, $K_Schreiben, $K
 		      $K_Stil, $K_Signatur, $K_SprungSpeichern, $K_BaumZeigen);
 				
 if ($K_Schreiben == 0){
-  echo "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">
+  echo "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\"
+       \"http://www.w3.org/TR/html4/loose.dtd\">
 <html>
 <head>
-  <link href=\"/forum/stil/std.css\" rel=\"stylesheet\" type=\"text/css\">
+  <link href=\"/forum/stil/$B_standart_stil.css\" rel=\"stylesheet\" type=\"text/css\">
   <title>$B_seitentitel_start / Forum Anmeldung</title>
 </head>
 <body>";
 
 wartung_ankuendigung ();
 
-echo "  <h2>Anmelden</h2>\n
-  <table>
-    <form action=\"anmelden-test.php\" method=\"post\">
+echo "  <h2>Anmelden</h2>
+
+  <form action=\"anmelden-test.php\" method=\"post\">
+    <table>
       <tr>
-        <td collspan=\"2\"><b>Forumdaten</b</td>
+        <td colspan=\"2\"><b>Forumdaten</b</td>
       </tr>
       <tr>
         <td>Benutzername</td>
@@ -65,11 +67,11 @@ echo "  <h2>Anmelden</h2>\n
         <td><input name=\"passwort2\" type=\"password\" size=\"30\" maxlength=\"30\"></td>
       </tr>
       <tr>
-        <td collspan=\"2\"><img src=\"/grafik/dummy.png\" width=\"1\" height=\"20\" border=\"0\" alt=\"\"></td>
+        <td colspan=\"2\"><img src=\"/grafik/dummy.png\" width=\"1\" height=\"20\" border=\"0\" alt=\"\"></td>
       </tr>
       <tr>
-        <td collspan=\"2\"><b>Personendaten</b></td>
-      <tr/>
+        <td colspan=\"2\"><b>Personendaten</b></td>
+      </tr>
       <tr>
         <td>E-mail</td>
         <td><input name=\"email\" type=\"text\" size=\"30\" maxlength=\"255\" value=\"$_POST[email]\"></td>
@@ -86,7 +88,7 @@ echo "  <h2>Anmelden</h2>\n
           <button><img src=\"/grafik/PenWrite.png\" width=\"24\" height=\"24\" alt=\"\">Anmelden</button>
         </td>
         <td>
-          <input type=\"hidden\" name=\"param\" value=\"$_POST[param]\"></input>
+          <input type=\"hidden\" name=\"param\" value=\"$_POST[param]\">
         </td>
       </tr>
       <tr>
@@ -97,7 +99,7 @@ echo "  <h2>Anmelden</h2>\n
           <font size=\"-1\">
             Bitte beachte das Dein Passwort aus Buchstaben, Ziffern und Sonderzeichen bestehen sollte,<br>
             damit es nicht erraten werden kann. Ausserdem mu&szlig; der Benutzername aus wenigstens drei<br>
-            und das Passwort aus wenigstens sechs Zeichen bestehen.<p>
+            und das Passwort aus wenigstens sechs Zeichen bestehen.
           </font>
         </td>
       </tr>
@@ -113,8 +115,8 @@ echo "  <h2>Anmelden</h2>\n
           </font>
         </td>
       </tr>
-    </form>
-  </table>";
+    </table>
+  </form>";
   }
   else
   {
