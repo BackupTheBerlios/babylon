@@ -76,6 +76,8 @@ $text
  automatisch vom System generierte Nachricht handelt.";
 
   $kopf = "From:$B_betreiber Forum<$B_mail_absender>\n";
+  if (! isset ($_POST['Anonym']))
+    $kopf .= "Reply-To: $K_EMail\n";
   $kopf .= 'X-Mailer:Babylon';
   mail($empfaenger_email, "Private Nachricht von $K_Alias", $nachricht, $kopf);
 
