@@ -7,6 +7,7 @@ echo "<html>
   <script type=\"text/javascript\">
   <!--
   var letzter = -1;
+  -->
   </script>
 </head>
 <body>";

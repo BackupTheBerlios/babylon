@@ -20,8 +20,8 @@ echo "  <a name=\"runterladen\"><img Name=\"b6\" src=\"/web/grafik/links01.png\"
   Den Quellcode gibt es momentan nur vom CVS. Zum auschecken gib folgendes auf der Komandozeile ein:<p>
   
   <pre>
-
-
+  cvs -d:pserver:anonymous@cvs.babylon.berlios.de:/cvsroot/babylon login
+  cvs -z3 -d:pserver:anonymous@cvs.babylon.berlios.de:/cvsroot/babylon co babylon
   </pre>
   <p>";
 ;?>
