@@ -29,11 +29,6 @@ function strang_ausgeben (&$daten, $sid, $saetze, $tiefe, $m)
     $zeit = date ("H.i:s", $daten[$i][7]);
     $inhalt = stripslashes ($daten[$i][5]);
 
-//    $t = ($tiefe * 20) % 500;
-//    echo "<img src=\"/grafik/dummy.png\" width=\"$t\" height=\"1\" alt=\"\">
-//    <a href=\"beitraege.php?tid={$daten[$i][0]}&sid={$daten[$i][1]}&bid={$daten[$i][2]}\">
-//    bid:{$daten[$i][2]}  {$daten[$i][5]} {$daten[$i][6]} $datum $zeit inhalt:{$daten[$i][8]}</a><br>";
-
     $aus1 = "$baum<a class=\"baum\"
              href=\"beitraege.php?fid=$_GET[fid]&tid={$daten[$i][0]}&sid={$daten[$i][1]}&bid={$daten[$i][2]}\">$inhalt";
     $aus2 = "{$daten[$i][6]} $datum $zeit</a><br>";
@@ -137,18 +132,24 @@ function strang_ausgeben (&$daten, $sid, $saetze, $tiefe, $m)
   $gehe_zu = 'themen';
   leiste_oben ($K_Egl);
 
+  $gesperrt = $K_Admin & 1 << $fid ? '' : 'AND Gesperrt  = \'n\'';
+  
   $beitraege = mysql_query ("SELECT ThemaId, StrangId, BeitragId, WeitereKinder,
                              Eltern, Titel, Autor, StempelLetzter
                              FROM Beitraege
-                             WHERE ThemaId=\"$tid\" AND BeitragTyp & 8 = 8 AND Gesperrt = 'n'
+                             WHERE ThemaId=\"$tid\"
+                               AND BeitragTyp & 8 = 8
+                               $gesperrt
                              ORDER BY StrangID, BeitragId")
-    or die ('F0036: Beitr&auml;ge konnten nicht gelesen werden');
+    or die ('F0036: Beitr&auml;ge konnten nicht selektiert werden');
   $i = 0;
+  
   while ($zeile = mysql_fetch_row ($beitraege))
   {
     $daten[$i] = $zeile;
     $i++;
   }
+
   echo '<tr><td><pre style="line-height:150%">';
   strang_ausgeben ($daten, $daten[0][1], $i, '', 0);
   echo "</pre></td></tr>";
