@@ -31,14 +31,15 @@
   if (!isset ($_GET['modul']))
     die ('Es wurde kein Wartungsmodul angegeben');
 
-  if (!is_readable ("module/$_GET['modul'].php"))
-    die ("Zugriff auf Modul $_GET['modul'] wurde verweigert oder es exestiert nicht");
+  $modul = $_GET['modul'];
+  if (!is_readable ("module/$modul.php"))
+    die ("Zugriff auf Modul $modul wurde verweigert oder es exestiert nicht");
 
   echo '<html>
   <body bgcolor="#eeeeee">';
 
-  include ("module/$_GET['modul'].php");
-  call_user_func ("$_GET['modul']_wartung");
+  include ("module/$_GET[modul].php");
+  call_user_func ("$_GET[modul]_wartung");
 
   echo '<a href="wartung.php">Zur&uuml;ck zur Wartungshauptseite</a>
     </body>
