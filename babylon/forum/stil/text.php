@@ -23,25 +23,39 @@ function zeichne_forum ($param)
 {
   $Erster = $param['Erster'];
   $ForumId = $param['ForumId'];
-  $NumBeitraege = $param['NumBeitraege'];
   $Titel = $param['Titel'];
   $Inhalt = $param['Inhalt'];
   setlocale (LC_TIME, 'de_DE');
   $datum = strftime ("%d.%m.%y", $param['StempelLetzter']);
   $zeit = date ("H.i:s", $param['StempelLetzter']);
   $titel = str_pad (substr (strip_tags ($Titel), 0, 58), 59);
-  $inhalt = str_pad (substr (strip_tags ($Inhalt), 0, 58), 59);
 
-    echo "<tr><td><pre>\n";
-    if ($erster)
-    {
-      echo "Forum                                                        letzter    Anzahl \n";
-      echo "                                                             Beitrag    Themen \n";
-      echo "-------------------------------------------------------------------------------\n";
-    }
-      echo "$titel  $datum   $NumBeitraege\n";
-      echo "<a href=\"themen.php?fid=$ForumId&tid=-1\">$inhalt</a>  $zeit\n\n";
-    echo "</pre></td></tr>\n";
+  echo "<tr><td><pre>\n";
+  if ($Erster)
+  {
+    echo "Forum                                                        letzter    Anzahl \n";
+    echo "                                                             Beitrag    Themen \n";
+    echo "-------------------------------------------------------------------------------\n";
+  }
+
+  if ($ForumId == -1)
+  {
+    $NumBeitraege = str_pad ($param['NumBeitraege'], 4, ' ', STR_PAD_LEFT);
+    $inhalt = substr (strip_tags ($Inhalt), 0, 80);
+   
+    echo "$titel Neue Beitr&auml;ge: $NumBeitraege\n";
+    echo "<a href=\"posteingang.php\">$inhalt</a>\n\n";   
+  }
+  else
+  {
+    
+    $NumBeitraege = str_pad ($param['NumBeitraege'], 7, ' ', STR_PAD_LEFT);
+    $inhalt = str_pad (substr (strip_tags ($Inhalt), 0, 58), 59);
+  
+    echo "$titel  $datum   $NumBeitraege\n";
+    echo "<a href=\"themen.php?fid=$ForumId&tid=-1\">$inhalt</a>  $zeit\n\n";
+  }
+  echo "</pre></td></tr>\n";
 }
 
 function zeichne_thema ($param)

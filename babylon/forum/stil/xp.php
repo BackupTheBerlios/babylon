@@ -24,14 +24,6 @@ function zeichne_forum ($param)
   setlocale (LC_TIME, 'de_DE');
   $datum = $param['StempelLetzter'] ? strftime ("%d.%b.%Y", $param['StempelLetzter']) : '';
   $zeit = $param['StempelLetzter'] ? date ("H.i:s", $param['StempelLetzter']) : '';
- 
-/*echo "<tr>
-          <td class=\"ueber-forum\">$Titel</td>
-          <td class=\"ueber-forum\"><font class=\"autor\">$datum $zeit</font></td>
-        </tr><tr>
-          <td class=\"col-hell\"><a href=\"themen.php?fid=$ForumId&tid=-1\">$Inhalt</a></td>
-          <td class=\"col-hell\"><font class=\"datum\">Themen: $NumBeitraege</font></td>
-        </tr>";*/
 
   echo "            <tr>
               <td>
@@ -39,12 +31,18 @@ function zeichne_forum ($param)
                   <tr bgcolor=\"#dddddd\">
                     <td width=\"100%\"><h3>$Titel</h3></td>
                     <td align=\"right\"><font size=\"-1\">$datum</font></td>
-                    <td align=\"right\"><font size=\"-1\">$zeit</font></td>
-                    <td align=\"right\"><font size=\"-1\"><nobr>Themen: $NumBeitraege</nobr></font></td>
+                    <td align=\"right\"><font size=\"-1\">$zeit</font></td>";
+  if ($ForumId == -1)
+    echo "                  <td align=\"right\"><font size=\"-1\"><nobr>Neue Beit&auml;ge: $NumBeitraege</nobr></font></td>
                   </tr>
                   <tr>
-                    <td bgcolor=\"#ffffff\" colspan=\"4\"><a href=\"themen.php?fid=$ForumId&tid=-1\">$Inhalt</a></td>
+                    <td bgcolor=\"#ffffff\" colspan=\"4\"><a href=\"posteingang.php\">$Inhalt</a></td>";
+  else
+    echo "                  <td align=\"right\"><font size=\"-1\"><nobr>Themen: $NumBeitraege</nobr></font></td>
                   </tr>
+                  <tr>
+                    <td bgcolor=\"#ffffff\" colspan=\"4\"><a href=\"themen.php?fid=$ForumId&tid=-1\">$Inhalt</a></td>"; 
+  echo "                  </tr>
                 </table>
               </td>
             </tr>\n";

@@ -30,12 +30,18 @@ function zeichne_forum ($param)
                   <tr bgcolor=\"#dddddd\">
                     <td width=\"100%\"><h3>$Titel</h3></td>
                     <td align=\"right\"><font size=\"-1\">$datum</font></td>
-                    <td align=\"right\"><font size=\"-1\">$zeit</font></td>
-                    <td align=\"right\"><font size=\"-1\"><nobr>Themen: $NumBeitraege</nobr></font></td>
+                    <td align=\"right\"><font size=\"-1\">$zeit</font></td>";
+  if ($ForumId == -1)
+    echo "                <td align=\"right\"><font size=\"-1\"><nobr>Neue Beitr&auml;ge: $NumBeitraege</nobr></font></td>
                   </tr>
                   <tr>
-                    <td bgcolor=\"#ffffff\" colspan=\"4\"><a href=\"themen.php?fid=$ForumId&tid=-1\">$Inhalt</a></td>
+                    <td bgcolor=\"#ffffff\" colspan=\"4\"><a href=\"posteingang.php\">$Inhalt</a></td>";
+  else
+    echo "                <td align=\"right\"><font size=\"-1\"><nobr>Themen: $NumBeitraege</nobr></font></td>
                   </tr>
+                  <tr>
+                    <td bgcolor=\"#ffffff\" colspan=\"4\"><a href=\"themen.php?fid=$ForumId&tid=-1\">$Inhalt</a></td>";
+  echo "                  </tr>
                 </table>
               </td>
             </tr>\n";

@@ -38,11 +38,17 @@ function zeichne_forum ($param)
       <td class=\"ecke\"></td>
     </tr>
     <tr>
-      <td class=\"ecke2\"></td>
-      <td class=\"leiste-uk\"><a href=\"themen.php?fid=$ForumId&tid=-1\">$Inhalt</a></td>
-      <td class=\"leiste-uk\" align=\"right\">Themen: $NumBeitraege</td>
-      <td class=\"ecke2\"></td>
-    </tr>";
+      <td class=\"ecke2\"></td>";
+
+  if ($ForumId == -1)
+    echo "    <td class=\"leiste-uk\"><a href=\"posteingang.php\">$Inhalt</a></td>
+      <td class=\"leiste-uk\" align=\"right\">Neue Beitr&auml;ge: $NumBeitraege</td>";
+  else
+    echo "    <td class=\"leiste-uk\"><a href=\"themen.php?fid=$ForumId&tid=-1\">$Inhalt</a></td>
+      <td class=\"leiste-uk\" align=\"right\">Themen: $NumBeitraege</td>";
+
+  echo '    <td class="ecke2"></td>
+    </tr>';
 }
 
 function zeichne_thema ($param)

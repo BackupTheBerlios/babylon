@@ -24,6 +24,9 @@ function zeichne_forum ($param)
   $datum = $param['StempelLetzter'] ? strftime ("%d.%b.%Y", $param['StempelLetzter']) : '';
   $zeit = $param['StempelLetzter'] ? date ("H.i:s", $param['StempelLetzter']) : '';
 
+  if (! strlen ($datum))
+    $datum = ' &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;';
+
   echo "<tr><td>
   <table border=\"0\" cellspacing=\"0\" cellpadding=\"0\" width=\"100%\">
     <tr>
@@ -45,8 +48,16 @@ function zeichne_forum ($param)
     </tr>
     <tr>
       <td><img src=\"stil/stern20.png\"></td>
-      <td colspan=6 style=\"background-image:url(stil/stern25.png)\" class=\"forum_rumpf\"><a href=\"themen.php?fid=$ForumId&tid=-1\" class=\"forum_rumpf\"><nobr>$Inhalt</nobr></td>
-      <td colspan=3 style=\"background-image:url(stil/stern25.png)\" class=\"forum_rumpf\" align=\"right\"><nobr>Themen: $NumBeitraege</nobr></td>
+      <td colspan=6 style=\"background-image:url(stil/stern25.png)\" class=\"forum_rumpf\">";
+  
+  if ($ForumId == -1)
+    echo "      <a href=\"posteingang.php\" class=\"forum_rumpf\"><nobr>$Inhalt</nobr></td>
+      <td colspan=3 style=\"background-image:url(stil/stern25.png)\" class=\"forum_rumpf\" align=\"right\"><nobr>Neue Beitr&auml;ge: $NumBeitraege</nobr>";
+  else
+    echo "      <a href=\"themen.php?fid=$ForumId&tid=-1\" class=\"forum_rumpf\"><nobr>$Inhalt</nobr></td>
+      <td colspan=3 style=\"background-image:url(stil/stern25.png)\" class=\"forum_rumpf\" align=\"right\"><nobr>Themen: $NumBeitraege</nobr>";
+      
+  echo "    </td>
       <td><img src=\"stil/stern2a.png\"></td>
     </tr>
   </table>
