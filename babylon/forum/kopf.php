@@ -64,18 +64,8 @@
   echo "    <title>$titel</title>
   </head>\n";
 
-  if (isset ($skript) && $skript == 'j')
-  {
-    if (1 << $fid & $K_Schreiben and $K_Egl)
-    {
-      if ($neu)
-        echo "<body onLoad=\"document.eform.titel.focus()\">\n";
-      else
-        echo "<body onLoad=\"document.eform.text.focus()\">\n";
-    }
-    else
-      echo "<body>\n";
-  }
+  if (isset ($skript) && $skript == 'j'&& 1 << $fid & $K_Schreiben and $K_Egl and $neu)
+    echo "<body onLoad=\"document.eform.titel.focus()\">\n";
   else
     echo "<body>\n";
   
