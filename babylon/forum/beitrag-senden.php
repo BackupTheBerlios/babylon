@@ -92,6 +92,8 @@ else if ($K_Egl)
     // wir haben ein neues Thema
   $text = addslashes ($text);
 
+// VIEL ZU VIEL DATENBANKZUGRIFFE.....
+
 // FIXME da man in Zukunft bei einer Antwort den Titel eines Beitrags aendern
 // koennen soll muessen wir uns hier noch etwas anderes einfallen lassen...
   if (isset ($_POST[titel]))
@@ -123,6 +125,10 @@ else if ($K_Egl)
                   SET NumBeitraege=NumBeitraege+1
                   WHERE BeitragTyp = 1 AND ForumId=\"$fid\"")
       or die ("F0020: Forum Beitragsz&auml;hler konnten nicht aktualisiert werden");
+    mysql_query ("UPDATE Benutzer
+                SET Themen=Themen+1
+                WHERE BenutzerId=$BenutzerId")
+    or die ("Themenzaehler konnte nicht aktuallisiert werden");
       
   }
     // und hier einen neuen Beitrag
@@ -194,7 +200,7 @@ else if ($K_Egl)
   mysql_query ("UPDATE Benutzer
                 SET Beitraege=Beitraege+1, LetzterBeitrag=\"$stempel\"
                 WHERE BenutzerId=$BenutzerId")
-    or die ("F0019: Beim Schreiben des Beitrags konnten die Benutzerdaten nicht aktuallisiert werden");
+    or die ("Beitragszaehler konnte nicht aktuallisiert werden");
     mysql_query ("UPDATE Beitraege
                   SET StempelLetzter=\"$stempel\"
                   WHERE BeitragTyp = 1 AND ForumId=\"$fid\"")
