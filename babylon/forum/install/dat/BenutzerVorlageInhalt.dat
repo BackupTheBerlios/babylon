@@ -1,0 +1,2 @@
+INSERT INTO `BenutzerVorlage` VALUES (1, 'Standart', 4294967295, 4294967295, 0, 0, 'n', 'n');
+INSERT INTO `BenutzerVorlage` VALUES (2, 'Admin', 4294967295, 4294967295, 4294967295, 1, 'n', 'n');
