@@ -45,10 +45,12 @@
 
   $alias = addslashes ($_GET['alias']);
 
-  $erg = mysql_query ("SELECT BenutzerId, Benutzer, VName, NName, Anmeldung, Beitraege,
-                              Themen, LetzterBeitrag, Atavar, ProfilNameZeigen,
-                              ProfilEMail, ProfilHomepage, ProfilOrt,
-                              NachrichtAnnehmen, NachrichtAnnehmenAnonym, AtavarData
+  $erg = mysql_query ("SELECT BenutzerId, Benutzer, VName,
+                              NName, Anmeldung, Beitraege,
+                              Themen, LetzterBeitrag, Atavar,
+                              ProfilNameZeigen, ProfilEMail, ProfilHomepage,
+                              ProfilOrt, NachrichtAnnehmen, NachrichtAnnehmenAnonym,
+                              AtavarData, Gruppe
                        FROM Benutzer
                        WHERE Benutzer = \"$alias\"")
     or die ('Profildaten konnten nicht ermittelt werden');
@@ -68,11 +70,13 @@
   $gehe_zu = 'foren';
   leiste_oben ($K_Egl);
   
+ 
   if ($profil[9] == 'j')
     $name = "$profil[2] $profil[3]<br>";
   else
     $name = '';
-    
+   
+   
   if ($profil[7])
   {
     setlocale (LC_TIME, "de_DE");
@@ -85,10 +89,9 @@
     $ort = "Wohnort: $profil[12]";
   else
     $ort = '';
-  
 
   echo '    </table>
-        <table border="2">
+        <table border="2" width="100%">
           <tr>
             <td>';
 
@@ -98,12 +101,12 @@
     echo 'Kein Atavar<br>eingerichtet';
  
   echo "            </td>
-            <td>
+            <td width=\"50%\">
               $profil[1]<br>
               $name
               $ort
             </td>
-            <td>
+            <td width=\"50%\">
               $profil[5] Beitr&auml;ge geschrieben<br>
               $profil[6] Themen er&ouml;ffnet<br>
               $letzter_beitrag
@@ -150,7 +153,7 @@
             <table>
               <tr>
                 <td>
-                  <button type=\"submit\" accesskey=\"s\">
+                  <button type=\"submit\" accesskey=\"s\" title=\"Die Nachricht per EMail an $profil[1] schicken\">
                     <table>
                       <tr>
                         <td>
@@ -180,6 +183,33 @@
       </form>";
   }
 
+// Benutzergruppe festlegen
+  if ($K_AdminForen)
+  {
+    $erg = mysql_query ("SELECT VorlageId, Name
+                         FROM BenutzerVorlage")
+      or die ('Die Benutzergruppen konnten nicht ermittelt werden');
+
+    echo "<form action=\"benutzer-gruppe-aendern-test.php\" method=\"post\">
+          Benutzer $profil[1] in Benutzergruppe
+          <select name=\"vorlage\" size=\"1\" title=\"Benutzergruppe ausw&auml;hlen\">";
+
+    while ($zeile = mysql_fetch_row ($erg))
+    {
+      if (strcmp ($zeile[1], $profil[16]) == 0)
+        echo "<option value=\"$zeile[0]\" selected>$zeile[1]</option>";
+      else
+        echo "<option value=\"$zeile[0]\">$zeile[1]</option>";
+    }
+
+    $alias = $_GET['alias'];
+    echo "</select>
+          <input type=\"hidden\" name=\"benutzerid\" value=\"$profil[0]\">
+          <input type=\"hidden\" name=\"alias\" value=\"$alias\">
+          <button type=\"submit\">verschieben</button><br>
+          <a href=\"benutzer-vorlage.php\">Benutzervorlagen verwalten</a>";
+  }
+ 
   include ('leiste-unten.php');
   leiste_unten (NULL, $B_version, $B_subversion);
 
