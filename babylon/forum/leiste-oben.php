@@ -33,12 +33,12 @@ function leiste_oben ($egl)
                 <form action=\"foren.php\" method=\"post\">
                   <button type=\"submit\" name=\"gehe_zu\" value=\"$gehe_zu\" title=\"zur&uuml;ck zur Foren&uuml;bersicht\"><img src=\"/grafik/Heim.png\" width=\"24\" height=\"24\" alt=\"\">Foren&uuml;bersicht</button>
                 </form>
-              </td>";
-/*              <td align=\"right\">
-                <form action=\"mitglieder.php\" method=\"post\">
+              </td>
+              <td align=\"right\">
+                <form action=\"mitglieder-liste.php\" method=\"post\">
                   <button type=\"submit\" name=\"gehe_zu\" value=\"$gehe_zu\" title=\"Die Mitglieder dieses Forums\"><img src=\"/grafik/Mitglieder$msiepng.png\" width=\"24\" height=\"24\" alt=\"\">Die Mitglieder</button>
                 </form>
-              </td>\n";*/
+              </td>\n";
     
   if ($egl)
   {
@@ -59,7 +59,7 @@ function leiste_oben ($egl)
   
     echo "              <td align=\"right\">
                 <form action=\"login.php\" method=\"post\">
-                  <button type=\"submit\" name=\"gehe_zu\" value=\"$gehe_zu\" title=\"Passe Deine pers&ouml;nlichen\nEinstellungen an\"><img src=\"/grafik/Heim$msiepng.png\" width=\"24\" height=\"24\" alt=\"\">Mein Forum</button>
+                  <button type=\"submit\" name=\"gehe_zu\" value=\"mypflug\" title=\"Passe Deine pers&ouml;nlichen\nEinstellungen an\"><img src=\"/grafik/Heim$msiepng.png\" width=\"24\" height=\"24\" alt=\"\">Mein Forum</button>
                 </form>
               </td>
               <td align=\"right\">
