@@ -148,7 +148,7 @@
         {
           $zitat_autor = $zeile[1];
           $zitat_stempel = $zeile[2];
-          $zitat_inhalt = $zeile[3];
+          $zitat_inhalt = stripslashes ($zeile[3]);
         }
 
         $erg = mysql_query ("SELECT BenutzerId
