@@ -1,0 +1,9 @@
+neue datei 200x40 transparent
+
+linktext schreiben mit:
+  font SF Intellivised Outline 36px Hinting Kantenglaettung
+  linke obere ecke bei 10,2
+
+stoerung mit:
+  filter/zacken
+  Kantenglaettung Horizontal Verwischen Sinus Periode 10 Amplitude 1

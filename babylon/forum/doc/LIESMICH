@@ -1,0 +1,53 @@
+Lies auch TODO und Programmierstil
+
+
+BeitragTyp:
+1 = Forum
+2 = Thema
+4 = Themenstrang
+8 = Beitrag
+
+Version und SubVersion
+  Die SubVersion wird mit jeder Änderung des Beitragsformats um 1 herauf
+  gesetzt, sofern ältere Beiträge mit der gleichen Version noch vom Forum
+  dargestellt werden können. Wenn das Format des Forums sich soweit ändert,
+  dass alte Beiträge nicht mehr oder nicht mehr korrekt dargestellt werden
+  können wird die Version um eins erhöht und die SubVersionm fängt wieder
+  bei 0 an.
+
+  So hat man die Möglichkeit alte Beiträge zu konvertieren indem man sie
+  in folgender Reihenfolge durchläuft:
+    Beitrag sperren
+    Konvertieren, evtl in mehreren Stufen
+    Version auf aktuelle Version setzen
+    Beitrag wieder frei geben
+
+
+Wie funktioniert das Login?
+
+  Nach druecken der Login Schaltflaeche wird zu login-test.php verzweit.
+  Hier wird geprueft ob Anmeldename und Passwort zusammen passen. Wenn
+  nicht wird login.php wieder aufgerufen und im Kopf erfolgt eine
+  Bemerkung das das Login fehl schlug.
+
+  Wenn die Daten ueberein stimmen werden zwei Cookies gesetzt. Der erste
+  mit der Benutzer-ID und ein zweiter, der folgendermassen generiert wird:
+  An eine Zufallszahl wird die microtime (aktuelle Zeit in Millionstel
+  Sekunden) angehaengt. Der komplette String wird md5 kodiert (sicher man
+  koennte auch die Session-ID nutzen, doch gefiel mir das nicht). Dieses
+  Cookie wird auch in der Datenbank hinterlegt.
+
+  Danach wird der gehe_zu Parameter ausgewertet, der angibt zu welcher Seite
+  nach erfolgreichen Login verzweigt werden soll. Fuer themen.php wird zu
+  gz-themen.php und fuer beitraege.php nach gz-beitraege.php verzweigt. In
+  diesen Dateien erfolgt dann direkt (0 Sekunden) der Redirect zu den gewuenschten
+  Seiten. Bei aktiviertem JavaScript erfolgt die Weiterleitung hierueber, da
+  es schneller ist. In diesem Fall kann die Zieldatei nicht direkt im 
+  entsprechenden Bereich von login-test.php includiert werden, da zum einen
+  sonst in der Adresszeile des Browsers die falsche Adresse steht (hierdurch
+  wuerde beim druecken der "Aktuallisieren"-Schaltflaeche des Browsers wieder
+  login-test.php aufgerufen und ein neues Cookie gesetzt)und zum anderen der
+  Cookie erst nach verlassen der Datei gesetzt wird. Eine andere Moeglichkeit
+  die aktuelle Datei durch eine andere direkt zu ersetzen habe ich bissher
+  noch nicht gefunden. Wer mehr weiÃŸ bitte melden.
+  

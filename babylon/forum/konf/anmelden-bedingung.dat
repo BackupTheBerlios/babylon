@@ -1,0 +1,24 @@
+<?PHP;
+function anmelden_bedingung ()
+{
+  echo "  <h2>Anmelden / Nutzungsbedingungen</h2>
+
+Grunds&auml;tzlich gilt, dass der Autor f&uuml;r den Inhalt seiner 
+Beitr&auml;ge selbst verantwortlich ist. Lasst eine gewisse H&ouml;flichkeit 
+walten, auch wenn Ihr mit den Inhalten anderer Meldungen nicht &uuml;berein 
+stimmt.<p>
+
+Die Foren sind ausschlie&szlig;lich f&uuml;r Diskussionen &uuml;ber XXXXXX
+bestimmt.<p>
+
+Der Betreiber beh&auml;lt sich vor Nachrichten die sachfremd, beleidigend 
+oder gar illegal sind ohne Vorwarnung zu l&ouml;schen. Sollten von einem 
+Teilnehmer wiederholt Nachrichten ver&ouml;ffentlicht werden, die Grund zur 
+Beanstandung bieten kann der Zugang f&uuml;r den Autor dauerhaft gesperrt
+werden.<p>
+
+Nachrichten mit illegalen Inhalten, wie dem Aufruf zur Gewalt, der 
+Anstachelung Rassenha&szlig;, oder der Verbreitung von Kinder-Pornografie 
+werden von uns umgehend zur Anzeige gebracht.<p>";
+}
+;?>

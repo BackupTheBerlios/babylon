@@ -1,0 +1,20 @@
+body {
+  background-image:url(/web/grafik/karo.png);
+  font-family: arial, helvetica, sans-serif;
+  margin-left:260px;
+  margin-right:16px;
+  margin-top:16px;
+  margin-bottom:24px
+}
+
+a {
+  border: 0px;
+  color: #86BA96;
+  font-family: arial,helvetica,sans-serif;
+  text-decoration: none;
+}
+
+img {
+  border: 0px;
+}
+

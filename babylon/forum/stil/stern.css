@@ -1,0 +1,88 @@
+body {
+  font-family: arial, helvetica, sans-serif;
+  font-size:16;
+  background-color:#3b1c7b;
+  color:#c4a7ff;
+  margin-left:24px;
+  margin-right:16px;
+  margin-top:12px;
+  margin-bottom:24px
+}
+
+button {
+  background-color: #3333bb;
+  border-color: #3333bb;
+  color: #c4a7ff;
+  -moz-border-radius: 50%;
+}
+
+td.forum_kopf {
+  font-size:12px;
+  color:#ddaa20;
+}
+
+td.forum_rumpf {
+  font-size:12px;
+  color:#ddaa20;
+}
+
+td.vorschau {
+/*  font-size:40px;*/
+  color:#0000a0;
+}
+
+h1,h2,h3,h4,h5,h6,sub {
+  color: #c4a7ff;
+}
+
+a.baum {
+  text-decoration:none;
+}
+
+a:active,
+a:hover {
+  color: #ffcc30;
+  text-decoration: underline overline;
+}
+
+a:link {
+  color: #ddaa00;
+}
+a:visited {
+  color: #a98414;
+}
+
+
+a.forum_rumpf:active {
+  font-size:18px;
+  color: #ddaa20;
+}
+a.forum_rumpf:link {
+  font-size:18px;
+  color: #ddaa20;
+}
+a.forum_rumpf:visited {
+  font-size:18px;
+  color:#a28024;
+}
+
+img.stil_auswahl {
+  border-color:#ffffff;
+  border-width:2px;
+  border-style: inset;
+}
+
+textarea {
+  border-color:#3c138f;
+  background-color:#55329d;
+  color:#ffffff;
+}
+
+div.zitat {
+  border-color: #ffffff;
+  border-width:2px;
+  border-style: outset;
+  background-color: #332860;
+  margin: 12px;
+  padding: 6px;
+}

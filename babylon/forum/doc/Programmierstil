@@ -1,0 +1,35 @@
+Programmierstil:
+
+Bitte beachtet folgendes, damit der Code Konsistent und gut zu lesen ist:
+
+
+Schreibweise von Bezeichnern:
+
+PHP Variablen komplett klein, mehrere Worte getrennt durch "_"
+PHP Funktionen wie PHP Variablen
+PHP Konstanten komplett in Grossschrift
+
+SQL Befehle werden komplett gross geschrieben
+SQL Spaltennamen beginnen mit einem gross geschriebenen Buchstaben. Besteht
+    der Bezeichnern aus mehreren Worten werden diese direkt hintereinander
+    geschrieben und jedes Einzelwort wird gross geschrieben
+SQL die einzelnen Abschnitte (SELECT, FROM, WHERE, ...) eines SQL Befehls kommen
+    in jeweils eine neue Zeile, buendig mit dem ersten.
+    
+-Einrueckungen erfolgen mit zwei Zeichen.
+-Tabulatoren werden nicht verwendet.
+-geschweifte klammern kommen in separate Zeile und werden in die Startspalte des
+    vorherigen Befehls gesetzt
+-Funktionsnamen folgt ein Leerzeichen, dann die oeffnende Klammer und darauf direkt
+    der erste Parameter
+-Arraybezeichner, Klammern und Arrayinhalt werden ohne Klammern direkt
+    hintereinander gesetzt
+-Funktionsname oder Arrays die mehr als eine Zeile beanspruchen werden so
+    umgebrochen dass das erste Folgeelement hinter der oeffnenden Klammer bzw
+    bei SQL Befehlen hinter dem ersten Anfuehrungszeichen begint
+
+
+Und sonst einfach versuchen der allgemeinen Optik zu folgen. Ich habe versucht
+konsequent zu sein.
+
+detlef    

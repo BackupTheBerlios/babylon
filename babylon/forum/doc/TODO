@@ -1,0 +1,23 @@
+Kontrolle ob es moeglich ist in Benutzereingaben db Befehle einzuschleusen
+   sollte derweil eigentlich nicht mehr moeglich sein. Aber wer weiss...
+
+login-test.php:
+  -Zeitverzoegerung des checks (ca. 3 sekunden). Macht brute force Angriffe
+   weit schwerer und ist fuer den Benutzer akzeptabel
+  -bei falscher eingabe evtl. IP loggen
+
+beitrag-senden.php:
+  -Beitraege zurueckweisen, die keinern Titel und/oder keinen Inhalt haben
+
+anmelden-test.php:
+  -testen ob die email-adresse exestiert (regex [a-z_.-]*@[a-z_.-]*.[a-z_.-]*
+   oder so aehnlich)
+  -eigentlich sollte eine Bestaetigungsmail an den anzumeldenden gehen.
+
+nach dem Einloggen/Ausloggen wieder auf die Seite springen, wo man her kam, wenn
+   dies denn erlaubt ist.
+
+beitraege.php:
+  -in der beitragsvorschau smilies korrekt anzeigen.
+  -bei der beitragsvorschau die seite zur vorschau verschieben, wenn sie neu geladen wird.
+

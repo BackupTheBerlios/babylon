@@ -1,0 +1,67 @@
+Stile muessen grundsaetzlich aus mindestens drei Dateien bestehen:
+
+1. Stilname.png               eine Abbildung des Stils fuer die Benutzerkonfiguration
+                              Groesse 590 x 92 Pixel
+
+2. Stilname.css               die Stilesheets des Stils
+
+2. Stilname.php               diese Datei muss folgende Funktionen zur Verfuegung stellen:
+
+                        css_setzen ()                    setzt das meta tag des css
+                        
+                        zeichne_forum (                  zeichnet einen einzelnen Forumseintrag
+                                       $erster,          boolean; zeigt an ob es sich um die erste
+                                                         ausgabe der seite handelt
+                                       $ForumId,         int; die id des Forums das angezeigt wird
+                                       $NumBeitraege,    int; die Anzahl Themen im Forum
+                                       $StempelLetzter,  int; Zeitstempel des letzten Beitrags
+                                       $Titel,           char; Name des Forums
+                                       $Inhalt)          char; Beschreibung des Forums
+                        
+                        zeichne_thema (                  zeichnet ein einzelnens Thema
+                                       $erster,          boolean; zeigt an ob es sich um die erste
+                                                         ausgabe der seite handelt
+                                       $ForumId,         int; Forum id zu der das Thema gehoert
+                                       $ThemaId,         int; id des Themas das angezeigt wird
+                                       $Autor,           char; Starter des Themas
+                                       $StempelLetzter,  int; Zeitstempel des letzten Beitrags
+                                       $Titel,           int; Name unter dem das Thema begonnen
+                                                         wurde;
+                                       $NumBeitraege)    int; Anzahl der Beitraege im Thema
+
+                         zeichne_baum ()                 bisher ungenutzt
+
+                      zeichne_beitrag (                  zeichnet einen einzelnen Beitrag
+                                       $erster,          boolean; zeigt an ob es sich um die erste
+                                                         ausgabe der seite handelt
+                                       $ForumId,         int; Forum id zu der das Thema gehoert
+                                       $BeitragId,       int; id des Beitrags das angezeigt wird
+                                       $Autor,           char; Autor des Beitrags
+                                       $StempelLetzter,  int; Zeitstempel des letzten Beitrags
+                                       $Inhalt,          char; der Beitrag
+                                       $K_Egl,           boolean; ob der Benutzer eingeloggt ist
+                                       $Atavar)          BenutzerId des Autors. Wird verwand um
+                                                         sein Atavar auszuwaehlen. Wenn "-1" wird
+                                                         kein Atavar dargestellt.
+
+ausserdem muss diese Datei eine Zeile enthalten die den Name des Stils definiert, wie er in der
+Benutzerkonfiguration erscheint. Ist dieser Name nicht definiert, erscheint in der Konfiguration
+"Namenlos"
+
+Die Definition:
+
+// StilName = NameDesStils         beschreibender Text
+
+Es handelt sich fuer den PHP-Interpreter also um einen Kommentar. NameDesStils ist der eigentliche
+Name. Dieser Darf keine Leerzeichen enthalten un muss maximal 20 Zeichen lang sein. Ein
+beschreibender Text ist optional und wird momentan nicht ausgewertet.
+
+
+Namensraeume:
+  Alle Dateinen die zu einem Stil gehoeren muessen mit dem Namen des Stils beginnen.
+
+
+Damit ein Stil fuer den Forumsnutzer benutzbar wird muss er im /forum/stil Verzeichniss installiert
+und in /forum/konf/konf.php freigeschaltet sein. In der konf.php Datei ist dem array $B_stile
+der Stil-Basisname (z.B. 'std') hinzuzufuegen.
+

@@ -1,0 +1,100 @@
+body {
+  font-family: arial, helvetica, sans-serif;
+  background-color: #FEFFDD;
+  margin-left:16px;
+  margin-right:16px;
+  margin-top:0px;
+  margin-bottom:24px
+}
+	
+h1,h2,h3,h4,h5,h6,sub {
+  color: #BF8649;
+}
+
+a:active {
+  color: #BF8649;
+}
+
+a:link {
+  color: #BF8649;
+}
+a:visited {
+  color: #A09070;
+}
+
+a.baum {
+  text-decoration:none;
+}
+
+img.stil_auswahl {
+  border-color: #ffffff;
+  border-width:2px;
+  border-style: inset;
+}
+
+div.zitat {
+  border-color: #ffffff;
+  border-width:2px;
+  border-style: outset;
+  background-color: #f7f7f9;
+  margin: 12px;
+  margin-right: 0px;
+  padding: 6px;
+  padding-right: 6px;
+}
+
+div.statistik {
+  font-size: 60%;
+  color: 804020;
+  border-color: #ffffff;
+  border-width:2px;
+  border-style: inset;
+  background-color: #fffccd;
+  margin: 12px;
+  margin-top: 30px;
+  padding: 6px;
+  padding-bottom: 0px;
+}
+
+div.konfiguration {
+  border-color: #ffffff;
+  border-width:2px;
+  border-top-width:0px;
+  border-style: outset;
+  -moz-border-radius-topright:20px;
+  -moz-border-radius-bottomleft:20px;
+  -moz-border-radius-bottomright:20px;
+  background-color: #f7f7f9;
+/*  margin: 12px;*/
+  padding: 6px;
+}
+
+td.reiter_aktiv {
+  font-family: arial, helvetica, sans-serif;
+  font-size: 20px;
+  color: #BF8649;
+  border-color: #ffffff;
+  border-width:2px;
+  border-bottom-width:0px;
+  border-style: outset;
+  -moz-border-radius-topleft:1.0em;
+  -moz-border-radius-topright:1.0em;
+  background-color: #f7f7f9;
+  padding: 9px;
+}	
+
+td.reiter_inaktiv {
+  font-family: arial, helvetica, sans-serif;
+  font-size: 20px;
+  color: #dFa669;
+  border-color: #ffffff;
+  border-width:2px;
+  border-bottom-width:1px;
+  border-bottom-color: #f0f0e0;
+  border-style: outset;
+  border-bottom-style: solid;
+  -moz-border-radius-topleft:1.0em;
+  -moz-border-radius-topright:1.0em;
+  background-color: #fafbea;
+  padding: 9px;
+}
