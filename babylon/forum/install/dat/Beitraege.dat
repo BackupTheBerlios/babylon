@@ -10,6 +10,7 @@ CREATE TABLE `Beitraege` (
   `Titel` varchar(255) NOT NULL default '',
   `Autor` varchar(32) NOT NULL default '',
   `AutorLetzter` varchar(32) NOT NULL default '',
+  `AntwortMail` char(1) NOT NULL default 'n',
   `StempelStart` int(1) unsigned default '0',
   `StempelLetzter` int(1) unsigned default '0',
   `Eltern` int(1) unsigned default '0',
