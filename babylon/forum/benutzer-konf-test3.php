@@ -55,6 +55,7 @@ if (isset ($_POST[speichern]))
        $datei = $_FILES[atavar][tmp_name];
        if (!move_uploaded_file ($datei, "atavar/$BenutzerId.jpg"))
          die ("Beim Hochladen der Datei ist ein Fehler aufgetreten. Versuchs nochmal...");
+       chmod ("atavar/$BenutzerId.jpg" , 0664);
        $ATAVAR = 'j';
     }
 
