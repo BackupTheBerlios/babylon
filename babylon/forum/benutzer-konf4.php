@@ -9,48 +9,48 @@
    GNU-GPL Version 2 zu nutzen und/oder modifizieren und/oder weiterzugeben.
    Lies die Datei COPYING fuer weitere Informationen hierzu. */
 
-  include_once ("konf/konf.php");
-  include ("wartung/wartung-info.php");
+  include_once ('konf/konf.php');
+  include ('wartung/wartung-info.php');
 
 // Standart Konfiguration. Man darf absolut nix ;-)
   $BenutzerId = -1;
   $K_Egl = FALSE;
-  $K_EMail = "";
-  $K_Alias = "";
-  $K_VName = "";
-  $K_NName = "";
+  $K_EMail = '';
+  $K_Alias = '';
+  $K_VName = '';
+  $K_NName = '';
   $K_Veroeffentlichen = 'n';
 
-  include_once ("../gemeinsam/db-verbinden.php");
-  include_once ("../gemeinsam/benutzer-daten.php");
-  include ("../gemeinsam/msie.php");
+  include_once ('../gemeinsam/db-verbinden.php');
+  include_once ('../gemeinsam/benutzer-daten.php');
+  include ('../gemeinsam/msie.php');
   $msiepng = msie_png ();
-  include ("leiste-oben.php");
+  include ('leiste-oben.php');
 
   benutzer_daten_persoenlich ($BenutzerId, $K_Egl, $K_Stil,
                               $K_EMail, $K_Alias,
 			      $K_VName, $K_NName);
 
-  echo "<html>
-  <head>";
-  include ("konf/meta.php");
-  metadata ($_SERVER["SCRIPT_FILENAME"]);
+  echo '<html>
+  <head>';
+  include ('konf/meta.php');
+  metadata ($_SERVER['SCRIPT_FILENAME']);
 
-  $stil_datei = "stil/" . $K_Stil . ".php";
+  $stil_datei = "stil/$K_Stil.php";
   include ($stil_datei);
   css_setzen ();
 
-  echo "    <title>Babylon - Einstellungen / Pers&ouml;nliches</title>\n";
+  echo '    <title>Babylon - Einstellungen / Pers&ouml;nliches</title>';
 
   if (!$K_Egl)
-    die ("Zugriff verweigert");
+    die ('Zugriff verweigert');
 
   $vname = stripslashes ($K_VName);
   $nname = stripslashes ($K_NName);
   $email = stripslashes ($K_EMail);
   
-  echo "  </head>
-  <body>";
+  echo '  </head>
+  <body>';
   
   wartung_ankuendigung ();
   

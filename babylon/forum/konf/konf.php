@@ -1,11 +1,11 @@
 <?PHP;
-  $verbindung = $_SERVER["DOCUMENT_ROOT"] . "/gemeinsam/db-verbinden.php";
+  $verbindung = $_SERVER['DOCUMENT_ROOT'] . '/gemeinsam/db-verbinden.php';
   include_once ($verbindung);
   $db = db_verbinden ();    
 
   $erg = mysql_query ("SELECT Schluessel, WertInt, WertText, Typ
                        FROM Konf")
-    or die ("Die Konfiguration konnte nicht gelesen werden");
+    or die ('Die Konfiguration konnte nicht gelesen werden');
 
   while ($zeile = mysql_fetch_row ($erg))
   {
@@ -18,6 +18,6 @@
     else if ($zeile[3] == 'a')
       ${$zeile[0]} = explode (',', $zeile[2]);
     else
-      die ("Die Datenbank enth&auml;lt einen nicht unterst&uuml;tzten Datentyp");
+      die ('Die Datenbank enth&auml;lt einen nicht unterst&uuml;tzten Datentyp');
   }
 ?>

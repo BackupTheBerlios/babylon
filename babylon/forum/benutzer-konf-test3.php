@@ -6,23 +6,23 @@
    GNU-GPL Version 2 zu nutzen und/oder modifizieren und/oder weiterzugeben.
    Lies die Datei COPYING fuer weitere Informationen hierzu. */
 
-if (isset ($_POST[speichern]))
+if (isset ($_POST['speichern']))
 {
 // Standart Konfiguration. Man darf absolut nix ;-)
   $BenutzerId = -1;
-  $Benutzer = "";
+  $Benutzer = '';
   $K_Egl = FALSE;
-  $K_Stil = "";
+  $K_Stil = '';
   $P_NameZeigen = 'n';
-  $K_VName = "";
-  $K_NName = "";
-  $P_Ort = "";
-  $P_EMail = "";
-  $P_Homepage = "";
+  $K_VName = '';
+  $K_NName = '';
+  $P_Ort = '';
+  $P_EMail = '';
+  $P_Homepage = '';
 
-  include_once ("konf/konf.php");
-  include_once ("../gemeinsam/benutzer-daten.php");
-  include ("./benutzer-eingaben.php");
+  include_once ('konf/konf.php');
+  include_once ('../gemeinsam/benutzer-daten.php');
+  include ('./benutzer-eingaben.php');
   
   benutzer_daten_profil ($BenutzerId, $Benutzer, $K_Egl, $K_Stil,
                          $P_NameZeigen, $P_Ort,
@@ -31,35 +31,35 @@ if (isset ($_POST[speichern]))
   if (!$K_Egl)
     die ("Zugriff verweigert");
 
-  if (!empty ($_FILES[atavar][tmp_name]))
+  if (!empty ($_FILES['atavar']['tmp_name']))
   {
-    $datei = $_FILES[atavar][tmp_name];
-    $groesse = $_FILES[atavar][size];
+    $datei = $_FILES['atavar']['tmp_name'];
+    $groesse = $_FILES['atavar']['size'];
     $info = getimagesize ($datei);
     $breite = $info[0];
     $hoehe = $info[1];
     $typ = $info[2];
   }
   if ($groesse > ($B_atavar_max_kb * 1024) or $breite > $B_atavar_max_breite or $hoehe > $B_atavar_max_hoehe)
-    $zu_arg = "atavar_groesse=";
+    $zu_arg = 'atavar_groesse=';
   else if ($typ > 2)
-    $zu_arg = "atavar_format=";
+    $zu_arg = 'atavar_format=';
   else
   {
     $ATAVAR = 'n';
-    if (!empty ($_FILES[atavar][tmp_name]))
+    if (!empty ($_FILES['atavar']['tmp_name']))
     { 
-       $datei = $_FILES[atavar][tmp_name];
+       $datei = $_FILES['atavar']['tmp_name'];
        if (!move_uploaded_file ($datei, "atavar/$BenutzerId.jpg"))
-         die ("Beim Hochladen der Datei ist ein Fehler aufgetreten. Versuchs nochmal...");
+         die ('Beim Hochladen der Datei ist ein Fehler aufgetreten. Versuchs nochmal...');
        chmod ("atavar/$BenutzerId.jpg" , 0664);
        $ATAVAR = 'j';
     }
 
-    $NAME_ZEIGEN = (isset ($_POST[name_zeigen])) ? "j" : "n";
-    $ORT = (strlen ($_POST[ort])) ? addslashes ($_POST[ort]) : "";
-    $HOMEPAGE = (strlen ($_POST[homepage])) ? addslashes ($_POST[homepage]) : "";
-    $EMAIL = (strlen ($_POST[email])) ? addslashes ($_POST[email]) : "";
+    $NAME_ZEIGEN = (isset ($_POST['name_zeigen'])) ? 'j' : 'n';
+    $ORT = (strlen ($_POST['ort'])) ? addslashes ($_POST['ort']) : '';
+    $HOMEPAGE = (strlen ($_POST['homepage'])) ? addslashes ($_POST['homepage']) : '';
+    $EMAIL = (strlen ($_POST['email'])) ? addslashes ($_POST['email']) : '';
 
     mysql_query ("UPDATE Benutzer
                   SET Atavar=\"$ATAVAR\",
@@ -68,9 +68,9 @@ if (isset ($_POST[speichern]))
                       ProfilEMail=\"$EMAIL\",
                       ProfilHomepage=\"$HOMEPAGE\"
                   WHERE BenutzerId=\"$BenutzerId\"")
-      or die ("Profildaten konnte nicht aktuallisiert werden.");
+      or die ('Profildaten konnte nicht aktuallisiert werden.');
   }
 }
-$zu = isset ($_POST[speichern]) ? "benutzer-konf3" : "foren";
-include ("gehe-zu.php");
+$zu = isset ($_POST['speichern']) ? 'benutzer-konf3' : 'foren';
+include ('gehe-zu.php');
 ?>

@@ -8,13 +8,13 @@
 
 function system_variablen_titel ()
 {
-  echo "Systemvariablen";
+  echo 'Systemvariablen';
 }
 
 function system_variablen_beschreibung ()
 {
-  echo "Konfigurationsmodul zur Anpassung der Grundkonfiguration des Forums. Hiermit
-        k&ouml;nnen grundlegende Verhaltensweisen angepasst werden";
+  echo 'Konfigurationsmodul zur Anpassung der Grundkonfiguration des Forums. Hiermit
+        k&ouml;nnen grundlegende Verhaltensweisen angepasst werden';
 }
 
 function system_variablen_wartung ()
@@ -26,17 +26,17 @@ function system_variablen_wartung ()
   $K_Schreiben = 0;
   $K_Admin = 0;
   $K_AdminForen = 0;
-  $K_Stil = "std";
-  $K_Signatur ="";
+  $K_Stil = 'std';
+  $K_Signatur = '';
   $K_SprungSpeichern = 0;
   $K_BaumZeigen = 'j';
 
-  include ("../konf/konf.php");
+  include ('../konf/konf.php');
   if ($B_version != 0 or $B_subversion < 2)
     die ('Das Modul zur Konfiguration der Systemvariablen steht erst ab Version 0.2
           des Forums zur Verf&uuml;gung');
   
-  include_once ("../../gemeinsam/benutzer-daten.php");
+  include_once ('../../gemeinsam/benutzer-daten.php');
 
   $db = db_verbinden ();    
   benutzer_daten_forum ($BenutzerId, $Benutzer, $K_Egl, $K_Lesen, $K_Schreiben, $K_Admin,
@@ -44,7 +44,7 @@ function system_variablen_wartung ()
                         $K_Stil,  $K_Signatur, $K_SprungSpeichern, $K_BaumZeigen);
 
   if (!$K_AdminForen)
-    die ("Zugriff verweigert");
+    die ('Zugriff verweigert');
 
   if (!$B_wartung_start)
     die ('Um dieses Skript laufen zu lassen muss das Forum gesperrt sein');
@@ -184,7 +184,7 @@ function system_variablen_wartung ()
               <td>
                 <input name=\"profil_links\" type=\"checkbox\" ";
   if ($B_profil_links)
-    echo "checked";
+    echo 'checked';
   echo "            ></input>
               </td>
               <td>

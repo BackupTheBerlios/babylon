@@ -8,7 +8,7 @@
 
 function manipulation ()
 {
-  die ("Entweder Dein Browser ist defekt und &uuml;bergtr&auml;gt falsche Daten oder Du versuchst das System zu manipulieren");
+  die ('Entweder Dein Browser ist defekt und &uuml;bergtr&auml;gt falsche Daten oder Du versuchst das System zu manipulieren');
 }
 
 function benutzer_eingabe_test ($var_tmp, $var_text, $min, $max, $fehler, $leer)
@@ -22,7 +22,7 @@ function benutzer_eingabe_test ($var_tmp, $var_text, $min, $max, $fehler, $leer)
   if (strlen ($var) < $min)
   {
     if (strlen ($fehler))
-      echo "<h2>" . $fehler . "</h2><p>";
+      echo '<h2>' . $fehler . '</h2><p>';
     return true;
   }
   if (strlen ($var) > $max)

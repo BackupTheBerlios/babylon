@@ -9,12 +9,12 @@
    GNU-GPL Version 2 zu nutzen und/oder modifizieren und/oder weiterzugeben.
    Lies die Datei COPYING fuer weitere Informationen hierzu. */
 
-  include_once ("konf/konf.php");
-  include ("wartung/wartung-info.php");
+  include_once ('konf/konf.php');
+  include ('wartung/wartung-info.php');
 
 // Standart Konfiguration. Man darf absolut nix ;-)
   $BenutzerId = -1;
-  $Benutzer = "";
+  $Benutzer = '';
   $K_Egl = FALSE;
   $K_Lesen = 0;
   $K_Schreiben = 0;
@@ -22,14 +22,14 @@
   $K_AdminForen = 0;
   $K_ThemenJeSeite = 6;
   $K_BeitraegeJeSeite = 3;
-  $K_Signatur ="";
+  $K_Signatur = '';
   $K_SprungSpeichern = 0;
   $K_BaumZeigen = 'j';
 
-  include ("../gemeinsam/benutzer-daten.php");
-  include ("../gemeinsam/msie.php");
+  include ('../gemeinsam/benutzer-daten.php');
+  include ('../gemeinsam/msie.php');
   $msiepng = msie_png ();
-  include ("leiste-oben.php");
+  include ('leiste-oben.php');
 
   $K_Stil = $B_standart_stil;
   
@@ -37,52 +37,52 @@
                         $K_AdminForen, $K_ThemenJeSeite, $K_BeitraegeJeSeite,
                         $K_Stil, $K_Signatur, $K_SprungSpeichern, $K_BaumZeigen);
 
-  echo "<html>
-  <head>";
-  include ("konf/meta.php");
-  metadata ($_SERVER["SCRIPT_FILENAME"]);
+  echo '<html>
+  <head>';
+  include ('konf/meta.php');
+  metadata ($_SERVER['SCRIPT_FILENAME']);
   
-  $stil_datei = "stil/" . $K_Stil . ".php";
+  $stil_datei = "stil/$K_Stil.php";
   include ($stil_datei);
   css_setzen ();
 
-  echo "    <title>Babylon - Einstellungen / Verhalten</title>\n";
+  echo '    <title>Babylon - Einstellungen / Verhalten</title>';
 
   if (!$K_Egl)
-    die ("Zugriff verweigert");
+    die ('Zugriff verweigert');
 
-  echo "  </head>
-  <body>";
+  echo '  </head>
+  <body>';
 
   wartung_ankuendigung ();
   
-  echo "    <h2>Forumseinstellungen</h2>
-    <table cellspacing=\"0\" cellpadding\"0\">
+  echo '    <h2>Forumseinstellungen</h2>
+    <table cellspacing="0" cellpadding"0">
       <tr>
-        <td class=\"reiter_aktiv\">
+        <td class="reiter_aktiv">
           Verhalten
         </td>
-        <td class=\"reiter_inaktiv\">
-          <a href=\"benutzer-konf2.php\">Aussehen</a>
+        <td class="reiter_inaktiv">
+          <a href="benutzer-konf2.php">Aussehen</a>
         </td>
-         <td class=\"reiter_inaktiv\">
-          <a href=\"benutzer-konf3.php\">Profil</a>
+         <td class="reiter_inaktiv">
+          <a href="benutzer-konf3.php">Profil</a>
         </td>       
-        <td class=\"reiter_inaktiv\">
-          <a href=\"benutzer-konf4.php\">Pers&ouml;nliches</a>
+        <td class="reiter_inaktiv">
+          <a href="benutzer-konf4.php">Pers&ouml;nliches</a>
         </td>
       </tr>
     </table>
-    <div class=\"konfiguration\">
-    <form name=\"konf\" action=\"benutzer-konf-test1.php\" method=\"post\">
+    <div class="konfiguration">
+    <form name="konf" action="benutzer-konf-test1.php" method="post">
       <table>
         <tr>
-          <td>\n";
+          <td>';
 
   // ##### Signatur #####
   $signatur = str_replace ("<br />", "", $K_Signatur);
   $signatur = ereg_replace ("(<img src=\"smileys)(.*)(.png\" alt=\")(.*)(\">)", "\\4", $signatur);
-  echo "            <table>
+  echo '            <table>
               <tr>
                 <td><h3>Signatur</h3></td>
               </tr>
@@ -90,22 +90,25 @@
                 <td>Diese Signatur wird an all Deine Beitr&auml;ge angeh&auml;ngt. Sie darf die gleichen html-Befehle enthalten, die f&uuml;r Forumsbeitr&auml;ge erlaubt sind. Die L&auml;nge ist auf 255 Zeichen inklusive der html-Befehle beschr&auml;nkt. Referenzen zu externen Dateien - auch Bilder - sind nicht erlaubt.</td>
               </tr>
               <tr>
-                <td><textarea name=\"signatur\" cols=\"50\" rows=\"5\" maxlength=\"255\">" . $signatur . "</textarea></td>
+                <td>
+                  <textarea name="signatur" cols="50" rows="5" maxlength="255">';
+  echo $signatur;
+  echo '               </textarea></td>
               </tr>
             </table>
           </td>
         </tr>
         <tr>
-          <td>\n";
+          <td>';
   // ##### Themen / Beitraege je Seite #####
-  echo "            <table>
+  echo '            <table>
               <tr>
                 <td><h3>Verhalten</h3>
                 <h4>Wieviele Themen / Beitr&auml;ge sollen je Seite angezeigt werden?</h4></td>
-              </tr>\n";
+              </tr>';
 
   $je_seite = array (3, 6, 10, 20);
-  echo "              <tr>
+  echo '              <tr>
                 <td>
                   <table>
                     <tr>
@@ -113,7 +116,7 @@
                         <table>
                           <tr>
                             <td>Themen je Seite</td>
-                          </tr>\n";
+                          </tr>';
   foreach ($je_seite as $je)
   {
     if ($je == $K_ThemenJeSeite)
@@ -126,13 +129,13 @@
                           </tr>\n";
   }
 
-  echo "                        </table>
+  echo '                        </table>
                       </td>
                       <td>
                         <table>
                           <tr>
                             <td>Beitr&auml;ge je Seite</td>
-                          </tr>";
+                          </tr>';
   foreach ($je_seite as $je)
   {
     if ($je == $K_BeitraegeJeSeite)
@@ -145,49 +148,49 @@
                           </tr>\n";
   }
 
-  echo "                        </table>
+  echo '                        </table>
                       </td>
                     </tr>
                   </table>
                 </td>
-              </tr>\n";
+              </tr>';
 
   // ##### Sprungziel bei Speicherung eines Beitrags #####
   
-  echo "              <tr>
+  echo '              <tr>
                  <td><h4>Wohin soll nach dem Absenden eines Beitrages gesprungen werden?</h4></td>
-              </tr>\n";
+              </tr>';
 
-  $sprung_name = array ("Zur &Uuml;bersicht der Foren",
-                        "Zur &Uuml;bersicht der Themen im zuletzt besuchten Forum",
-			"Zur Baumansicht des zuletzt besuchten Themas",
-			"In den Beitragsstrang des zuletzt besuchten Themas",
-			"Zu den zuletzt besuchten Beitr&auml;gen eines Themas");
-  $sprung_wert = array ("forum", "thema", "baum", "strang", "beitrag");
+  $sprung_name = array ('Zur &Uuml;bersicht der Foren',
+                        'Zur &Uuml;bersicht der Themen im zuletzt besuchten Forum',
+			'Zur Baumansicht des zuletzt besuchten Themas',
+			'In den Beitragsstrang des zuletzt besuchten Themas',
+			'Zu den zuletzt besuchten Beitr&auml;gen eines Themas');
+  $sprung_wert = array ('forum', 'thema', 'baum', 'strang', 'beitrag');
   $i = 0;
 
   foreach ($sprung_name as $sprung)
   {
     if ($i == $K_SprungSpeichern)
       echo "              <tr>
-                <td valign=\"middle\"><nobr><input type=\"radio\" name=\"sprung_speichern\" value=\"" . $sprung_wert[$i] . "\" \"checked\">" . $sprung_name[$i]  . "</input></nobr></td>
+                <td valign=\"middle\"><nobr><input type=\"radio\" name=\"sprung_speichern\" value=\"" . $sprung_wert["$i"] . "\" \"checked\">" . $sprung_name["$i"]  . "</input></nobr></td>
               </tr>\n";
     else
       echo "              <tr>
-                <td valign=\"middle\"><nobr><input type=\"radio\" name=\"sprung_speichern\" value=\"" . $sprung_wert[$i] . "\">" . $sprung_name[$i]  . "</input></nobr></td>
+                <td valign=\"middle\"><nobr><input type=\"radio\" name=\"sprung_speichern\" value=\"" . $sprung_wert["$i"] . "\">" . $sprung_name["$i"]  . "</input></nobr></td>
               </tr>\n";
     $i++;
   }
 
   // #### Ob der Beitragsbaum gezeigt werden soll #####
-  echo "              <tr>
+  echo '              <tr>
                  <td><h4>Soll wenn man von den Themen kommt der Beitragsbaum gezeigt werden?</h4>
-                         Alternativ wird direkt in die Beitr&auml;ge gesprungen so als h&auml;tte man in der Baumansicht \"Alle Beitr&auml;ge auf ein Mal anzeigen\" gew&auml;hlt<p></td>
+                         Alternativ wird direkt in die Beitr&auml;ge gesprungen so als h&auml;tte man in der Baumansicht "Alle Beitr&auml;ge auf ein Mal anzeigen" gew&auml;hlt<p></td>
               </tr>
               <tr>
-                <td><input type=\"checkbox\" name=\"baum_zeigen\"";
+                <td><input type="checkbox" name="baum_zeige\"';
   if ($K_BaumZeigen == 'j')
-    echo " \"checked\"";
+    echo ' "checked"';
   echo ">Beitragsbaum anzeigen</input></td>
               </tr>
             </table>

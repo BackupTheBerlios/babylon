@@ -20,20 +20,20 @@
 
 function id_von_get_post (&$fid, &$tid, &$sid, &$bid, &$zid, &$neu)
 {
-  $var = array ("fid", "tid", "sid", "bid", "zid", "neu");
+  $var = array ('fid', 'tid', 'sid', 'bid', 'zid', 'neu');
   foreach ($var as $id)
   {
-    if (isset ($_POST[$id]))
+    if (isset ($_POST["$id"]))
     {
-      $intid = intval ($_POST[$id]);
+      $intid = intval ($_POST["$id"]);
 //      if (strcmp (strval ($intid), $_POST[$id]) or $intid < -1)
 //        return true;
       $ID = $id;
       $$ID = $intid;
     }
-    else if (isset ($_GET[$id]))
+    else if (isset ($_GET["$id"]))
     {
-      $intid = intval ($_GET[$id]);
+      $intid = intval ($_GET["$id"]);
 //      if (strcmp (strval ($intid), $_GET[$id]) or $intid < -1)
 //        return true;
       $ID = $id;

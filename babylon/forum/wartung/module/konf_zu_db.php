@@ -8,13 +8,13 @@
 
 function konf_zu_db_titel ()
 {
-  echo "Konf zu Datenbank";
+  echo 'Konfiguration zu Datenbank';
 }
 
 function konf_zu_db_beschreibung ()
 {
-  echo "&Uuml;bertr&auml;gt die Konfiguration der Datei forum/konf/konf.php
-  in eine neue Tabelle der Datenbank.";
+  echo '&Uuml;bertr&auml;gt die Konfiguration der Datei forum/konf/konf.php
+  in eine neue Tabelle der Datenbank.';
 }
 
 function konf_zu_db_wartung ()
@@ -26,14 +26,14 @@ function konf_zu_db_wartung ()
   $K_Schreiben = 0;
   $K_Admin = 0;
   $K_AdminForen = 0;
-  $K_Stil = "std";
-  $K_Signatur ="";
+  $K_Stil = 'std';
+  $K_Signatur = '';
   $K_SprungSpeichern = 0;
   $K_BaumZeigen = 'j';
 
-  include_once ("../../gemeinsam/db-verbinden.php");
-  include_once ("../../gemeinsam/benutzer-daten.php");
-  include ("../konf/konf.php");
+  include_once ('../../gemeinsam/db-verbinden.php');
+  include_once ('../../gemeinsam/benutzer-daten.php');
+  include ('../konf/konf.php');
 
   $db = db_verbinden ();    
   benutzer_daten_forum ($BenutzerId, $Benutzer, $K_Egl, $K_Lesen, $K_Schreiben, $K_Admin,
@@ -41,7 +41,7 @@ function konf_zu_db_wartung ()
                         $K_Stil,  $K_Signatur, $K_SprungSpeichern, $K_BaumZeigen);
 
   if (!$K_AdminForen)
-    die ("Zugriff verweigert");
+    die ('Zugriff verweigert');
 
   if (!$B_wartung_start)
     die ('Um dieses Skript laufen zu lassen muss das Forum &uuml;ber das setzen der
@@ -54,15 +54,14 @@ function konf_zu_db_wartung ()
   mysql_query ("CREATE TABLE `Konf` (
                   `KonfId` INT (1) UNSIGNED NOT NULL AUTO_INCREMENT,
                   `Schluessel` VARCHAR (255) DEFAULT NULL,
-                  `Gruppe` INT (1) UNSIGNED DEFAULT '0',
                   `WertInt` INT (1) UNSIGNED DEFAULT '0',
                   `WertText` TEXT DEFAULT NULL,
                   `Typ` CHAR (1) DEFAULT 'i',
                   PRIMARY KEY (`KonfId`)
                   ) TYPE=MyISAM")
-    or die ("Erstellung der Konf-Tabelle gescheitert");
+    or die ('Erstellung der Konf-Tabelle gescheitert');
 
-  $fd = fopen ("../konf/konf.php", "r");
+  $fd = fopen ('../konf/konf.php', 'r');
 
   while ($zeile = fgets ($fd, 1000))
   {
@@ -82,7 +81,7 @@ function konf_zu_db_wartung ()
       mysql_query ("INSERT INTO Konf
                     (Schluessel, WertText, Typ)
                      VALUES (\"$varname\", \"$stil\", 'a')")
-        or die ("Die Variable $varname konnte nicht in der Konfigruation angelegt werden"); 
+        or die ('Die Variable $varname konnte nicht in der Konfigruation angelegt werden'); 
      
     }
     else
@@ -126,8 +125,8 @@ function konf_zu_db_wartung ()
                 WHERE Schluessel = 'B_subversion'")
    or die ("Die Forumversion konnte nicht aktuallisiert werden");
 
-  echo "<h2>Die Konfiguration ist jetzt Datenbankbasiert.</h2>
-        Spiele jetzt erst die neuen Dateiversionen im Verzeichniss forum/konf/ ein.<p>";
+  echo '<h2>Die Konfiguration ist jetzt Datenbankbasiert.</h2>
+        Spiele jetzt erst die neuen Dateiversionen im Verzeichniss forum/konf/ ein.<p>';
    
 }
 ?>

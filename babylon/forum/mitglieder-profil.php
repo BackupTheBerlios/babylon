@@ -8,50 +8,50 @@
    GNU-GPL Version 2 zu nutzen und/oder modifizieren und/oder weiterzugeben.
    Lies die Datei COPYING fuer weitere Informationen hierzu. */
 
-  include_once ("konf/konf.php");
-  include ("wartung/wartung-info.php");
+  include_once ('konf/konf.php');
+  include ('wartung/wartung-info.php');
 
 // Standart Konfiguration. Man darf absolut nix ;-)
   $BenutzerId = -1;
-  $Benutzer = "";
+  $Benutzer = '';
   $K_Egl = FALSE;
   $K_Lesen = 0;
   $K_Schreiben = 0;
   $K_Admin = 0;
   $K_AdminForen = 0;
-  $K_Signatur ="";
+  $K_Signatur = '';
   $K_SprungSpeichern = 0;
   $K_BaumZeigen = 'j';
 
-  include ("../gemeinsam/benutzer-daten.php");
-  include_once ("../gemeinsam/msie.php");
+  include ('../gemeinsam/benutzer-daten.php');
+  include_once ('../gemeinsam/msie.php');
   $msiepng = msie_png ();
-  include ("leiste-oben.php");
+  include ('leiste-oben.php');
 
   $K_Stil = $B_standart_stil;
   
   benutzer_daten_forum ($BenutzerId, $Benutzer, $K_Egl, $K_Lesen, $K_Schreiben, $K_Admin,
                         $K_AdminForen, $K_ThemenJeSeite, $K_BeitraegeJeSeite,
                         $K_Stil,  $K_Signatur, $K_SprungSpeichern, $K_BaumZeigen);
-  echo "<html>
-  <head>\n";
-  include ("konf/meta.php");
-  metadata ($_SERVER["SCRIPT_FILENAME"]);
+  echo '<html>
+  <head>';
+  include ('konf/meta.php');
+  metadata ($_SERVER['SCRIPT_FILENAME']);
 
-  $stil_datei = "stil/" . $K_Stil . ".php";
+  $stil_datei = "stil/$K_Stil.php";
   include ($stil_datei);
   css_setzen ();
 
-  $alias = addslashes ($_GET[alias]);
+  $alias = addslashes ($_GET['alias']);
 
   $erg = mysql_query ("SELECT BenutzerId, Benutzer, VName, NName, Anmeldung, Beitraege,
                               Themen, LetzterBeitrag, Atavar, ProfilNameZeigen,
                               ProfilEMail, ProfilHomepage, ProfilOrt
                        FROM Benutzer
                        WHERE Benutzer = \"$alias\"")
-    or die ("Profildaten konnten nicht ermittelt werden");
+    or die ('Profildaten konnten nicht ermittelt werden');
   if (!mysql_num_rows ($erg))
-    die ("Ungueltige Benutzerkennung");
+    die ('Ungueltige Benutzerkennung');
 
   $profil = mysql_fetch_row ($erg);
 
@@ -61,15 +61,15 @@
   
   wartung_ankuendigung ();
   
-  echo "    <table width=\"100%\">\n";
+  echo '    <table width="100%">';
 
-  $gehe_zu = "foren";
+  $gehe_zu = 'foren';
   leiste_oben ($K_Egl);
   
   if ($profil[9] == 'j')
     $name = "$profil[2] $profil[3]<br>";
   else
-    $name = "";
+    $name = '';
     
   if ($profil[7])
   {
@@ -82,18 +82,18 @@
   if ($profil[12])
     $ort = "Wohnort: $profil[12]";
   else
-    $ort = "";
+    $ort = '';
   
 
-  echo "    </table>
-        <table border=\"2\">
+  echo '    </table>
+        <table border="2">
           <tr>
-            <td>";
+            <td>';
   $atavar_datei = "atavar/$profil[0].jpg";
   if (is_readable ($atavar_datei))
     echo "<img src=\"$atavar_datei\" alt=\"\">";
   else
-    echo "Kein Atavar<br>eingerichtet";
+    echo 'Kein Atavar<br>eingerichtet';
  
   echo "            </td>
             <td>
@@ -121,7 +121,7 @@
     else
       echo "$profil[10]";             
   
-  echo "<br>            Homepage: ";
+  echo '<br>            Homepage: ';
   
   if ($profil[11])
     if ($B_profil_links)
@@ -133,14 +133,14 @@
     }
     else
       echo "$profil[11]";
-  echo "          </td>
+  echo '          </td>
           </tr>
-        </table>";
+        </table>';
 
-  include ("leiste-unten.php");
+  include ('leiste-unten.php');
   leiste_unten ();
 
-  echo "    </table>
+  echo '    </table>
   </body>
-</html>";
+</html>';
 ?>

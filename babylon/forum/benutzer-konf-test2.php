@@ -6,11 +6,11 @@
    GNU-GPL Version 2 zu nutzen und/oder modifizieren und/oder weiterzugeben.
    Lies die Datei COPYING fuer weitere Informationen hierzu. */
 
-if (isset ($_POST[speichern]))
+if (isset ($_POST['speichern']))
 {
 // Standart Konfiguration. Man darf absolut nix ;-)
   $BenutzerId = -1;
-  $Benutzer = "";
+  $Benutzer = '';
   $K_Egl = FALSE;
   $K_Lesen = 0;
   $K_Schreiben = 0;
@@ -18,14 +18,14 @@ if (isset ($_POST[speichern]))
   $K_AdminForen = 0;
   $K_ThemenJeSeite = 6;
   $K_BeitraegeJeSeite = 3;
-  $K_Stil = "std";
-  $K_Signatur ="";
+  $K_Stil = 'std';
+  $K_Signatur = '';
   $K_SprungSpeichern = 0;
   $K_BaumZeigen = 0;
 
-  include ("../gemeinsam/db-verbinden.php");
-  include ("../gemeinsam/benutzer-daten.php");
-  include ("beitrag-pharsen.php");
+  include ('../gemeinsam/db-verbinden.php');
+  include ('../gemeinsam/benutzer-daten.php');
+  include ('beitrag-pharsen.php');
   
 
   $db = db_verbinden ();    
@@ -34,27 +34,27 @@ if (isset ($_POST[speichern]))
                         $K_Stil, $K_Signatur, $K_SprungSpeichern, $K_BaumZeigen);
 
   if (!$K_Egl)
-    die ("Zugriff verweigert");
+    die ('Zugriff verweigert');
       
 
   // ##### Stil #####
   foreach ($B_stile as $stil)
   {
-    if (strcmp ($stil, $_POST[stil]) == 0)
+    if (strcmp ($stil, $_POST['stil']) == 0)
     {
       $STIL = $stil;
       break;
     }
   }
   if (!isset ($STIL))
-    $STIL = "std";
+    $STIL = 'std';
 
   mysql_query ("UPDATE Benutzer
                 SET KonfStil=\"$STIL\"
                 WHERE BenutzerId=\"$BenutzerId\"")
-    or die ("F0038: Die Benutzereinstellungen konnten nicht aktuallisiert werden.");
+    or die ('F0038: Die Benutzereinstellungen konnten nicht aktuallisiert werden.');
   mysql_close ($db);
 }
-$zu = isset ($_POST[speichern]) ? "benutzer-konf2" : "foren";
-include ("gehe-zu.php");
+$zu = isset ($_POST['speichern']) ? 'benutzer-konf2' : 'foren';
+include ('gehe-zu.php');
 ?>

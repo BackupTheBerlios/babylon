@@ -8,25 +8,25 @@
    GNU-GPL Version 2 zu nutzen und/oder modifizieren und/oder weiterzugeben.
    Lies die Datei COPYING fuer weitere Informationen hierzu. */
 
-  include_once ("konf/konf.php");
-  include ("wartung/wartung-info.php");
+  include_once ('konf/konf.php');
+  include ('wartung/wartung-info.php');
 
 // Standart Konfiguration. Man darf absolut nix ;-)
   $BenutzerId = -1;
-  $Benutzer = "";
+  $Benutzer = '';
   $K_Egl = FALSE;
   $K_Lesen = 0;
   $K_Schreiben = 0;
   $K_Admin = 0;
   $K_AdminForen = 0;
-  $K_Signatur ="";
+  $K_Signatur = '';
   $K_SprungSpeichern = 0;
   $K_BaumZeigen = 'j';
 
-  include ("../gemeinsam/benutzer-daten.php");
-  include_once ("../gemeinsam/msie.php");
+  include ('../gemeinsam/benutzer-daten.php');
+  include_once ('../gemeinsam/msie.php');
   $msiepng = msie_png ();
-  include ("leiste-oben.php");
+  include ('leiste-oben.php');
 
   $K_Stil = $B_standart_stil;
 
@@ -34,33 +34,33 @@
                         $K_AdminForen, $K_ThemenJeSeite, $K_BeitraegeJeSeite,
                         $K_Stil,  $K_Signatur, $K_SprungSpeichern, $K_BaumZeigen);
 
-  echo "<html>
-  <head>\n";
-  include ("konf/meta.php");
-  metadata ($_SERVER["SCRIPT_FILENAME"]);
+  echo '<html>
+  <head>';
+  include ('konf/meta.php');
+  metadata ($_SERVER['SCRIPT_FILENAME']);
 
-  $stil_datei = "stil/" . $K_Stil . ".php";
+  $stil_datei = "stil/$K_Stil.php";
   include ($stil_datei);
   css_setzen ();
 
-  echo "    <title>Forum / Foren</title>
+  echo '    <title>Forum / Foren</title>
   </head>
-  <body>";
+  <body>';
   
   wartung_ankuendigung ();
   
-  echo "    <table width=\"100%\">\n";
+  echo '    <table width="100%">';
 
-  $gehe_zu = "themen";
+  $gehe_zu = 'themen';
   leiste_oben ($K_Egl);
-  echo "        <tr>
+  echo '        <tr>
           <td>
-            <table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">\n";
+            <table width="100%" cellpadding="0" cellspacing="0" border="0">';
   
   $beitraege = mysql_query ("SELECT ForumId, NumBeitraege, StempelLetzter, Titel, Inhalt
                              FROM Beitraege
                              WHERE BeitragTyp = 1 AND Gesperrt = 'n'")
-    or die ("F0042: Forenzahl konnte nicht ermittelt werden");
+    or die ('F0042: Forenzahl konnte nicht ermittelt werden');
 
   $erster = TRUE;
   $f = 0;
@@ -68,19 +68,25 @@
   {
     if ((1 << $f & $K_Lesen) or (1 << $f & $B_leserecht))
     {
-      zeichne_forum ($erster, $zeile[0], $zeile[1], $zeile[2], $zeile[3], $zeile[4]);
+      $param = array ('Erster' => $erster,
+                      'ForumId' => $zeile[0],
+                      'NumBeitraege' => $zeile[1],
+                      'StempelLetzter' => $zeile[2],
+                      'Titel' => $zeile[3],
+                      'Inhalt' => $zeile[4]);
+      zeichne_forum ($param);
       $erster = FALSE;
     }
     $f++;
   }
 
   mysql_close ($db);
-  echo "          </table>
+  echo '          </table>
         </td>
       </tr>
       <tr>
-        <td><img src=\"/grafik/dummy.png\" width=\"1\" height=\"30\" alt=\"\"></td>
-      </tr>\n";
+        <td><img src="/grafik/dummy.png" width="1" height="30" alt=""></td>
+      </tr>';
  
   if ($K_AdminForen)
   {
@@ -92,9 +98,9 @@
         </td>
       </tr>\n";
   }
-  include ("leiste-unten.php");
+  include ('leiste-unten.php');
   leiste_unten ();
-  echo "    </table>
+  echo '    </table>
   </body>
-</html>";
+</html>';
 ?>

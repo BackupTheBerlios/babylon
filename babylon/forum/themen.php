@@ -8,19 +8,19 @@
    GNU-GPL Version 2 zu nutzen und/oder modifizieren und/oder weiterzugeben.
    Lies die Datei COPYING fuer weitere Informationen hierzu. */
 
-  include_once ("konf/konf.php");
-  include ("wartung/wartung-info.php");
+  include_once ('konf/konf.php');
+  include ('wartung/wartung-info.php');
 
 // Standart Konfiguration. Man darf absolut nix ;-)
   $BenutzerId = -1;
-  $Benutzer = "";
+  $Benutzer = '';
   $K_Egl = FALSE;
   $K_Lesen = 0;
   $K_Schreiben = 0;
   $K_Admin = 0;
   $K_AdminForen = 0;
   $K_ThemenJeSeite = 6;
-  $K_Signatur ="";
+  $K_Signatur = '';
   $K_SprungSpeichern = 0;
   $K_BaumZeigen = 'j';
 
@@ -30,14 +30,14 @@
   $bid = 0;
   $zid = 0;
   $neu = FALSE;
-  include ("get-post.php");
+  include ('get-post.php');
   if (id_von_get_post ($fid, $tid, $sid, $bid, $zid, $neu))
-    die ("Illegaler Zugriffsversuch!");
+    die ('Illegaler Zugriffsversuch!');
 
-  include ("../gemeinsam/benutzer-daten.php");
-  include ("../gemeinsam/msie.php");
+  include ('../gemeinsam/benutzer-daten.php');
+  include ('../gemeinsam/msie.php');
   $msiepng = msie_png();
-  include ("leiste-oben.php");
+  include ('leiste-oben.php');
 
   $K_Stil = $B_standart_stil;
   $K_BeitraegeJeSeite = $B_beitraege_je_seite;
@@ -46,43 +46,43 @@
                         $K_AdminForen,  $K_ThemenJeSeite, $K_BeitraegeJeSeite,
                         $K_Stil, $K_Signatur, $K_SprungSpeichern, $K_BaumZeigen);
 
-  echo "<html>
-  <head>\n";
-  include ("konf/meta.php");
-  metadata ($_SERVER["SCRIPT_FILENAME"]);
+  echo '<html>
+  <head>';
+  include ('konf/meta.php');
+  metadata ($_SERVER['SCRIPT_FILENAME']);
 
-  $stil_datei = "stil/" . $K_Stil . ".php";
+  $stil_datei = "stil/$K_Stil.php";
   include ($stil_datei);
   css_setzen ();
 
-  echo "    <title>Forum / Themen</title>
+  echo '    <title>Forum / Themen</title>
   </head>
-  <body>\n";
+  <body>';
   wartung_ankuendigung ();
 
   if (!((1 << $fid & $K_Lesen) or (1 << $fid & $B_leserecht)))
   {
-    echo "<h2>Du bist nicht berechtigt dieses Forum zu lesen!</h2>
-          </body></html>";
+    echo '<h2>Du bist nicht berechtigt dieses Forum zu lesen!</h2>
+          </body></html>';
     mysql_close ($db);
   }
   else
   {
   
-  echo "    <table width=\"100%\">\n";
+  echo '    <table width="100%">';
 
-  $gehe_zu = "themen";
+  $gehe_zu = 'themen';
   leiste_oben ($K_Egl);
 
-  echo "    </table>
-    <table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\">
+  echo '    </table>
+    <table width="100%" cellspacing="0" cellpadding="0" border="0">
       <tr>
-        <td>\n";
+        <td>';
   
   $erg = mysql_query ("SELECT NumBeitraege
                        FROM Beitraege
                        WHERE BeitragTyp = 1 AND ForumId = $fid")
-    or die ("F0056: Beitragszahl konnte nicht ermittelt werden");
+    or die ('F0056: Beitragszahl konnte nicht ermittelt werden');
   $zeile = mysql_fetch_row ($erg);
   $saetze = $zeile[0];
   
@@ -94,12 +94,18 @@
 
 
   // die Themen die wir darstellen wollen
-  $beitraege = mysql_query ("SELECT ThemaId, Autor, AutorLetzter, StempelLetzter, Titel, NumBeitraege, NumGelesen
+  $gesperrt = $K_Admin & 1 << $fid ? '' : 'AND Gesperrt  = \'n\'';
+   
+  $beitraege = mysql_query ("SELECT ThemaId, Autor, AutorLetzter, StempelLetzter, Titel,
+                               NumBeitraege, NumGelesen, Gesperrt
                              FROM Beitraege
-                             WHERE BeitragTyp = 2 AND ForumId = $fid AND ThemaId <= $tid AND Gesperrt = 'n'
+                             WHERE BeitragTyp = 2
+                               AND ForumId = $fid
+                               AND ThemaId <= $tid
+                               $gesperrt
                              ORDER BY StempelLetzter DESC
                              LIMIT $tjs")
-    or die ("F0057: Themen konnten nicht gelesen werden");
+    or die ('F0057: Themen konnten nicht gelesen werden');
  
  
   $erster = TRUE;
@@ -107,12 +113,22 @@
   {
     $baum = $K_BaumZeigen == 'j' ? TRUE : FALSE;
     $titel = stripslashes ($zeile[4]);
-    zeichne_thema ($erster, $fid, $zeile[0], $zeile[1], $zeile[2], $zeile[3], $titel, $zeile[5], $zeile[6], $baum);
+    $param = array ('Erster' => $erster,
+                    'ForumId' => $fid,
+                    'ThemaId' => $zeile[0],
+                    'Autor' => $zeile[1],
+                    'AutorLetzter' => $zeile[2],
+                    'StempelLetzter' => $zeile[3],
+                    'Titel' => $titel,
+                    'NumBeitraege' => $zeile[5],
+                    'NumGelesen' => $zeile[6],
+                    'BaumZeigen' => $baum);
+    zeichne_thema ($param);
     $erster = FALSE;
   } 
-   echo "          </table>
+   echo '          </table>
         </td>
-      </tr>\n";
+      </tr>';
 
    $limit = $tjs * 6;
   // wir holen die Themen nach dem gewuenschten Satz, fuer die Seitenumschalter;
@@ -122,7 +138,7 @@
                        WHERE BeitragTyp = 2 AND ForumId = $fid AND ThemaId <= $tid AND Gesperrt = 'n'
                        ORDER BY StempelLetzter DESC
                        LIMIT $limit")
-    or die ("F0058: ThemenIds f&uuml;r die Seitenumschalter konnten nicht geholt werden");
+    or die ('F0058: ThemenIds f&uuml;r die Seitenumschalter konnten nicht geholt werden');
 
   $zeilen = mysql_num_rows ($erg);
   if ($zeilen > $tjs)
@@ -162,7 +178,7 @@
                        WHERE BeitragTyp = 2 AND ForumId = $fid AND ThemaId > $tid AND Gesperrt = 'n'
                        ORDER BY StempelLetzter DESC
                        LIMIT $limit")
-    or die ("F0059: Die Themen Id's konnten nicht ermittelt werden");
+    or die ('F0059: Die Themen Id\'s konnten nicht ermittelt werden');
   if (mysql_num_rows ($erg) > 0)
   {
     $i = 0;
@@ -181,8 +197,8 @@
   mysql_close ($db);
 
   // die Seitenauswahl
-  echo "      <tr align=\"center\">
-        <td height=\"50\" valign=\"middle\">\n";
+  echo '      <tr align="center">
+        <td height="50" valign="middle">';
   if ($saetze > $tjs)
   {
     $seiten = ceil ($saetze/ $tjs);
@@ -191,7 +207,7 @@
     if (isset ($tids_vor))
     {
       if (($saetze - $folgethemen - $tjs) > $tjs * 5)
-       echo "...";
+       echo '...';
     
       $seiten_vor = sizeof ($tids_vor);
       $i = $aktuelle_seite - $seiten_vor;
@@ -214,16 +230,16 @@
       }
 
       if ($folgethemen > $tjs * 5)
-        echo "...";
+        echo '...';
     }
   }
   // das wars mit den Themen...
 
   
-  echo "\n        </td>
+  echo '        </td>
       </tr>
       <tr>
-        <td>\n";
+        <td>';
   if ($K_Egl)
   {
     echo "          <form action=\"beitraege.php\" method=\"post\">
@@ -243,14 +259,14 @@
             <input type=\"hidden\" name=\"fid\" value=\"$fid\">
           </form>\n";
   }
-  echo "        </td>
-      </tr>\n";
+  echo '        </td>
+      </tr>';
 
-  include ("leiste-unten.php");
+  include ('leiste-unten.php');
   leiste_unten ();
 
-  echo "    </table>
+  echo '    </table>
   </body>
-</html>";
+</html>';
 }
 ?>

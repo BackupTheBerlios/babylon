@@ -6,8 +6,8 @@
    GNU-GPL Version 2 zu nutzen und/oder modifizieren und/oder weiterzugeben.
    Lies die Datei COPYING fuer weitere Informationen hierzu. */
 
-  include ("konf/konf.php");
-  include ("wartung/wartung-info.php");
+  include ('konf/konf.php');
+  include ('wartung/wartung-info.php');
   
 // Standart Konfiguration. Man darf absolut nix ;-)
 $BenutzerId = -1;
@@ -18,8 +18,8 @@ $K_Admin = 0;
 $K_AdminForen = 0;
 $K_ThemenJeSeite = 6;
 $K_BeitraegeJeSeite = 3;
-$K_Stil = "std";
-$K_Signatur ="";
+$K_Stil = 'std';
+$K_Signatur = '';
 $K_SprungSpeichern = 0;
 $K_BaumZeigen = 'j';
 
@@ -29,7 +29,7 @@ $sid = 0;
 $bid = 0;
 $neu = FALSE;
 
-include ("../gemeinsam/benutzer-daten.php");
+include ('../gemeinsam/benutzer-daten.php');
 
 benutzer_daten_forum ($BenutzerId, $Benutzer, $K_Egl, $K_Lesen, $K_Schreiben, $K_Admin,
                       $K_AdminForen,  $K_ThemenJeSeite, $K_BeitraegeJeSeite,
@@ -54,7 +54,7 @@ echo "  <h2>Anmelden</h2>\n
       </tr>
       <tr>
         <td>Benutzername</td>
-        <td><input name=\"benutzer\" type=\"text\" size=\"30\" maxlength=\"32\" value=\"$_POST[benutzer]\"></td>
+        <td><input name=\"benutzer\" type=\"text\" size=\"30\" maxlength=\"32\" value=\"$_POST['benutzer']\"></td>
       </tr>
       <tr>
         <td>Passwort</td>
@@ -72,21 +72,21 @@ echo "  <h2>Anmelden</h2>\n
       <tr/>
       <tr>
         <td>E-mail</td>
-        <td><input name=\"email\" type=\"text\" size=\"30\" maxlength=\"255\" value=\"$_POST[email]\"></td>
+        <td><input name=\"email\" type=\"text\" size=\"30\" maxlength=\"255\" value=\"$_POST['email']\"></td>
       </tr>
       <tr>
         <td>Vor- / Nachname</td>
-        <td><input name=\"vname\" type=\"text\" size=\"30\" maxlength=\"32\" value=\"$_POST[vname]\"><input name=\"nname\" type=\"text\" size=\"30\" maxlength=\"32\" value=\"$_POST[nname]\"><p></td>
+        <td><input name=\"vname\" type=\"text\" size=\"30\" maxlength=\"32\" value=\"$_POST['vname']\"><input name=\"nname\" type=\"text\" size=\"30\" maxlength=\"32\" value=\"$_POST['nname']\"><p></td>
       </tr>
       <tr>
         <td colspan=\"2\">&nbsp;<p></td>
       </tr>
       <tr>
         <td>
-          <button name=\"gehe_zu\" value=\"$_POST[gehe_zu]\"><img src=\"/grafik/PenWrite.png\" width=\"24\" height=\"24\" alt=\"\">Anmelden</button>
+          <button name=\"gehe_zu\" value=\"$_POST['gehe_zu']\"><img src=\"/grafik/PenWrite.png\" width=\"24\" height=\"24\" alt=\"\">Anmelden</button>
         </td>
         <td>
-          <input type=\"hidden\" name=\"param\" value=\"$_POST[param]\"></input>
+          <input type=\"hidden\" name=\"param\" value=\"$_POST['param']\"></input>
         </td>
       </tr>
       <tr>

@@ -8,17 +8,18 @@
 
 function leiste_unten ()
 {
-  echo "      <tr>
+  echo '      <tr>
         <td>
           <table>
             <tr>
-              <td width=\"33%\" height=\"100%\" valign=\"bottom\">";
+              <td width="33%" height="100%" valign="bottom">';
 
-  if (substr_count ($_SERVER["DOCUMENT_ROOT"], 'babylon.berlios.de'))
-    echo "                Danke f&uuml;rs Hosten!<br>
-                <A href=\"http://developer.berlios.de\">
-                  <IMG src=\"http://developer.berlios.de/bslogo.php?group_id=1674\" width=\"124\" height=\"32\" border=\"0\" alt=\"BerliOS Developer Logo\">
-                </A>";
+  // wir geben das BerliOS logo nur fuer das babylon-projekt auf berlios.de aus
+  if (substr_count ($_SERVER['HTTP_HOST'], 'babylon.berlios.de'))
+    echo '                Danke f&uuml;rs Hosten!<br>
+                <A href="http://developer.berlios.de">
+                  <IMG src="http://developer.berlios.de/bslogo.php?group_id=1674" width="124" height="32" border="0" alt="BerliOS Developer Logo">
+                </A>';
                 
   echo "               </td>
               <td width=\"34%\" height=\"100%\" valign=\"bottom\" align=\"center\">

@@ -10,19 +10,19 @@ function leiste_oben ($egl)
 {
   global $gehe_zu, $B_startseite_link;
   $startseite_link = htmlentities (stripslashes ($B_startseite_link));
-  echo "      <tr>
+  echo '      <tr>
         <td>
-          <table width=\"100%\">
+          <table width="100%">
             <tr>
-              <td align=\"left\" width=\"100%\">
-                <table width=\"100%\">";
+              <td align="left" width="100%">
+                <table width="100%">';
                 
-  if (is_readable ("../gemeinsam/impressum.php"))
-    echo "                  <tr>
+  if (is_readable ('../gemeinsam/impressum.php'))
+    echo '                  <tr>
                     <td>
-                      <a href=\"../gemeinsam/impressum.php\"><sub>Impressum<p></sub></a>
+                      <a href="../gemeinsam/impressum.php"><sub>Impressum<p></sub></a>
                     </td>
-                  </tr>";
+                  </tr>';
   echo "                  <tr>
                     <td>
                       <a href=\"../index.php\"><img src=\"/grafik/forum-logo$msiepng.png\" border=\"0\" alt=\"$startseite_link\" title=\"$startseite_link\"></a>
@@ -75,9 +75,9 @@ function leiste_oben ($egl)
                 </form>
               </td>\n";
   }
-  echo "            </tr>
+  echo '            </tr>
           </table>
         </td>
-      </tr>\n";
+      </tr>';
 }
 ?>

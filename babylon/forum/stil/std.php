@@ -10,14 +10,19 @@
 
 function css_setzen ()
 {
-  echo "\n    <link href=\"stil/std.css\" rel=\"stylesheet\" type=\"text/css\">\n";
+  echo '    <link href="stil/std.css" rel="stylesheet" type="text/css">';
 }
 
-function zeichne_forum ($erster, $ForumId, $NumBeitraege, $StempelLetzter, $Titel, $Inhalt)
+function zeichne_forum ($param)
 {
-  setlocale (LC_TIME, "de_DE");
-  $datum = $StempelLetzter ? strftime ("%d.%b.%Y", $StempelLetzter) : '';
-  $zeit = $StempelLetzter ? date ("H.i:s", $StempelLetzter) : '';
+  $Erster = $param['Erster'];
+  $ForumId = $param['ForumId'];
+  $NumBeitraege = $param['NumBeitraege'];
+  $Titel = $param['Titel'];
+  $Inhalt = $param['Inhalt'];
+  setlocale (LC_TIME, 'de_DE');
+  $datum = $param['StempelLetzter'] ? strftime ("%d.%b.%Y", $param['StempelLetzter']) : '';
+  $zeit = $param['StempelLetzter'] ? date ("H.i:s", $param['StempelLetzter']) : '';
 
   echo "            <tr>
               <td>
@@ -36,19 +41,30 @@ function zeichne_forum ($erster, $ForumId, $NumBeitraege, $StempelLetzter, $Tite
             </tr>\n";
 }
 
-function zeichne_thema ($erster, $ForumId, $ThemaId, $Autor, $AutorLetzter, $StempelLetzter, $Titel, $NumBeitraege, $NumGelesen, $BaumZeigen)
+function zeichne_thema ($param)
 {
-    setlocale (LC_TIME, "de_DE");
-    $datum = strftime ("%d.%b.%Y", $StempelLetzter);
-    $zeit = date ("H.i:s", $StempelLetzter);
-    $aw = $NumBeitraege - 1;
+  $Erster = $param['Erster'];
+  $ForumId = $param['$ForumId'];
+  $ThemaId = $param['ThemaId'];
+  $Autor = $param['Autor'];
+  $AutorLetzter = $param['AutorLetzter'];
+  $StempelLetzter = $param['StempelLetzter'];
+  $Titel = $param['Titel'];
+  $NumBeitraege = $param['NumBeitraege'];
+  $NumGelesen = $param['NumGelesen'];
+  $BaumZeigen = $param['BaumZeigen'];
 
-    if ($BaumZeigen)
-      $sprung = 'beitrags-baum';
-    else
-      $sprung = 'beitraege';
+  setlocale (LC_TIME, 'de_DE');
+  $datum = strftime ("%d.%b.%Y", $StempelLetzter);
+  $zeit = date ("H.i:s", $StempelLetzter);
+  $aw = $NumBeitraege - 1;
+
+  if ($BaumZeigen)
+    $sprung = 'beitrags-baum';
+  else
+    $sprung = 'beitraege';
     
-    echo "            <tr>
+  echo "            <tr>
               <td>
                 <table border=\"2\" cellpadding=\"6\" rules=\"rows\" width=\"100%\">
                   <tr  bgcolor=\"#dddddd\">
@@ -70,13 +86,23 @@ function zeichne_baum ()
   
 }
 
-function zeichne_beitrag ($erster, $ForumId, $BeitragId, $Autor, $StempelLetzter, $Thema, $Inhalt, $K_Egl, $Atavar)
+function zeichne_beitrag ($param)
 {
-  setlocale (LC_TIME, "de_DE");
+  $Erster = $param['Erster'];
+  $ForumId = $param['ForumId'];
+  $BeitragId = $param['BeitragId'];
+  $Autor = $param['Autor'];
+  $StempelLetzter = $param['StempelLetzter'];
+  $Thema = $param['Thema'];
+  $Inhalt = $param['Inhalt'];
+  $Egl = $param['Egl'];
+  $Atavar = $param['Atavar'];
+
+  setlocale (LC_TIME, 'de_DE');
   $datum = strftime ("%d.%b.%Y", $StempelLetzter);
   $zeit = date ("H.i:s", $StempelLetzter);
 
-  if ($erster)
+  if ($Erster)
     echo "              <tr>
                   <td colspan=\"3\" align=\"center\"><h2>$Thema</h2></td>
                 </tr>";
@@ -96,9 +122,9 @@ function zeichne_beitrag ($erster, $ForumId, $BeitragId, $Autor, $StempelLetzter
               </tr>\n";
 
   // Die Antwort Zeile
-  if ($K_Egl)
+  if ($Egl)
   {
-    if ($erster)
+    if ($Erster)
       echo "              <tr>
                 <td><font size=\"-1\"><input type=\"radio\" name=\"eltern\" value=$BeitragId checked>Antworten auf diesen Beitrag</input></font></td>\n";
     else

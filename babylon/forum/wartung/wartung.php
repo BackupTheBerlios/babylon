@@ -13,36 +13,36 @@
   $K_Schreiben = 0;
   $K_Admin = 0;
   $K_AdminForen = 0;
-  $K_Stil = "std";
-  $K_Signatur ="";
+  $K_Stil = 'std';
+  $K_Signatur = '';
   $K_SprungSpeichern = 0;
   $K_BaumZeigen = 'j';
 
-  include ("../konf/konf.php");
-  include ("../../gemeinsam/benutzer-daten.php");
+  include ('../konf/konf.php');
+  include ('../../gemeinsam/benutzer-daten.php');
 
   benutzer_daten_forum ($BenutzerId, $Benutzer, $K_Egl, $K_Lesen, $K_Schreiben, $K_Admin,
                         $K_AdminForen, $K_ThemenJeSeite, $K_BeitraegeJeSeite,
                         $K_Stil,  $K_Signatur, $K_SprungSpeichern, $K_BaumZeigen);
 
   if (!$K_AdminForen)
-    die ("Zugriff verweigert");
+    die ('Zugriff verweigert');
 
-  echo "<html>
-  <body bgcolor=\"#eeeeee\">
-    <h1>Wartungssystem</h1>";
+  echo '<html>
+  <body bgcolor="#eeeeee">
+    <h1>Wartungssystem</h1>';
 
   if (!$B_wartung_start)
   {
-    echo "Das Forum ist momentan noch nicht gesperrt. Dies ist zur Benutzung des Wartungssystems
+    echo 'Das Forum ist momentan noch nicht gesperrt. Dies ist zur Benutzung des Wartungssystems
           notwendig.
   
-    <form action=\"wartung-aktivieren.php\" method=\"post\">
-      <table  cellspacing=\"40\">
+    <form action="wartung-aktivieren.php" method="post">
+      <table  cellspacing="40">
         <tr>
-          <td align=\"center\">
+          <td align="center">
             Begin der Wartung in:<br>
-            <select name=\"start\">
+            <select name="start">
               <option>sofort</option>
               <option>5 Minuten</option>
               <option>10 Minuten</option>
@@ -52,9 +52,9 @@
               <option>60 Minuten</option>
             </select>
           </td>
-          <td align=\"center\">
+          <td align="center">
             Dauer der Wartung:<br>
-            <select name=\"dauer\">
+            <select name="dauer">
               <option>5 Minuten</option>
               <option>15 Minuten</option>
               <option>30 Minuten</option>
@@ -70,7 +70,7 @@
           </td>
         </tr>
       </table>
-    </form>";
+    </form>';
   }
   else
   {
@@ -87,15 +87,15 @@
     }
     else
     {
-      echo "<h3>Das Forum ist momentan gesperrt</h3>";
+      echo '<h3>Das Forum ist momentan gesperrt</h3>';
       $dauer = intval (($B_wartung_ende - time ()) / 60);
       if ($dauer <= 0)
-        echo "<h5>Das angek&uuml;ndigte Ende der Wartung ist bereits erreicht</h5>";
+        echo '<h5>Das angek&uuml;ndigte Ende der Wartung ist bereits erreicht</h5>';
       else
         echo "<h5>F&uuml;r die Wartung sind noch etwa $dauer Minuten veranschlagt</h5>";
-      echo "<h3>folgende Wartungsmodule stehen zur Verf&uuml;gung:</h3>"; 
+      echo '<h3>folgende Wartungsmodule stehen zur Verf&uuml;gung:</h3>'; 
 
-      $handle = opendir ("module");
+      $handle = opendir ('module');
       $verz = array ();
       while ($datei = readdir ($handle))
         if (preg_match ('/^\w+\.php/', $datei))
@@ -114,19 +114,19 @@
         echo "<h3>
                 <a href=\"modul-aufrufen.php?modul=$modul\">";
         call_user_func ($titel);
-        echo "</a>
-            </h3>";
+        echo '</a>
+            </h3>';
       
         call_user_func ($beschreibung);
-        echo "<p>";
+        echo '<p>';
       
         next ($verz);
       }
     }
-    echo "<form action=\"wartung-deaktivieren.php\" method=\"post\">
+    echo '<form action="wartung-deaktivieren.php" method="post">
       <button>Wartungsmodus<br>beenden</button>
-    </form>";
+    </form>';
   }
-  echo "</body>
-  </html>";
+  echo '</body>
+  </html>';
 ?>

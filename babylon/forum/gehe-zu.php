@@ -7,7 +7,7 @@
    Lies die Datei COPYING fuer weitere Informationen hierzu. */
 
 if (!isset($zu))
-  die ("Kein Ziel f&uuml;r die Weiterleitung angegeben");
+  die ('Kein Ziel f&uuml;r die Weiterleitung angegeben');
 $zu = "$zu.php";
 if (isset ($zu_arg))
   $zu = "$zu?$zu_arg";

@@ -10,8 +10,8 @@
   $K_Admin = 0;
   $K_AdminForen = 0;
 
-  include ("../gemeinsam/db-verbinden.php");
-  include ("../gemeinsam/benutzer-daten.php");
+  include ('../gemeinsam/db-verbinden.php');
+  include ('../gemeinsam/benutzer-daten.php');
 
   $db = db_verbinden ();
   benutzer_daten_forum ($BenutzerId, $Benutzer, $K_Egl, $K_Lesen, $K_Schreiben, $K_Admin,
@@ -19,23 +19,23 @@
                         $K_Stil, $K_Signatur, $K_SprungSpeichern, $K_BaumZeigen);
 
   if (!$K_AdminForen)
-    die ("Du hast keine Zugriffsrechte auf diese Seite");
-  if (!isset ($_POST[forum_id]))
-    die ("Du musst das anzulegende Forum auswaehlen");
+    die ('Du hast keine Zugriffsrechte auf diese Seite');
+  if (!isset ($_POST['forum_id']))
+    die ('Du musst das anzulegende Forum auswaehlen');
 
-  if ((!strlen ($_POST[titel])) or (!strlen ($_POST[inhalt])))
-    die ("Forumtitel und Forumbeschreibung m&uuml;ssen gesetzt sein");
+  if ((!strlen ($_POST['titel'])) or (!strlen ($_POST['inhalt'])))
+    die ('Forumtitel und Forumbeschreibung m&uuml;ssen gesetzt sein');
     
   $stempel = time ();
-  $forum_id = intval ($_POST[forum_id]);
-  $titel = addslashes ($_POST[titel]);
-  $inhalt = addslashes ($_POST[inhalt]);
+  $forum_id = intval ($_POST['forum_id']);
+  $titel = addslashes ($_POST['titel']);
+  $inhalt = addslashes ($_POST['inhalt']);
   
   mysql_query ("UPDATE Beitraege
                 SET Gesperrt='n', Titel=\"$titel\", Inhalt=\"$inhalt\"
                 WHERE BeitragTyp = '1' AND ForumId=\"$forum_id\"")
-    or die ("F0044: Forum konnte nicht angelegt werden");
+    or die ('F0044: Forum konnte nicht angelegt werden');
 
   mysql_close ($db);
-  include("gz-foren.php");
+  include('gz-foren.php');
 ?>      

@@ -6,10 +6,13 @@
    GNU-GPL Version 2 zu nutzen und/oder modifizieren und/oder weiterzugeben.
    Lies die Datei COPYING fuer weitere Informationen hierzu. */
 
-  include ("../gemeinsam/msie.php");
+  include ('../gemeinsam/msie.php');
   $msiepng = msie_png();
-  include ("konf/konf.php");
-
+  include ('konf/konf.php');
+  $Benutzer = $_POST['benutzer'];
+  $GeheZu = $P_POST['gehe_zu'];
+  $Param = $P_POST['param'];
+  
   echo "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">
 <html>
 <head>
@@ -22,7 +25,7 @@
     <form action=\"login-test.php\" method=\"post\">
       <tr>
         <td>Benutzername</td>
-        <td><input name=\"benutzer\" type=\"text\" size=\"30\" maxlength=\"32\" value=\"$_POST[benutzer]\"><p></td>
+        <td><input name=\"benutzer\" type=\"text\" size=\"30\" maxlength=\"32\" value=\"$benutzer\"><p></td>
       </tr>
       <tr>
         <td>Passwort</td>
@@ -33,8 +36,8 @@
       </tr>
       <tr>
         <td colspan=\"2\">
-          <button type=\"submit\" name=\"gehe_zu\" value=\"$_POST[gehe_zu]\"><img src=\"/grafik/Key$msiepng.png\" width=\"24\" height=\"24\" alt=\"\">Einloggen</button>
-          <input type=\"hidden\" name=\"param\" value=\"$_POST[param]\"></input>
+          <button type=\"submit\" name=\"gehe_zu\" value=\"$GeheZu\"><img src=\"/grafik/Key$msiepng.png\" width=\"24\" height=\"24\" alt=\"\">Einloggen</button>
+          <input type=\"hidden\" name=\"param\" value=\"$Param\"></input>
         </td>
       </tr>
     </form>

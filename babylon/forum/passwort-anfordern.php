@@ -6,10 +6,10 @@
    GNU-GPL Version 2 zu nutzen und/oder modifizieren und/oder weiterzugeben.
    Lies die Datei COPYING fuer weitere Informationen hierzu. */
 
-  include ("konf/konf.php");
+  include ('konf/konf.php');
 
-  $email = addslashes ($_POST[email]);
-  $benutzer = addslashes ($_POST[benutzer]);
+  $email = addslashes ($_POST['email']);
+  $benutzer = addslashes ($_POST['benutzer']);
 
   $erg = mysql_query ("SELECT BenutzerId
                        FROM Benutzer
@@ -18,8 +18,8 @@
 
   if (mysql_num_rows ($erg) == 0)
   {
-    echo "<h2>Der Benutzername oder die E-Mail Adresse exestiert nicht!</h2><p>";
-    include ("login.php");
+    echo '<h2>Der Benutzername oder die E-Mail Adresse exestiert nicht!</h2><p>';
+    include ('login.php');
   }
   else
   {
@@ -48,8 +48,8 @@ Zugang zu komprometieren. Bitte wende dich in diesem Fall an den Seitenmeister
 dieser Seiten.";
 
     $kopf = "From:$B_betreiber Forum<$B_mail_absender>\n";
-    $kopf .= "X-Mailer:Babylon";
-    mail($_POST[email], "Dein $B_betreiber Forum Zugang",$nachricht, $kopf);
+    $kopf .= 'X-Mailer:Babylon';
+    mail($_POST['email'], "Dein $B_betreiber Forum Zugang",$nachricht, $kopf);
 
     echo "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">
 <html>
@@ -59,7 +59,7 @@ dieser Seiten.";
 </head>
 <body>
   <h2>Passwort Versand</h2>
-  Ein neues Passwort wurde an $_POST[email] versandt!<p>
+  Ein neues Passwort wurde an $_POST['email'] versandt!<p>
 
   Bitte aktiviere es innerhalb der kommenden 24 Stunden indem Du dich mit diesem Passwort einloggst.<p>
 

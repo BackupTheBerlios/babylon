@@ -13,19 +13,19 @@
 // #  Initialisierung  #
 // #####################
 
-  include_once ("konf/konf.php");
-  include ("wartung/wartung-info.php");
+  include_once ('konf/konf.php');
+  include ('wartung/wartung-info.php');
 
 // Standart Konfiguration. Man darf absolut nix ;-)
   $BenutzerId = -1;
-  $Benutzer = "";
+  $Benutzer = '';
   $K_Egl = FALSE;
   $K_Lesen = 0;
   $K_Schreiben = 0;
   $K_Admin = 0;
   $K_AdminForen = 0;
   $K_ThemenJeSeite = 6;
-  $K_Signatur ="";
+  $K_Signatur = '';
   $K_SprungSpeichern = 0;
   $K_BaumZeigen = 'j';
 
@@ -35,14 +35,14 @@
   $bid = 0;
   $zid = 0;
   $neu = 0;
-  include ("get-post.php");
+  include ('get-post.php');
   if (id_von_get_post ($fid, $tid, $sid, $bid, $zid, $neu))
-    die ("Illegaler Zugriffsversuch!");
+    die ('Illegaler Zugriffsversuch!');
 
-  include ("../gemeinsam/benutzer-daten.php");
-  include ("../gemeinsam/msie.php");
+  include ('../gemeinsam/benutzer-daten.php');
+  include ('../gemeinsam/msie.php');
   $msiepng = msie_png ();
-  include ("leiste-oben.php");
+  include ('leiste-oben.php');
   
   $K_BeitraegeJeSeite = $B_beitraege_je_seite;
   $K_Stil = $B_standart_stil;
@@ -51,41 +51,41 @@
                         $K_AdminForen, $K_ThemenJeSeite, $K_BeitraegeJeSeite,
                         $K_Stil,  $K_Signatur, $K_SprungSpeichern, $K_BaumZeigen);
 
-  include ("beitrag-pharsen.php");
+  include ('beitrag-pharsen.php');
 
 // ##########
 // #  Kopf  #
 // ##########
 
-  echo "<html>
+  echo '<html>
   <head>
-    <script src=\"js/formathilfe.js\" type=\"text/javascript\"></script>\n";
-  include ("konf/meta.php");
-  metadata ($_SERVER["SCRIPT_FILENAME"]);
+    <script src="js/formathilfe.js" type="text/javascript"></script>';
+  include ('konf/meta.php');
+  metadata ($_SERVER['SCRIPT_FILENAME']);
 
-  $stil_datei = "stil/" . $K_Stil . ".php";
+  $stil_datei = "stil/$K_Stil.php";
   include ($stil_datei);
   css_setzen ();
 
-  echo "    <title>Forum / Foren</title>
+  echo '    <title>Forum / Foren</title>
   </head>
-  <body>\n";
+  <body>';
   wartung_ankuendigung ();
   
   if (!((1 << $fid & $K_Lesen) or (1 << $fid & $B_leserecht)))
   {
-    echo "<h2>Du bist nicht berechtigt dieses Forum zu lesen!</h2>
-          </body></html>";
+    echo '<h2>Du bist nicht berechtigt dieses Forum zu lesen!</h2>
+          </body></html>';
     mysql_close ($db);
   }
   else
   {
-    echo "    <table width=\"100%\">\n";
+    echo '    <table width="100%">';
 
-    $gehe_zu = "themen";
+    $gehe_zu = 'themen';
     leiste_oben ($K_Egl);
 // Ende der Kopftabelle
-    echo "    </table>\n";
+    echo '    </table>';
 // ##################
 // #  Die Beitraege #
 // ##################
@@ -97,10 +97,10 @@
       else $ansicht = 's';
     }
 
-    echo "      <table width=\"100%\">\n";
+    echo '      <table width="100%">';
 
     if ($K_Egl)
-      echo "    <form action=\"beitrag-senden.php\" method=\"post\">\n";
+      echo '    <form action="beitrag-senden.php" method="post">';
     
     if ($neu == FALSE)
     {
@@ -108,12 +108,12 @@
         $erg = mysql_query ("SELECT Titel, NumBeitraege
                              FROM Beitraege
                              WHERE ThemaId=\"$tid\" AND BeitragTyp = 2 AND Gesperrt = 'n'")
-          or die ("F0021: Beitragszahl konnte nicht ermittelt werden");
+          or die ('F0021: Beitragszahl konnte nicht ermittelt werden');
       else
         $erg = mysql_query ("SELECT Titel, NumBeitraege
                              FROM Beitraege
                              WHERE StrangId=\"$sid\" AND BeitragTyp & 4 = 4 AND Gesperrt = 'n'")
-          or die ("F0022: Beitragszahl konnte nicht ermittelt werden");
+          or die ('F0022: Beitragszahl konnte nicht ermittelt werden');
       $zeile = mysql_fetch_row ($erg);
       $saetze = $zeile[1];
       $thema = stripslashes ($zeile[0]);
@@ -126,21 +126,21 @@
            $bid = 0xffffffff;
 
    // die beitraege die wir darestellen wollen
-      echo "        <tr>
+      echo '        <tr>
           <td>
-            <table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\">\n";
+            <table width="100%" cellspacing="0" cellpadding="0" border="0">';
       if ($ansicht == 't')
           $beitraege = mysql_query ("SELECT BeitragId, Autor, StempelLetzter, Inhalt
                                      FROM Beitraege
                                      WHERE ThemaId = $tid AND BeitragTyp & 8 = 8 AND BeitragId <= $bid AND Gesperrt = 'n'
                                      ORDER BY BeitragId DESC LIMIT $bjs")
-        or die ("F0023: Beitr&auml;ge konnten nicht gelesen werden");
+        or die ('F0023: Beitr&auml;ge konnten nicht gelesen werden');
       else
         $beitraege = mysql_query ("SELECT BeitragId, Autor, StempelLetzter, Inhalt
                                    FROM Beitraege
                                    WHERE StrangId = $sid AND BeitragTyp & 8 = 8 AND BeitragId <= $bid AND Gesperrt = 'n'
                                    ORDER BY BeitragId DESC LIMIT $bjs")
-        or die ("F0024: Beitr&auml;ge konnten nicht gelesen werden");
+        or die ('F0024: Beitr&auml;ge konnten nicht gelesen werden');
 
       $erster = TRUE;
       while ($zeile = mysql_fetch_row ($beitraege))
@@ -155,7 +155,7 @@
         $erg = mysql_query ("SELECT BenutzerId
                              FROM Benutzer
                              WHERE Benutzer = \"$zeile[1]\"")
-          or die ("Es konnte die BenutzerId des Benutzers fuer den Atavar nicht ermittelt werden");
+          or die ('Es konnte die BenutzerId des Benutzers fuer den Atavar nicht ermittelt werden');
         if (mysql_num_rows ($erg) == 1)
         {
           $atavar_zeile = mysql_fetch_row ($erg);
@@ -166,14 +166,23 @@
           $atavar = -1;
 
         $inhalt = stripslashes ($zeile[3]);
-          
-        zeichne_beitrag ($erster, $fid, $zeile[0], $zeile[1], $zeile[2], $thema, $inhalt, $K_Egl, $atavar);
+      
+        $param = array ('Erster' => $erster,
+                        'ForumId' => $fid,
+                        'BeitragId' => $zeile[0],
+                        'Autor' => $zeile[1],
+                        'StempelLetzter' => $zeile[2],
+                        'Thema' => $thema,
+                        'Inhalt' => $inhalt,
+                        'Egl' => $K_Egl,
+                        'Atavar' => $atavar);
+        zeichne_beitrag ($param);
         $erster = FALSE;
       }
 
-      echo "            </table>
+      echo '            </table>
          </td>
-       </tr>\n";
+       </tr>';
     }
  
     $limit = $bjs * 6;
@@ -185,14 +194,14 @@
                            WHERE BeitragTyp & 8 = 8 AND ThemaId = $tid AND BeitragId <=$bid AND Gesperrt = 'n'
                            ORDER BY BeitragId DESC
                            LIMIT $limit")
-        or die ("F0025: BeitragIds f&uuml;r die Seitenumschalter konnten nicht geholt werden");
+        or die ('F0025: BeitragIds f&uuml;r die Seitenumschalter konnten nicht geholt werden');
     else
        $erg = mysql_query ("SELECT BeitragId
                            FROM Beitraege
                            WHERE BeitragTyp & 8 = 8 AND StrangId = $sid AND BeitragId <=$bid AND Gesperrt = 'n'
                            ORDER BY BeitragId DESC
                            LIMIT $limit")
-        or die ("F0026: BeitragIds f&uuml;r die Seitenumschalter konnten nicht geholt werden"); 
+        or die ('F0026: BeitragIds f&uuml;r die Seitenumschalter konnten nicht geholt werden'); 
 
     $zeilen = mysql_num_rows ($erg);
     if ($zeilen > $bjs)
@@ -220,13 +229,13 @@
                                  FROM Beitraege
                                  WHERE BeitragTyp & 8 = 8 AND ThemaId = $tid AND BeitragId < $bid AND Gesperrt = 'n'
                                  ORDER BY BeitragId DESC")
-          or die ("F0027: Anzahl der Folgebeitr&auml;ge konnte nicht ermittelt werden");
+          or die ('F0027: Anzahl der Folgebeitr&auml;ge konnte nicht ermittelt werden');
         else
           $folge = mysql_query ("SELECT BeitragId
                                  FROM Beitraege
                                  WHERE BeitragTyp & 8 = 8 AND StrangId = $sid AND BeitragId < $bid AND Gesperrt = 'n'
                                  ORDER BY BeitragId DESC")
-          or die ("F0028: Anzahl der Folgebeitr&auml;ge konnte nicht ermittelt werden");
+          or die ('F0028: Anzahl der Folgebeitr&auml;ge konnte nicht ermittelt werden');
         $folgebeitraege = mysql_num_rows ($folge) - ($bjs - 1);
       }
     }
@@ -241,14 +250,14 @@
                            WHERE BeitragTyp & 8 = 8 AND ThemaId = $tid AND BeitragId > $bid AND Gesperrt = 'n'
                            ORDER BY BeitragId DESC
                            LIMIT $limit")
-        or die ("F0029: Die Beitr&auml;ge vor dem aktuellen konnten nicht ermittelt werden");
+        or die ('F0029: Die Beitr&auml;ge vor dem aktuellen konnten nicht ermittelt werden');
     else
       $erg = mysql_query ("SELECT BeitragId
                            FROM Beitraege
                            WHERE BeitragTyp & 8 = 8 AND StrangId = $sid AND BeitragId > $bid AND Gesperrt = 'n'
                            ORDER BY BeitragId DESC
                            LIMIT $limit")
-        or die ("F0030: Die Beitr&auml;ge vor dem aktuellen konnten nicht ermittelt werden");
+        or die ('F0030: Die Beitr&auml;ge vor dem aktuellen konnten nicht ermittelt werden');
 		       
     if (mysql_num_rows ($erg) > 0)
     {
@@ -268,8 +277,8 @@
 //  # die Seitenauswahl #
 //  #####################
 
-    echo "        <tr align=\"center\">
-          <td height=\"50\" valign=\"middle\">\n";
+    echo '        <tr align="center">
+          <td height="50" valign="middle">';
 
     if ($saetze > $bjs)
     {
@@ -279,7 +288,7 @@
       if (isset ($bids_vor))
       {
         if (($saetze - $folgebeitraege - $bjs) > $bjs * 5)
-          echo "...";
+          echo '...';
     
         $seiten_vor = sizeof ($bids_vor);
         $i = $aktuelle_seite - $seiten_vor;
@@ -302,7 +311,7 @@
         }
 
         if ($folgebeitraege > $bjs * 5)
-          echo "...";
+          echo '...';
       }
     }
   // das wars mit den Beitraegen...
@@ -313,7 +322,7 @@
     if (1 << $fid and $K_Schreiben)
     {
       if (isset ($tid) == FALSE and $neu == FALSE)
-        die ("Da kein neues Thema erstellt werden soll, dieser Beitrag aber keine Themenkennung hat liegt anscheinend ein interner Fehler vor. Versuch es nochmals. Wenn der Fehler dann immer noch besteht wende dich bitte an den Seitenmeister.");
+        die ('Da kein neues Thema erstellt werden soll, dieser Beitrag aber keine Themenkennung hat liegt anscheinend ein interner Fehler vor. Versuch es nochmals. Wenn der Fehler dann immer noch besteht wende dich bitte an den Seitenmeister.');
       else
       {
       
@@ -321,26 +330,26 @@
 //  # Die Vorschau #
 //  ################
 
-        if (isset ($_GET[vorschau]) and strcmp($_GET[vorschau], "ja") == 0)
+        if (isset ($_GET['vorschau']) and strcmp($_GET['vorschau'], 'ja') == 0)
         {
           $erg = mysql_query ("SELECT Ablage
                                FROM Benutzer
                                WHERE BenutzerId = $BenutzerId")
-            or die ("F0031: Zwischenablage konnte nicht gelesen werden");
+            or die ('F0031: Zwischenablage konnte nicht gelesen werden');
           $zeile = mysql_fetch_row ($erg);
         
-          echo "        <tr>
+          echo '        <tr>
           <td>
-            <table width=\"100%\" border=\"1\" cellpadding=\"10\">
+            <table width="100%" border="1" cellpadding="10">
               <tr>
-                <td background=\"/grafik/vorschau-hintergrund.png\" width=\"100%\" class=\"vorschau\">";
+                <td background="/grafik/vorschau-hintergrund.png" width="100%" class="vorschau">';
           echo beitrag_pharsen_smilies ($zeile[0]);
-          echo "                </td>
+          echo '                </td>
               </tr>
             </table><br>
-            <img src=\"/grafik/dummy.png\" width=\"18\" height=\"1\" border=\"0\" alt=\"\">
+            <img src="/grafik/dummy.png" width="18" height="1" border="0" alt="">
           </td>
-        </tr>";
+        </tr>';
         }
 
 
@@ -350,11 +359,11 @@
 
         if ($neu)
         {
-          echo "<tr><td>\n";
-          if (isset ($_GET[titel]))
+          echo '<tr><td>';
+          if (isset ($_GET['titel']))
             echo "Thema <input name=\"titel\" value=\"$_GET[titel]\" size=\"80\"><p>\n";
           else
-            echo "Thema <input name=\"titel\" size=\"80\"><p>\n";
+            echo 'Thema <input name="titel" size="80"><p>';
           echo "<input type=\"hidden\" name=\"fid\" value=\"$fid\"  
                 </td></tr>\n";
         }
@@ -363,20 +372,20 @@
 //  # Beitragseingabe #
 //  ###################
 
-        echo "        <tr>
+        echo '        <tr>
           <td>
             <table>
               <tr>
                 <td>
-                  <a name=\"textarea\"></a>\n";
-        if (isset ($_GET[vorschau]) and (strcmp ($_GET[vorschau], "ja") == 0))
+                  <a name="textarea"></a>';
+        if (isset ($_GET['vorschau']) and (strcmp ($_GET['vorschau'], 'ja') == 0))
         {
           $vorschau = str_replace ("<br />", "\n", $zeile[0]);
           echo "                  <textarea name=\"text\" cols=\"80\" rows=\"12\"\">$vorschau</textarea><p>\n";
         }
         else
         {
-          echo "                  <textarea name=\"text\" cols=\"80\" rows=\"12\">";
+          echo '                  <textarea name="text" cols="80" rows="12">';
 
 //  ##########
 //  # Zitate #
@@ -391,8 +400,8 @@
 
             echo "<div class=\"zitat\"><b>$zitat_autor tat am $zitat_datum um $zitat_zeit der Welt folgendes kund:</b><p>$zitat</div>";
           }
-          echo "</textarea>
-                  <p>\n";
+          echo '</textarea>
+                  <p>';
          }
 
 //  ##########################
@@ -429,11 +438,11 @@
                       <input type=\"hidden\" name=\"tid\" value=\"$tid\">
                       <input type=\"hidden\" name=\"sid\" value=\"$sid\">\n";
         if ($bid == 0xffffffff)
-          echo "                      <input type=\"hidden\" name=\"bid\" value=\"-1\">\n";
+          echo '                      <input type="hidden" name="bid" value="-1">';
         else
           echo "                      <input type=\"hidden\" name=\"bid\" value=\"$bid\">\n";
         if ($neu)
-           echo "                      <input type=\"hidden\" name=\"neu\" value=1>\n"; 
+           echo '                      <input type="hidden" name="neu" value="1">'; 
         echo "                      <button type=\"submit\" name=\"vorschau\" value=\"ja\" accesskey=\"v\">
                         <table>
                           <tr>
@@ -453,7 +462,7 @@
 //  # Formatierungshilfe-Schaltflaechen #
 //  #####################################
 
-         echo "                  <script type=\"text/javascript\">
+         echo '                  <script type="text/javascript">
                     <!--
                       tabelle_formate_erstellen ();
                     //-->;
@@ -461,25 +470,25 @@
                   <noscript>
                     </td>
                     <td>
-                      <font size=\"-1\">Mit aktivem JavaScript erh&auml;ltst Du diverse Formatierungshilfen</font>
+                      <font size="-1">Mit aktivem JavaScript erh&auml;ltst Du diverse Formatierungshilfen</font>
                   </noscript>
                 </td>
               </tr>
             </table>
           </td>
         </tr>
-      </form>\n";
+      </form>';
       }
     }
 
 // #############################
 // # Lesezaehler aktualisieren #
 // #############################
-   if (!substr_count ($_SERVER["HTTP_REFERER"], '/forum/beitraege.php'))
+   if (!substr_count ($_SERVER['HTTP_REFERER'], '/forum/beitraege.php'))
      mysql_query ("UPDATE Beitraege
                    SET NumGelesen = NumGelesen + 1
                    WHERE BeitragTyp = 2 AND ThemaId = \"$tid\"")
-       or die ("Lesez&auml;hler konnte nicht aktualisiert werden");
+       or die ('Lesez&auml;hler konnte nicht aktualisiert werden');
    
     mysql_close ($db);
 
@@ -487,10 +496,10 @@
 //  # Fussleiste #
 //  ##############
 
-    include ("leiste-unten.php");
+    include ('leiste-unten.php');
     leiste_unten ();
-    echo "    </table>
+    echo '    </table>
   </body>
-</html>";
+</html>';
   }
 ?>

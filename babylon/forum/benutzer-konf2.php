@@ -9,12 +9,12 @@
    GNU-GPL Version 2 zu nutzen und/oder modifizieren und/oder weiterzugeben.
    Lies die Datei COPYING fuer weitere Informationen hierzu. */
 
-  include_once ("konf/konf.php");
-  include ("wartung/wartung-info.php");
+  include_once ('konf/konf.php');
+  include ('wartung/wartung-info.php');
 
 // Standart Konfiguration. Man darf absolut nix ;-)
   $BenutzerId = -1;
-  $Benutzer = "";
+  $Benutzer = '';
   $K_Egl = FALSE;
   $K_Lesen = 0;
   $K_Schreiben = 0;
@@ -22,15 +22,15 @@
   $K_AdminForen = 0;
   $K_ThemenJeSeite = 6;
   $K_BeitraegeJeSeite = 3;
-  $K_Signatur ="";
+  $K_Signatur = '';
   $K_SprungSpeichern = 0;
   $K_BaumZeigen = 'j';
 
-  include ("../gemeinsam/benutzer-daten.php");
-  include ("../gemeinsam/msie.php");
-  include_once ("konf/konf.php");
+  include ('../gemeinsam/benutzer-daten.php');
+  include ('../gemeinsam/msie.php');
+  include_once ('konf/konf.php');
   $msiepng = msie_png ();
-  include ("leiste-oben.php");
+  include ('leiste-oben.php');
 
   $K_Stil = $B_standart_stil;
   
@@ -38,73 +38,73 @@
                         $K_AdminForen, $K_ThemenJeSeite, $K_BeitraegeJeSeite,
                         $K_Stil, $K_Signatur, $K_SprungSpeichern, $K_BaumZeigen);
 
-  echo "<html>
-  <head>";
-  include ("konf/meta.php");
-  metadata ($_SERVER["SCRIPT_FILENAME"]);
+  echo '<html>
+  <head>';
+  include ('konf/meta.php');
+  metadata ($_SERVER['SCRIPT_FILENAME']);
   
-  $stil_datei = "stil/" . $K_Stil . ".php";
+  $stil_datei = "stil/$K_Stil.php";
   include ($stil_datei);
   css_setzen ();
 
-  echo "    <title>Babylon - Einstellungen / Aussehen</title>\n";
+  echo '    <title>Babylon - Einstellungen / Aussehen</title>';
 
   if (!$K_Egl)
-    die ("Zugriff verweigert");
+    die ('Zugriff verweigert');
 
-  echo "  </head>
-  <body>";
+  echo '  </head>
+  <body>';
   
   wartung_ankuendigung ();
   
-  echo "    <h2>Forumseinstellungen</h2>
-    <table cellspacing=\"0\" cellpadding\"0\">
+  echo '    <h2>Forumseinstellungen</h2>
+    <table cellspacing="0" cellpadding"0">
       <tr>
-        <td class=\"reiter_inaktiv\">
-          <a href=\"benutzer-konf1.php\">Verhalten</a>
+        <td class="reiter_inaktiv">
+          <a href="benutzer-konf1.php">Verhalten</a>
         </td>
-        <td class=\"reiter_aktiv\">
+        <td class="reiter_aktiv">
           Aussehen
         </td>
-        <td class=\"reiter_inaktiv\">
-          <a href=\"benutzer-konf3.php\">Profil</a>
+        <td class="reiter_inaktiv">
+          <a href="benutzer-konf3.php">Profil</a>
         </td>
-        <td class=\"reiter_inaktiv\">
-          <a href=\"benutzer-konf4.php\">Pers&ouml;nliches</a>
+        <td class="reiter_inaktiv">
+          <a href="benutzer-konf4.php">Pers&ouml;nliches</a>
         </td>
       </tr>
     </table>
-    <div class=\"konfiguration\">
-    <form name=\"konf\" action=\"benutzer-konf-test2.php\" method=\"post\">
-      <table width=\"100%\">
+    <div class="konfiguration">
+    <form name="konf" action="benutzer-konf-test2.php" method="post">
+      <table width="100%">
         <tr>
-          <td>\n";
+          <td>';
 
  // ##### Stil #####
-  echo "            <table cellspacing=\"10\">
+  echo '            <table cellspacing=\"10\">
               <tr>
-                <td colspan=\"2\">
+                <td colspan="2">
                   <h3>Stil</h3>
                 </td>
               </tr>
               <tr>
-                <td colspan=\"2\">W&auml;hle aus, in welchem Stil die Forums-, Themen- und Beitragsseiten pr&auml;sentiert werden sollen</td>
-              </tr>\n";
+                <td colspan="2">W&auml;hle aus, in welchem Stil die Forums-, Themen- und Beitragsseiten pr&auml;sentiert werden sollen</td>
+              </tr>';
 
     $i = 0;
 
     foreach ($B_stile as $stil)
     {
-      $stil_name = "";
-      $datei = "stil/" . $stil . ".php";
+      $stil_name = '';
+      $datei = "stil/$stil.php";
       $fd = fopen ($datei, 'r');
       while ($n = fgets ($fd, 34))
       {
-        $name = "";
+        $name = '';
         if ($name = strstr ($n, '// StilName = '))
         {
           $arr = NULL;
-          $arr = explode (" ", $name, 4);
+          $arr = explode (' ', $name, 4);
           if (count ($arr) == 4)
           {
             $stil_name = $arr[3];
@@ -115,17 +115,17 @@
       fclose ($fd);
     
     if ((!isset ($stil_name)) or (!strlen ($stil_name)))
-      $stil_name = "Namenlos";
+      $stil_name = 'Namenlos';
    
     echo "              <tr>
                 <td valign=\"middle\">
-                  <nobr><input type=\"radio\" name=\"stil\" value=\"" . $stil . "\" ";
+                  <nobr><input type=\"radio\" name=\"stil\" value=\"$stil\" ";
     if (strcmp ($stil, $K_Stil) == 0)
       echo "checked";
-    echo ">" . $stil_name . "</input></nobr>
+    echo ">$stil_name</input></nobr>
                 </td>
                 <td valign=\"middle\" width=\"100%\">
-                  <img class=\"stil_auswahl\" src=\"stil/" . $stil . ".png\" border=\"2\">
+                  <img class=\"stil_auswahl\" src=\"stil/$stil.png\" border=\"2\">
                 </td>
               </tr>\n";
     $i++;

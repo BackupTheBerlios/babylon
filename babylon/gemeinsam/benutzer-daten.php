@@ -9,23 +9,23 @@
 // wir muessen hier auf verschiedene Verzeichnissebenen testen, da diese Datei
 // ebenfals aus verschiedenen Ebenen aufgerufen werden kann.
 
-$pfad = $_SERVER["DOCUMENT_ROOT"] . '/forum/konf/konf.php';
+$pfad = $_SERVER['DOCUMENT_ROOT'] . '/forum/konf/konf.php';
 include_once ($pfad);
 
 function benutzer_cookie (&$K_Egl, &$id, &$sw)
 {
   global $B_cookie_id, $B_cookie_sw;
 
-  if ((!isset ($_COOKIE[$B_cookie_id])) or (!isset ($_COOKIE[$B_cookie_sw])))
+  if ((!isset ($_COOKIE["$B_cookie_id"])) or (!isset ($_COOKIE["$B_cookie_sw"])))
   {
     $K_Egl = FALSE;
     return FALSE;
   }
   // man versucht uns ein gefaelschtes cookie unterzuschieben
-  if (! is_int (intval ($_COOKIE[$B_cookie_id])))
+  if (! is_int (intval ($_COOKIE["$B_cookie_id"])))
     return FALSE;
-  $id = $_COOKIE[$B_cookie_id];
-  $sw = $_COOKIE[$B_cookie_sw];
+  $id = $_COOKIE["$B_cookie_id"];
+  $sw = $_COOKIE["$B_cookie_sw"];
   return TRUE;
 }
 

@@ -10,14 +10,19 @@
 
 function css_setzen ()
 {
-  echo "<link href=\"stil/stern.css\" rel=\"stylesheet\" type=\"text/css\">";
+  echo '<link href="stil/stern.css" rel="stylesheet" type="text/css">';
 }
 
-function zeichne_forum ($erster, $ForumId, $NumBeitraege, $StempelLetzter, $Titel, $Inhalt)
+function zeichne_forum ($param)
 {
-  setlocale (LC_TIME, "de_DE");
-  $datum = $StempelLetzter ? strftime ("%d.%b.%Y", $StempelLetzter) : '';
-  $zeit = $StempelLetzter ? date ("H.i:s", $StempelLetzter) : '';
+  $Erster = $param['Erster'];
+  $ForumId = $param['ForumId'];
+  $NumBeitraege = $param['NumBeitraege'];
+  $Titel = $param['Titel'];
+  $Inhalt = $param['Inhalt'];
+  setlocale (LC_TIME, 'de_DE');
+  $datum = $param['StempelLetzter'] ? strftime ("%d.%b.%Y", $param['StempelLetzter']) : '';
+  $zeit = $param['StempelLetzter'] ? date ("H.i:s", $param['StempelLetzter']) : '';
 
   echo "<tr><td>
   <table border=\"0\" cellspacing=\"0\" cellpadding=\"0\" width=\"100%\">
@@ -48,9 +53,20 @@ function zeichne_forum ($erster, $ForumId, $NumBeitraege, $StempelLetzter, $Tite
   </td></tr><tr><td>&nbsp;</td></tr>";   
 }
 
-function zeichne_thema ($erster, $ForumId, $ThemaId, $Autor, $AutorLetzter, $StempelLetzter, $Titel, $NumBeitraege, $NumGelesen, $BaumZeigen)
+function zeichne_thema ($param)
 {
-  setlocale (LC_TIME, "de_DE");
+  $Erster = $param['Erster'];
+  $ForumId = $param['$ForumId'];
+  $ThemaId = $param['ThemaId'];
+  $Autor = $param['Autor'];
+  $AutorLetzter = $param['AutorLetzter'];
+  $StempelLetzter = $param['StempelLetzter'];
+  $Titel = $param['Titel'];
+  $NumBeitraege = $param['NumBeitraege'];
+  $NumGelesen = $param['NumGelesen'];
+  $BaumZeigen = $param['BaumZeigen'];
+
+  setlocale (LC_TIME, 'de_DE');
   $datum = strftime ("%d.%m.%Y", $StempelLetzter);
   $zeit = date ("H.i", $StempelLetzter);
   $aw = $NumBeitraege - 1;
@@ -96,13 +112,23 @@ function zeichne_baum ()
   
 }
 
-function zeichne_beitrag ($erster, $ForumId, $BeitragId, $Autor, $StempelLetzter, $Thema, $Inhalt, $K_Egl, $Atavar)
+function zeichne_beitrag ($param)
 {
-  setlocale (LC_TIME, "de_DE");
+  $Erster = $param['Erster'];
+  $ForumId = $param['ForumId'];
+  $BeitragId = $param['BeitragId'];
+  $Autor = $param['Autor'];
+  $StempelLetzter = $param['StempelLetzter'];
+  $Thema = $param['Thema'];
+  $Inhalt = $param['Inhalt'];
+  $Egl = $param['Egl'];
+  $Atavar = $param['Atavar'];
+
+  setlocale (LC_TIME, 'de_DE');
   $datum = strftime ("%d.%m.%Y", $StempelLetzter);
   $zeit = date ("H.i", $StempelLetzter);
 
-  if ($erster)
+  if ($Erster)
     echo "<tr>
       <td align=\"center\"><h2>$Thema</h2></td>
     </tr>";

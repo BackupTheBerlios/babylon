@@ -10,22 +10,27 @@
 
 function css_setzen ()
 {
-  echo "\n    <link href=\"stil/nandb.css\" rel=\"stylesheet\" type=\"text/css\">\n";
+  echo '    <link href="stil/nandb.css" rel="stylesheet" type="text/css">';
 }
 
-function zeichne_forum ($erster, $ForumId, $NumBeitraege, $StempelLetzter, $Titel, $Inhalt)
+function zeichne_forum ($param)
 {
-  setlocale (LC_TIME, "de_DE");
-  $datum = $StempelLetzter ? strftime ("%d.%b.%Y", $StempelLetzter) : '';
-  $zeit = $StempelLetzter ? date ("H.i:s", $StempelLetzter) : '';
+  $Erster = $param['Erster'];
+  $ForumId = $param['ForumId'];
+  $NumBeitraege = $param['NumBeitraege'];
+  $Titel = $param['Titel'];
+  $Inhalt = $param['Inhalt'];
+  setlocale (LC_TIME, 'de_DE');
+  $datum = $param['StempelLetzter'] ? strftime ("%d.%b.%Y", $param['StempelLetzter']) : '';
+  $zeit = $param['StempelLetzter'] ? date ("H.i:s", $param['StempelLetzter']) : '';
 
-  if (!$erster)
-    echo "<tr>
-      <td class=\"schraube\"></td>
+  if (!$Erster)
+    echo '<tr>
+      <td class="schraube"></td>
       <td></td>
       <td></td>
-      <td class=\"schraube\"></td>
-    </tr>";
+      <td class="schraube"></td>
+    </tr>';
   echo "    <tr>
       <td class=\"ecke\"></td>
       <td class=\"leiste-og\">$Titel</td>
@@ -40,30 +45,41 @@ function zeichne_forum ($erster, $ForumId, $NumBeitraege, $StempelLetzter, $Tite
     </tr>";
 }
 
-function zeichne_thema ($erster, $ForumId, $ThemaId, $Autor, $AutorLetzter, $StempelLetzter, $Titel, $NumBeitraege, $NumGelesen, $ZeigeBaum)
+function zeichne_thema ($param)
 {
-  setlocale (LC_TIME, "de_DE");
+  $Erster = $param['Erster'];
+  $ForumId = $param['$ForumId'];
+  $ThemaId = $param['ThemaId'];
+  $Autor = $param['Autor'];
+  $AutorLetzter = $param['AutorLetzter'];
+  $StempelLetzter = $param['StempelLetzter'];
+  $Titel = $param['Titel'];
+  $NumBeitraege = $param['NumBeitraege'];
+  $NumGelesen = $param['NumGelesen'];
+  $BaumZeigen = $param['BaumZeigen'];
+
+  setlocale (LC_TIME, 'de_DE');
   $datum = strftime ("%d.%b.%Y", $StempelLetzter);
   $zeit = date ("H.i:s", $StempelLetzter);
   $aw = $NumBeitraege - 1;
-  if ($ZeigeBaum)
+  if ($BaumZeigen)
     $sprung = 'beitrags-baum';
   else
     $sprung = 'beitraege';
 
   if (strlen ($AutorLetzter))
-    $autor = $Autor . " >>>>> " . $AutorLetzter;
+    $autor = $Autor . ' >>>>> ' . $AutorLetzter;
   else
     $autor = $Autor;
 
 
-  if (!$erster)
-    echo "<tr>
-      <td class=\"schraube\"></td>
+  if (!$Erster)
+    echo '<tr>
+      <td class="schraube"></td>
       <td></td>
       <td></td>
-      <td class=\"schraube\"></td>
-    </tr>";
+      <td class="schraube"></td>
+    </tr>';
   echo "    <tr>
       <td class=\"ecke2\"></td>
       <td class=\"leiste-uk\">$autor</td>
@@ -83,13 +99,23 @@ function zeichne_baum ()
   
 }
 
-function zeichne_beitrag ($erster, $ForumId, $BeitragId, $Autor, $StempelLetzter, $Thema, $Inhalt, $K_Egl, $Atavar)
+function zeichne_beitrag ($param)
 {
-  setlocale (LC_TIME, "de_DE");
+  $Erster = $param['Erster'];
+  $ForumId = $param['ForumId'];
+  $BeitragId = $param['BeitragId'];
+  $Autor = $param['Autor'];
+  $StempelLetzter = $param['StempelLetzter'];
+  $Thema = $param['Thema'];
+  $Inhalt = $param['Inhalt'];
+  $Egl = $param['Egl'];
+  $Atavar = $param['Atavar'];
+
+  setlocale (LC_TIME, 'de_DE');
   $datum = strftime ("%d.%b.%Y", $StempelLetzter);
   $zeit = date ("H.i:s", $StempelLetzter);
 
-  if ($erster)
+  if ($Erster)
       echo "    <tr>
       <td class=\"ecke\"></td>
       <td class=\"leiste-og\" colspan=\"2\" align=\"center\">$Thema</td>
@@ -115,20 +141,20 @@ echo "            <td valign=\"top\"><div class=\"atavar\"><img src=\"$datei\"><
   }
   else
   echo "            <td class=\"inhalt\" valign=\"top\" width=\"100%\" colspan=\"2\">$Inhalt</td>"; 
-  echo "          </tr>
+  echo '          </tr>
         </table>
-      <td class=\"schraube\"></td>
-    </tr>"; 
+      <td class="schraube"></td>
+    </tr>'; 
 
   // Die Antwort Zeile
-  if ($K_Egl)
+  if ($Egl)
   {
     echo "              <tr>
                 <td class=\"ecke2\">
                 <td class=\"leiste-uk\"><input type=\"radio\" name=\"eltern\" value=$BeitragId";
                 
-    if ($erster)
-      echo " checked";
+    if ($Erster)
+      echo ' checked';
                 
     echo ">Antworten auf diesen Beitrag</input></td>
                 <td class=\"leiste-uk\" align=\"right\"><button type=\"submit\" name=\"zid\" value=$BeitragId>zitieren</button></td>

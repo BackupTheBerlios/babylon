@@ -9,78 +9,78 @@
    GNU-GPL Version 2 zu nutzen und/oder modifizieren und/oder weiterzugeben.
    Lies die Datei COPYING fuer weitere Informationen hierzu. */
 
-  include ("konf/konf.php");
-  include ("wartung/wartung-info.php");
+  include ('konf/konf.php');
+  include ('wartung/wartung-info.php');
 
 // Standart Konfiguration. Man darf absolut nix ;-)
   $BenutzerId = -1;
-  $Benutzer = "";
+  $Benutzer = '';
   $K_Egl = FALSE;
-  $K_Stil = "";
+  $K_Stil = '';
   $P_NameZeigen = 'n';
-  $K_VName = "";
-  $K_NName = "";
-  $P_Ort = "";
-  $P_EMail = "";
-  $P_Homepage = "";
+  $K_VName = '';
+  $K_NName = '';
+  $P_Ort = '';
+  $P_EMail = '';
+  $P_Homepage = '';
 
-  include ("../gemeinsam/benutzer-daten.php");
-  include ("../gemeinsam/msie.php");
+  include ('../gemeinsam/benutzer-daten.php');
+  include ('../gemeinsam/msie.php');
   $msiepng = msie_png ();
-  include ("leiste-oben.php");
+  include ('leiste-oben.php');
 
   benutzer_daten_profil ($BenutzerId, $Benutzer, $K_Egl, $K_Stil,
                          $P_NameZeigen, $P_Ort,
                          $P_EMail, $P_Homepage);
-  echo "<html>
-  <head>";
-  include ("konf/meta.php");
-  metadata ($_SERVER["SCRIPT_FILENAME"]);
+  echo '<html>
+  <head>';
+  include ('konf/meta.php');
+  metadata ($_SERVER['SCRIPT_FILENAME']);
 
-  $stil_datei = "stil/" . $K_Stil . ".php";
+  $stil_datei = "stil/$K_Stil.php";
   include ($stil_datei);
   css_setzen ();
 
-  echo "    <title>Babylon - Einstellungen / Profil</title>\n";
+  echo '    <title>Babylon - Einstellungen / Profil</title>';
 
   if (!$K_Egl)
-    die ("Zugriff verweigert");
+    die ('Zugriff verweigert');
 
   $ort = htmlspecialchars ($P_Ort);
   $homepage = htmlspecialchars ($P_Homepage);
   $email = htmlspecialchars ($P_EMail);
   $atavar_max_bytes = $B_atavar_max_kb * 1024;
   
-  echo "  </head>
-  <body>";
+  echo '  </head>
+  <body>';
 
   wartung_ankuendigung ();
 
-  echo "    <h2>Forumseinstellungen</h2>
-    <table cellspacing=\"0\" cellpadding\"0\">
+  echo '    <h2>Forumseinstellungen</h2>
+    <table cellspacing="0" cellpadding"0">
       <tr>
-        <td class=\"reiter_inaktiv\">
-          <a href=\"benutzer-konf1.php\">Verhalten</a>
+        <td class="reiter_inaktiv">
+          <a href="benutzer-konf1.php">Verhalten</a>
         </td>
-        <td class=\"reiter_inaktiv\">
-          <a href=\"benutzer-konf2.php\">Aussehen</a>
+        <td class="reiter_inaktiv">
+          <a href="benutzer-konf2.php">Aussehen</a>
         </td>
-        <td class=\"reiter_aktiv\">
+        <td class="reiter_aktiv">
           Profil
         </td>       
-        <td class=\"reiter_inaktiv\">
-          <a href=\"benutzer-konf4.php\">Pers&ouml;nliches<a>
+        <td class="reiter_inaktiv">
+          <a href="benutzer-konf4.php">Pers&ouml;nliches<a>
         </td>
       </tr>
     </table>
-    <div class=\"konfiguration\">
-    <form name=\"konf\" action=\"benutzer-konf-test3.php\" method=\"post\" enctype=\"multipart/form-data\">
+    <div class="konfiguration">
+    <form name="konf" action="benutzer-konf-test3.php" method="post" enctype="multipart/form-data">
       <table>
         <tr>
-          <td colspan=\"2\"><input type=\"checkbox\" name=\"name_zeigen\"";
+          <td colspan="2"><input type="checkbox" name="name_zeigen"';
   if ($P_NameZeigen == 'j')
-    echo " \"checked\"";
-  echo ">Name Ver&ouml;ffentlichen</input>
+    echo ' "checked"';
+  echo ">Name ver&ouml;ffentlichen</input>
           </td>
           <td>
             Soll Dein realer Name, wie Du ihn in den pers&ouml;nlichen Daten eingetragen hast,
@@ -111,10 +111,10 @@
         <tr>
           <td></td>
           <td colspan=\"2\">";
-          if (isset ($_GET[atavar_format]))
-            echo "Das gew&auml;hlte Dateiformat wird nicht unterst&uuml;tzt.<br>
-                  Bitte lade nur Bilder im Jpeg-Format hoch.";
-          else if (isset ($_GET[atavar_groesse]))
+          if (isset ($_GET['atavar_format']))
+            echo 'Das gew&auml;hlte Dateiformat wird nicht unterst&uuml;tzt.<br>
+                  Bitte lade nur Bilder im Jpeg-Format hoch.';
+          else if (isset ($_GET['atavar_groesse']))
             echo "Das gew&auml;hlte Atavar ist zu gro&szlig;<br>
                   maximal:<br>
                   kByte: $B_atavar_max_kb<br>
