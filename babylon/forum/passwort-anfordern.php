@@ -59,7 +59,7 @@ dieser Seiten.";
 </head>
 <body>
   <h2>Passwort Versand</h2>
-  Ein neues Passwort wurde an $_POST['email'] versandt!<p>
+  Ein neues Passwort wurde an $_POST[email] versandt!<p>
 
   Bitte aktiviere es innerhalb der kommenden 24 Stunden indem Du dich mit diesem Passwort einloggst.<p>
 
