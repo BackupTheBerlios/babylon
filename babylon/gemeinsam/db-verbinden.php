@@ -8,10 +8,10 @@
 
 function db_verbinden ()
 {
-  $host = 'localhost';
-  $nutzer = 'root';
-  $passwort = 'x7fM3u6j9f';
-  $datenbank = 'babylon';
+  $host = 'rechner';
+  $nutzer = 'benutzer';
+  $passwort = 'passwort';
+  $datenbank = 'datenbank';
   
   $db = mysql_connect ($host, $nutzer, $passwort)
     or die ('<b>F0039: Es konnte keine Verbindung zur Datenbank hergestellt werden</b>');
