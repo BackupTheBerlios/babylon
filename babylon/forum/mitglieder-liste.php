@@ -52,18 +52,66 @@
   $gehe_zu = 'themen';
   leiste_oben ($K_Egl);
 
+  
+
+
   echo '    </table>
     <table width="100%" cellspacing="0" cellpadding="0" border="2">
-      <tr>
-        <th class="ueber">Alias</th>
-        <th class="ueber">Angemeldet<br>seit</th>
-        <th class="ueber">Beitr&auml;ge<br>geschrieben</th>
-        <th class="ueber">Themen<br>er&ouml;ffnet</th>
-        <th class="ueber">letzter<br>Beitrag</th>
-      </tr>';
-   
+      <tr>';
+
+  $kopf_post = array ('alias', 'angemeldet', 'beitraege', 'themen', 'letzter');
+
+  $kopf = array ('Alias', 'Angemeldet<br>seit', 'Beitr&auml;ge<br>geschrieben',
+                 'Themen<br>er&ouml;ffnet', 'letzter<br>Beitrag');
+
+  $db_auswahl = array ('Benutzer', 'Anmeldung', 'Beitraege', 'Themen', 'LetzterBeitrag');
+
+  if (isset ($_GET['kopf_wahl']))
+  {
+    $wahl = $_GET['kopf_wahl'];
+    $sort = $_GET['kopf_sort'];
+  }
+  else
+  {
+    $wahl = 'letzter';
+    $sort = 'h';
+  }
+  $nsort = $sort == 'h' ? 'r' : 'h';
+  $db_wahl = 'letzter';
+  
+  for ($x = 0; $x < 5; $x++)
+  {
+    $w = $kopf_post[$x];
+    $k = $kopf[$x];
+    echo'             <th class="ueber">
+          <table width="100%">
+            <tr>';
+    
+    if (strcmp ($wahl, $w) != 0)
+      echo "       <td><a href=\"mitglieder-liste.php?kopf_wahl=$w&kopf_sort=$sort\">$k</a></td>";
+    else
+    {
+      $sel = $sort == 'h' ? 'sel_rauf' : 'sel_runter';
+      $db_wahl = $db_auswahl[$x];
+      echo "
+                   <td><a href=\"mitglieder-liste.php?kopf_wahl=$w&kopf_sort=$nsort\">$k</a></td>
+                   <td>
+                     <a href=\"mitglieder-liste.php?kopf_wahl=$w&kopf_sort=$nsort\">
+                       <img src=\"/grafik/$sel.png\" alt=\"\" border=\"0\">
+                     </a>
+                   </td>";
+    }
+    echo '        </tr>
+          </table>
+        </th>';
+  }
+  echo '    </tr>';
+
+  $db_sort = $sort == 'h' ? '' : 'DESC';
+
   $erg = mysql_query ("SELECT Benutzer, Anmeldung, Beitraege, Themen, LetzterBeitrag
-                       FROM Benutzer")
+                       FROM Benutzer
+                       ORDER BY '$db_wahl' $db_sort")
     or die ('Benutzerdaten konnte nicht ermittelt werden');
   
   while ($zeile = mysql_fetch_row ($erg))
