@@ -6,7 +6,7 @@
    GNU-GPL Version 2 zu nutzen und/oder modifizieren und/oder weiterzugeben.
    Lies die Datei COPYING fuer weitere Informationen hierzu. */
 
-function leiste_unten ($suchtext)
+function leiste_unten ($suchtext, $version, $subversion)
 {
   if ($suchtext)
     $suche = ' value="' . stripslashes (htmlentities ($suchtext)) . '"';
@@ -30,7 +30,8 @@ function leiste_unten ($suchtext)
               <td width=\"34%\" height=\"100%\" valign=\"bottom\" align=\"center\">
                 <a href=\"http://babylon.berlios.de\" alt=\"Zu den Seiten des Babylon-Projekts\" title=\"Zu den Seiten des Babylon-Projekts\">
                   <img src=\"/grafik/Babylon$msiepng.png\" border=\"0\" alt=\"\">
-                </a>
+                </a><br>
+                <font color=\"#0000ff\"><sup>Version $version.$subversion</sup></font>
               </td>
               <td width=\"33%\" height=\"100%\" valign=\"center\" align=\"right\">
                 <form action=\"suchen.php\" method=\"post\">

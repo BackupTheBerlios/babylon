@@ -112,7 +112,7 @@
   }
   
   include ('leiste-unten.php');
-  leiste_unten ($begriff);
+  leiste_unten ($begriff, $B_version, $B_subversion);
   echo '    </table>
   </body>
 </html>';

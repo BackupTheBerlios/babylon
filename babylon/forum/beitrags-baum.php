@@ -165,7 +165,7 @@ function strang_ausgeben (&$daten, $sid, $saetze, $tiefe, $m)
 //  ##############
 
   include ('leiste-unten.php');
-  leiste_unten (NULL);
+  leiste_unten (NULL, $B_version, $B_subversion);
   echo '    </table>
   </body>
 </html>';
