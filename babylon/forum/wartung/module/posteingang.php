@@ -61,6 +61,6 @@ function posteingang_wartung ()
             
  
   $pfad = $_SERVER['DOCUMENT_ROOT'] . '/forum/wartung/wartung.php';
-  echo "Anschlie&szlig;end geht es hier<a href=\"$pfad\"><b>weiter</b></a>";
+  echo 'Anschlie&szlig;end geht es hier ';
 }
 ?>
