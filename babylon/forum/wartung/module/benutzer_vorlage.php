@@ -18,7 +18,7 @@ function benutzer_vorlage_beschreibung ()
 
 function benutzer_vorlage_wartung ()
 {
-// Standart Konfiguration. Man darf absolut nix ;-)
+// Standard Konfiguration. Man darf absolut nix ;-)
   $BenutzerId = -1;
   $K_Egl = FALSE;
   $K_Lesen = 0;
@@ -63,11 +63,11 @@ function benutzer_vorlage_wartung ()
                   ) TYPE=MyISAM")
     or die ('Erstellung der BenutzerVorlage-Tabelle gescheitert<br>' . mysql_error ());
 
-// Die Standart- und Admin-Vorlage anlegen
+// Die Standard- und Admin-Vorlage anlegen
       mysql_query ("INSERT INTO BenutzerVorlage
                       (Name)
-                      VALUES ('Standart')")
-        or die ("Die Standartvorlage konnte nicht angelegt werden<br>" . mysql_error ());
+                      VALUES ('Standard')")
+        or die ("Die Standardvorlage konnte nicht angelegt werden<br>" . mysql_error ());
       mysql_query ("INSERT INTO BenutzerVorlage
                       (Name, RechtAdmin, RechtAdminForen)
                       VALUES ('Admin', 4294967295, 1)")
@@ -76,7 +76,7 @@ function benutzer_vorlage_wartung ()
 // Die Benutzergruppen in den Benutzern anlegen 
   mysql_query ("ALTER TABLE `Benutzer`
                 ADD `Gruppe` VARCHAR (255)
-                DEFAULT 'Standart' NOT NULL
+                DEFAULT 'Standard' NOT NULL
                 AFTER `RechtAdminForen`")
     or die ('Das Feld Gruppe konnte in der Tabelle Benutzer nicht angelegt werden<br>' . mysql_error ());
 
@@ -102,7 +102,7 @@ function benutzer_vorlage_wartung ()
    or die ("Die Forumversion konnte nicht aktuallisiert werden<br>" . mysql_error ());
    
   echo '<h2>Das Benutzervorlagensystem wurden installiert</h2>
-        Eine Standart- und eine Administratoren-Benutzervorlage wurde installiert.
+        Eine Standard- und eine Administratoren-Benutzervorlage wurde installiert.
         Du wurdest in die Gruppe der Administratoren aufgenommen.<p>
         Mit Aufruf von <tt>/forum/benutzer-vorlage.php</tt> kannst Du die Vorlagen
         verwalten und Neue erstellen<p>
