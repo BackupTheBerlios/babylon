@@ -8,7 +8,8 @@
 
 function leiste_oben ($egl)
 {
-  include_once ("konf/konf.php");
+  global $gehe_zu, $B_startseite_link;
+  $startseite_link = htmlentities (stripslashes ($B_startseite_link));
   echo "      <tr>
         <td>
           <table width=\"100%\">
@@ -24,7 +25,7 @@ function leiste_oben ($egl)
                   </tr>";
   echo "                  <tr>
                     <td>
-                      <a href=\"../index.php\"><img src=\"/grafik/forum-logo$msiepng.png\" border=\"0\" alt=\"$B_startseite_link\" title=\"$B_startseite_link\"></a>
+                      <a href=\"../index.php\"><img src=\"/grafik/forum-logo$msiepng.png\" border=\"0\" alt=\"$startseite_link\" title=\"$startseite_link\"></a>
                     </td>
                   </tr>
                 </table>

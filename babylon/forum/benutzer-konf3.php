@@ -9,7 +9,7 @@
    GNU-GPL Version 2 zu nutzen und/oder modifizieren und/oder weiterzugeben.
    Lies die Datei COPYING fuer weitere Informationen hierzu. */
 
-  include_once ("konf/konf.php");
+  include ("konf/konf.php");
   include ("wartung/wartung-info.php");
 
 // Standart Konfiguration. Man darf absolut nix ;-)
@@ -24,13 +24,11 @@
   $P_EMail = "";
   $P_Homepage = "";
 
-  include_once ("../gemeinsam/db-verbinden.php");
-  include_once ("../gemeinsam/benutzer-daten.php");
+  include ("../gemeinsam/benutzer-daten.php");
   include ("../gemeinsam/msie.php");
   $msiepng = msie_png ();
   include ("leiste-oben.php");
 
-  $db = db_verbinden ();    
   benutzer_daten_profil ($BenutzerId, $Benutzer, $K_Egl, $K_Stil,
                          $P_NameZeigen, $P_Ort,
                          $P_EMail, $P_Homepage);

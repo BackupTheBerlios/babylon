@@ -11,11 +11,9 @@ include_once ("konf/konf.php");
 
 if (isset ($_COOKIE[$B_cookie_id]) and isset ($_COOKIE[$B_cookie_sw]))
 {
-  include ("../gemeinsam/db-verbinden.php");
   $id = intval ($_COOKIE[$B_cookie_id]);
   $sw = $_COOKIE[$B_cookie_sw];
 
-  $db = db_verbinden();
 
   $erg = mysql_query ("SELECT Cookie
                        FROM Benutzer

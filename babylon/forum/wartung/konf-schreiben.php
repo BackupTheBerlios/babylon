@@ -1,4 +1,11 @@
 <?PHP;
+/* Copyright 2003, 2004 Detlef Reichl <detlef!reichl()gmx!org>
+   Diese Datei gehoert zum Babylon-Forum (babylon.berlios.de).
+   
+   Babylon ist Freie Software. Du bist berechtigt sie nach Vorgabe der
+   GNU-GPL Version 2 zu nutzen und/oder modifizieren und/oder weiterzugeben.
+   Lies die Datei COPYING fuer weitere Informationen hierzu. */
+
 function konf_schreiben ($var, $wert)
 {
   global $K_AdminForen;
@@ -6,29 +13,33 @@ function konf_schreiben ($var, $wert)
   if (!$K_AdminForen)
     die ("Zugriff verweigert");
 
-  $fd = fopen ("../konf/konf.php", "r+");
+  $erg = mysql_query ("SELECT Typ
+                       FROM Konf
+                       WHERE Schluessel = \"$var\"")
+    or die ("Der Typ der zu setztenden Konfigurationsvariable konnte nicht ermittelt werden");
+  if (mysql_num_rows ($erg) != 1)
+    die ("Bei der Typermittlung wurde eine unzul&auml;assige Anzahl Treffer zur&uuml;ck gegeben");
 
-  $pos = 0;
-  $gefunden = FALSE;
-
-  while ($zeile = fgets ($fd, 1000))
+  $zeile = mysql_fetch_row ($erg);
+  if ($zeile[0] == 'i' or $zeile[0] == 'f' or $zeile[0] == 'b')
   {
-    $pat =  "/^.$var\s?=\s?\d+;.*/";
-    if (preg_match ($pat, $zeile))
-    {
-      $gefunden = TRUE;
-      break;
-    }
-    $pos = ftell ($fd);
+    $typ = 'WertInt';
+    if ($zeile[0] == 'b')
+      $wert = $wert ? 1 : 0;
+    mysql_query ("UPDATE Konf
+                  SET WertInt = \"$wert\"
+                  WHERE Schluessel = \"$var\"")
+      or die ("Die Konfiguration konnte nicht aktuallisiert werden");
   }
-  
-  if (!$gefunden)
-    die ("Zu schreibende Variable konnte in der Konfigurationsdatei nicht gefunden werden.");
-
-  fseek ($fd, $pos);
-  $zeile = "\$$var = $wert;";
-  $zeile = str_pad ($zeile, 63, ' ');
-  fputs ($fd, $zeile);
-  fclose ($fd);
+  else if ($zeile[0] == 't')
+  {
+    $typ = 'WertText';
+     mysql_query ("UPDATE Konf
+                  SET WertText = \"$wert\"
+                  WHERE Schluessel = \"$var\"")
+      or die ("Die Konfiguration konnte nicht aktuallisiert werden");
+  }
+  else
+    die ("Es wird versucht eine Variable mit nicht unterst&uuml;tzten Typ zu speichern");
 }
 ;?>

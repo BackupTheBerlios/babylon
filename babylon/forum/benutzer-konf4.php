@@ -27,7 +27,6 @@
   $msiepng = msie_png ();
   include ("leiste-oben.php");
 
-  $db = db_verbinden ();    
   benutzer_daten_persoenlich ($BenutzerId, $K_Egl, $K_Stil,
                               $K_EMail, $K_Alias,
 			      $K_VName, $K_NName);

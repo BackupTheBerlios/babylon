@@ -39,7 +39,6 @@
   if (id_von_get_post ($fid, $tid, $sid, $bid, $zid, $neu))
     die ("Illegaler Zugriffsversuch!");
 
-  include ("../gemeinsam/db-verbinden.php");
   include ("../gemeinsam/benutzer-daten.php");
   include ("../gemeinsam/msie.php");
   $msiepng = msie_png ();
@@ -48,7 +47,6 @@
   $K_BeitraegeJeSeite = $B_beitraege_je_seite;
   $K_Stil = $B_standart_stil;
 
-  $db = db_verbinden ();    
   benutzer_daten_forum ($BenutzerId, $Benutzer, $K_Egl, $K_Lesen, $K_Schreiben, $K_Admin,
                         $K_AdminForen, $K_ThemenJeSeite, $K_BeitraegeJeSeite,
                         $K_Stil,  $K_Signatur, $K_SprungSpeichern, $K_BaumZeigen);

@@ -1,4 +1,11 @@
 <?PHP;
+/* Copyright 2003, 2004 Detlef Reichl <detlef!reichl()gmx!org>
+   Diese Datei gehoert zum Babylon-Forum (babylon.berlios.de).
+   
+   Babylon ist Freie Software. Du bist berechtigt sie nach Vorgabe der
+   GNU-GPL Version 2 zu nutzen und/oder modifizieren und/oder weiterzugeben.
+   Lies die Datei COPYING fuer weitere Informationen hierzu. */
+
 function letzter_autor_titel ()
 {
   echo "Letzter Autor";
@@ -31,7 +38,7 @@ function letzter_autor_wartung ()
   include ("../konf/konf.php");
 
   $db = db_verbinden ();    
-  benutzer_daten_forum ($BenutzerId, $K_Egl, $K_Lesen, $K_Schreiben, $K_Admin,
+  benutzer_daten_forum ($BenutzerId, $Benutzer, $K_Egl, $K_Lesen, $K_Schreiben, $K_Admin,
                         $K_AdminForen, $K_ThemenJeSeite, $K_BeitraegeJeSeite,
                         $K_Stil,  $K_Signatur, $K_SprungSpeichern, $K_BaumZeigen);
 

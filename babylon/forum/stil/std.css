@@ -56,19 +56,6 @@ div.statistik {
   padding-bottom: 0px;
 }
 
-div.konfiguration {
-  border-color: #ffffff;
-  border-width:2px;
-  border-top-width:0px;
-  border-style: outset;
-  -moz-border-radius-topright:20px;
-  -moz-border-radius-bottomleft:20px;
-  -moz-border-radius-bottomright:20px;
-  background-color: #f7f7f9;
-/*  margin: 12px;*/
-  padding: 6px;
-}
-
 th.ueber {
   font-size: 12px;
   font-weight: bold;
@@ -91,6 +78,19 @@ td.col-hell {
 td.col-dunkel {
   background-color: #eeeeee;
   border-top: 1px solid #eeeeee;
+}
+
+div.konfiguration {
+  border-color: #ffffff;
+  border-width:2px;
+  border-top-width:0px;
+  border-style: outset;
+  -moz-border-radius-topright:20px;
+  -moz-border-radius-bottomleft:20px;
+  -moz-border-radius-bottomright:20px;
+  background-color: #f7f7f9;
+/*  margin: 12px;*/
+  padding: 6px;
 }
 
 td.reiter_aktiv {

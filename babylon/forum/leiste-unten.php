@@ -12,8 +12,15 @@ function leiste_unten ()
         <td>
           <table>
             <tr>
-              <td width=\"33%\" height=\"100%\" valign=\"bottom\">
-             </td>
+              <td width=\"33%\" height=\"100%\" valign=\"bottom\">";
+
+  if (strchr ($_SERVER["DOCUMENT_ROOT"], 'babylon.berlios.de'))
+    echo "                Danke f&uuml;rs Hosten!<br>
+                <A href=\"http://developer.berlios.de\">
+                  <IMG src=\"http://developer.berlios.de/bslogo.php?group_id=1674\" width=\"124\" height=\"32\" border=\"0\" alt=\"BerliOS Developer Logo\">
+                </A>";
+                
+  echo "               </td>
               <td width=\"34%\" height=\"100%\" valign=\"bottom\" align=\"center\">
                 <a href=\"http://babylon.berlios.de\" alt=\"Zu den Seiten des Babylon-Projekts\" title=\"Zu den Seiten des Babylon-Projekts\">
                   <img src=\"/grafik/Babylon$msiepng.png\" border=\"0\" alt=\"\">

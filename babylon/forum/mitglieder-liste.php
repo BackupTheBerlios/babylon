@@ -23,7 +23,6 @@
   $K_SprungSpeichern = 0;
   $K_BaumZeigen = 'j';
 
-  include ("../gemeinsam/db-verbinden.php");
   include ("../gemeinsam/benutzer-daten.php");
   include_once ("../gemeinsam/msie.php");
   include_once ("konf/konf.php");
@@ -32,7 +31,6 @@
 
   $K_Stil = $B_standart_stil;
   
-  $db = db_verbinden ();    
   benutzer_daten_forum ($BenutzerId, $Benutzer, $K_Egl, $K_Lesen, $K_Schreiben, $K_Admin,
                         $K_AdminForen, $K_ThemenJeSeite, $K_BeitraegeJeSeite,
                         $K_Stil,  $K_Signatur, $K_SprungSpeichern, $K_BaumZeigen);
@@ -71,7 +69,7 @@
   while ($zeile = mysql_fetch_row ($erg))
   {
     $anmeldung = strftime ('%d.%b.%Y', intval ($zeile[1]));
-    $letzter =  strftime ('%d.%b.%Y %H:%M', $zeile[4]);
+    $letzter =  $zeile[4] ? strftime ('%d.%b.%Y %H:%M', $zeile[4]) : '-';
     echo "<tr>
             <td align=\"center\" class=\"col-hell\">              
               <a href=\"mitglieder-profil.php?alias=$zeile[0]\">$zeile[0]</a>

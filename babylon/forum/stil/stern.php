@@ -15,11 +15,11 @@ function css_setzen ()
 
 function zeichne_forum ($erster, $ForumId, $NumBeitraege, $StempelLetzter, $Titel, $Inhalt)
 {
-    setlocale (LC_TIME, "de_DE");
-    $datum = strftime ("%d.%m.%Y", $StempelLetzter);
-    $zeit = date ("H.i", $StempelLetzter);
+  setlocale (LC_TIME, "de_DE");
+  $datum = $StempelLetzter ? strftime ("%d.%b.%Y", $StempelLetzter) : '';
+  $zeit = $StempelLetzter ? date ("H.i:s", $StempelLetzter) : '';
 
-   echo "<tr><td>
+  echo "<tr><td>
   <table border=\"0\" cellspacing=\"0\" cellpadding=\"0\" width=\"100%\">
     <tr>
       <td><img src=\"stil/dummy.png\" height=\"15\" border=\"0\"></td>

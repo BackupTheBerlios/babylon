@@ -1,4 +1,11 @@
 <?PHP;
+/* Copyright 2003, 2004 Detlef Reichl <detlef!reichl()gmx!org>
+   Diese Datei gehoert zum Babylon-Forum (babylon.berlios.de).
+   
+   Babylon ist Freie Software. Du bist berechtigt sie nach Vorgabe der
+   GNU-GPL Version 2 zu nutzen und/oder modifizieren und/oder weiterzugeben.
+   Lies die Datei COPYING fuer weitere Informationen hierzu. */
+
 // Standart Konfiguration. Man darf absolut nix ;-)
   $BenutzerId = -1;
   $K_Egl = FALSE;
@@ -11,11 +18,9 @@
   $K_SprungSpeichern = 0;
   $K_BaumZeigen = 'j';
 
-  include ("../../gemeinsam/db-verbinden.php");
-  include ("../../gemeinsam/benutzer-daten.php");
   include_once ("../konf/konf.php");
-  
-  $db = db_verbinden ();    
+  include ("../../gemeinsam/benutzer-daten.php");
+
   benutzer_daten_forum ($BenutzerId, $Benutzer, $K_Egl, $K_Lesen, $K_Schreiben, $K_Admin,
                         $K_AdminForen, $K_ThemenJeSeite, $K_BeitraegeJeSeite,
                         $K_Stil,  $K_Signatur, $K_SprungSpeichern, $K_BaumZeigen);
@@ -27,10 +32,15 @@
     die ('Es wurde kein Wartungsmodul angegeben');
 
   if (!is_readable ("module/$_GET[modul].php"))
-    die ("Zugriff auf Modul $_GET[modul] wurde verweigert");
+    die ("Zugriff auf Modul $_GET[modul] wurde verweigert oder es exestiert nicht");
+
+  echo "<html>
+  <body bgcolor=\"#eeeeee\">";
 
   include ("module/$_GET[modul].php");
   call_user_func ("$_GET[modul]_wartung");
 
-  echo "<a href=\"wartung.php\">Zur&uuml;ck zur Wartungshauptseite</a>";
+  echo "<a href=\"wartung.php\">Zur&uuml;ck zur Wartungshauptseite</a>
+    </body>
+  </html>";
 ;?>

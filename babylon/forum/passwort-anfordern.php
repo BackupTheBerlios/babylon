@@ -6,8 +6,6 @@
    GNU-GPL Version 2 zu nutzen und/oder modifizieren und/oder weiterzugeben.
    Lies die Datei COPYING fuer weitere Informationen hierzu. */
 
-  include ("../gemeinsam/db-verbinden.php");
-  $db = db_verbinden ();
   include ("konf/konf.php");
 
   $email = addslashes ($_POST[email]);

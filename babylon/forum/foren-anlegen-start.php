@@ -10,11 +10,9 @@
   $K_Admin = 0;
   $K_AdminForen = 0;
 
-  include ("../gemeinsam/db-verbinden.php");
-  include ("../gemeinsam/benutzer-daten.php");
   include ("konf/konf.php");
+  include ("../gemeinsam/benutzer-daten.php");
 
-  $db = db_verbinden ();
   benutzer_daten_forum ($BenutzerId, $Benutzer, $K_Egl, $K_Lesen, $K_Schreiben, $K_Admin,
                         $K_AdminForen,  $K_ThemenJeSeite, $K_BeitraegeJeSeite,
                         $K_Stil, $K_Signatur, $K_SprungSpeichern, $K_BaumZeigen);

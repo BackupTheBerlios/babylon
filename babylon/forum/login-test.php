@@ -6,9 +6,8 @@
    GNU-GPL Version 2 zu nutzen und/oder modifizieren und/oder weiterzugeben.
    Lies die Datei COPYING fuer weitere Informationen hierzu. */
 
-include ("./benutzer-eingaben.php");
-include ("../gemeinsam/db-verbinden.php");
 include ("konf/konf.php");
+include ("./benutzer-eingaben.php");
 
 function id_von_benutzer ($db, $benutzer)
 {
@@ -61,10 +60,13 @@ function passwort_ok ($db, $benutzer)
                 WHERE BenutzerId=\"$id\"")
     or die ("F0049: Es ist nicht m&ouml;glich die Datenbank informationen zu aktuallisieren");
   mysql_close ($db);
-  include("gz-foren.php");
+
+  if (strcmp ($_POST[gehe_zu], "mypflug") == 0)
+    include("gz-mypflug.php");
+  else
+    include("gz-foren.php");
 }
 
-$db = db_verbinden();
 
 $benutzer = addslashes ($_POST[benutzer]);
 $passwort = $_POST[passwort];

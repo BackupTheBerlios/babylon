@@ -20,13 +20,10 @@ if (isset ($_POST[speichern]))
   $P_EMail = "";
   $P_Homepage = "";
 
-
-  include_once ("../gemeinsam/db-verbinden.php");
+  include_once ("konf/konf.php");
   include_once ("../gemeinsam/benutzer-daten.php");
   include ("./benutzer-eingaben.php");
-  include_once ("konf/konf.php");
   
-  $db = db_verbinden ();    
   benutzer_daten_profil ($BenutzerId, $Benutzer, $K_Egl, $K_Stil,
                          $P_NameZeigen, $P_Ort,
                          $P_EMail, $P_Homepage);

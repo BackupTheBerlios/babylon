@@ -1,4 +1,11 @@
 <?PHP;
+/* Copyright 2003, 2004 Detlef Reichl <detlef!reichl()gmx!org>
+   Diese Datei gehoert zum Babylon-Forum (babylon.berlios.de).
+   
+   Babylon ist Freie Software. Du bist berechtigt sie nach Vorgabe der
+   GNU-GPL Version 2 zu nutzen und/oder modifizieren und/oder weiterzugeben.
+   Lies die Datei COPYING fuer weitere Informationen hierzu. */
+
 // Standart Konfiguration. Man darf absolut nix ;-)
   $BenutzerId = -1;
   $K_Egl = FALSE;
@@ -11,11 +18,9 @@
   $K_SprungSpeichern = 0;
   $K_BaumZeigen = 'j';
 
-  include ("../../gemeinsam/db-verbinden.php");
-  include ("../../gemeinsam/benutzer-daten.php");
   include ("../konf/konf.php");
+  include ("../../gemeinsam/benutzer-daten.php");
 
-  $db = db_verbinden ();    
   benutzer_daten_forum ($BenutzerId, $Benutzer, $K_Egl, $K_Lesen, $K_Schreiben, $K_Admin,
                         $K_AdminForen, $K_ThemenJeSeite, $K_BeitraegeJeSeite,
                         $K_Stil,  $K_Signatur, $K_SprungSpeichern, $K_BaumZeigen);
@@ -23,7 +28,9 @@
   if (!$K_AdminForen)
     die ("Zugriff verweigert");
 
-  echo "<h1>Wartungssystem</h1>";
+  echo "<html>
+  <body bgcolor=\"#eeeeee\">
+    <h1>Wartungssystem</h1>";
 
   if (!$B_wartung_start)
   {
@@ -36,6 +43,7 @@
           <td align=\"center\">
             Begin der Wartung in:<br>
             <select name=\"start\">
+              <option>sofort</option>
               <option>5 Minuten</option>
               <option>10 Minuten</option>
               <option>15 Minuten</option>
@@ -119,4 +127,6 @@
       <button>Wartungsmodus<br>beenden</button>
     </form>";
   }
+  echo "</body>
+  </html>";
 ?>

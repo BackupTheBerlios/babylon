@@ -34,13 +34,10 @@
   if (id_von_get_post ($fid, $tid, $sid, $bid, $zid, $neu))
     die ("Illegaler Zugriffsversuch!");
 
-  include ("../gemeinsam/db-verbinden.php");
   include ("../gemeinsam/benutzer-daten.php");
   include ("../gemeinsam/msie.php");
   $msiepng = msie_png();
   include ("leiste-oben.php");
-
-  $db = db_verbinden ();
 
   $K_Stil = $B_standart_stil;
   $K_BeitraegeJeSeite = $B_beitraege_je_seite;
