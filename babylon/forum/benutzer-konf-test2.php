@@ -6,6 +6,8 @@
    GNU-GPL Version 2 zu nutzen und/oder modifizieren und/oder weiterzugeben.
    Lies die Datei COPYING fuer weitere Informationen hierzu. */
 
+if (isset ($_POST[speichern]))
+{
 // Standart Konfiguration. Man darf absolut nix ;-)
   $BenutzerId = -1;
   $Benutzer = "";
@@ -52,6 +54,7 @@
                 WHERE BenutzerId=\"$BenutzerId\"")
     or die ("F0038: Die Benutzereinstellungen konnten nicht aktuallisiert werden.");
   mysql_close ($db);
-  $zu = isset ($_POST[speichern]) ? "benutzer-konf2" : "foren";
-  include ("gehe-zu.php");
+}
+$zu = isset ($_POST[speichern]) ? "benutzer-konf2" : "foren";
+include ("gehe-zu.php");
 ?>

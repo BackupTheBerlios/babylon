@@ -6,6 +6,12 @@
    GNU-GPL Version 2 zu nutzen und/oder modifizieren und/oder weiterzugeben.
    Lies die Datei COPYING fuer weitere Informationen hierzu. */
 
+if (isset ($_POST[zurueck]))
+{
+  $zu = "foren";
+  include ("gehe-zu.php");
+  die ();
+}
 // Standart Konfiguration. Man darf absolut nix ;-)
   $BenutzerId = -1;
   $K_Egl = FALSE;
@@ -32,6 +38,7 @@
   else if (benutzer_eingabe_test ("passwort1", "Passwort 1", 6, 32, "Das Passwort ist zu kurz (min. 6 Zeichen)", true))
     include("benutzer-konf4.php");
   else if (benutzer_eingabe_test ("passwort2", "Passwort 2", 6, 32, "Das Passwort ist zu kurz (min. 6 Zeichen)", true))
+    
     include("benutzer-konf4.php");
   else if (benutzer_eingabe_test ("vname", "Vorname", 2, 32, "Kompletten Vornamen angeben", true))
     include("benutzer-konf4.php");
@@ -87,7 +94,7 @@
                     WHERE BenutzerId=\"$BenutzerId\"")
         or die ("Der Nachname konnte nicht aktuallisiert werden.");
     }
-    $zu = isset ($_POST[speichern]) ? "benutzer-konf4" : "foren";
+    $zu = "benutzer-konf4";
     include ("gehe-zu.php");
   }
 ?>
