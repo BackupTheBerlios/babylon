@@ -101,7 +101,7 @@
 	</tr>
         <tr>
           <td>Atavar</td>
-          <td><input name=\"atavar\" type=\"file\" size=\"30\" maxlength=\"$atavar_max_bytes\" accept=\"image/*\"></td>
+          <td><input name=\"atavar\" type=\"file\" size=\"30\" maxlength=\"$atavar_max_bytes\" accept=\"image/jpeg\"></td>
           <td>Ein Bild von Dir. Bitte beachte keine Bilder hoch zu laden, von denen Du nicht die
               Nutzungsrechte hast.</td>
         </tr>
@@ -110,17 +110,19 @@
           <td colspan=\"2\">";
           if (isset ($_GET[atavar_format]))
             echo "Das gew&auml;hlte Dateiformat wird nicht unterst&uuml;tzt.<br>
-                  Folgende Grafikformate stehen zur Wahl:<br>
-                  JPEG<br>
-                  PNG<br>
-                  GIF";
-          if (isset ($_GET[atavar_groesse]))
+                  Bitte lade nur Bilder im Jpeg-Format hoch.";
+          else if (isset ($_GET[atavar_groesse]))
             echo "Das gew&auml;hlte Atavar ist zu gro&szlig;<br>
                   maximal:<br>
                   kByte: $B_atavar_max_kb<br>
                   Breite: $B_atavar_max_breite Pixel<br>
                   H&ouml;he: $B_atavar_max_hoehe Pixel";
-          
+          else
+          {
+            $atavar_datei = "atavar/$BenutzerId.jpg";
+            if (is_readable ($atavar_datei))
+              echo "    <img src=\"$atavar_datei\" alt=\"\">";
+          }
           echo "           </td>
         </tr>
         <tr><td colspan=\"3\"><img src=\"/grafik/dummy.png\" width=\"1\" height=\"20\"></td></tr>
