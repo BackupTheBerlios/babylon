@@ -57,12 +57,20 @@
   $begriff = $_POST['suchbegriff'];
   $limit = 50;
 
+  $erg = mysql_query ('SELECT VERSION()');
+  $zeile = mysql_fetch_row ($erg);
+  $version = explode ('.', $zeile[0], 3);
+  if (($version[0] >= 4) and (($version[1] > 0) or (intval ($version[2]) > 0)))
+    $bmode = ' IN BOOLEAN MODE';
+  else
+    $bmode = '';
+
   $erg = mysql_query ("SELECT ForumId, ThemaId, BeitragId, Titel, Inhalt, StempelLetzter, Autor
                        FROM Beitraege
                        WHERE BeitragTyp & 8 = 8
                          AND Gesperrt = 'n'
                          AND MATCH (Inhalt)
-                           AGAINST (\"$begriff\" IN BOOLEAN MODE)
+                           AGAINST ('$begriff'$bmode)
                        LIMIT $limit")
     or die ('Datenbankfehler bei der Suchanfrage<br>' . mysql_error ());
 
@@ -108,5 +116,4 @@
   echo '    </table>
   </body>
 </html>';
-
 ;?>
