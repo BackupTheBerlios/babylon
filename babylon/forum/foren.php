@@ -64,6 +64,7 @@
 
   $erster = TRUE;
   $f = 0;
+  // Die normalen Foren...
   while ($zeile = mysql_fetch_row ($beitraege))
   {
     if ((1 << $f & $K_Lesen) or (1 << $f & $B_leserecht))
@@ -78,6 +79,38 @@
       $erster = FALSE;
     }
     $f++;
+  }
+
+  // ...und jetzt noch den Posteingang
+  if ($K_Egl)
+  {
+    $letzter = mysql_query ("SELECT LetzterBeitrag, LogoutStempel
+                             FROM Benutzer
+                             WHERE BenutzerId = $BenutzerId")
+      or die ('Benutzerdaten zu den letzten Beiraegen konnten nicht ermittelt werden');
+    if (mysql_num_rows ($letzter) != 1)
+      die ('Internern Datenbankfehler: BenutzerId nicht oder mehrfach vorhanden');
+    $zeile = mysql_fetch_row ($letzter);
+
+  // FIXME: Sollen wir hier ein sicherheits-zeitfenster geben?
+    $neuer_als = max ($zeile[0], $zeile[1]);
+
+    $beitraege = mysql_query ("SELECT BeitragId
+                               FROM Beitraege
+                               WHERE StempelLetzter > $neuer_als
+                                 AND BeitragTyp & 8 = 8 
+                                 AND Gesperrt = 'n'
+                               LIMIT 100")
+      or die ('Die neuen Beitraege konnten nicht ermittelt werden');
+    $num_beitraege = mysql_num_rows ($beitraege);
+
+    $param = array ('Erster' => FALSE,
+                    'ForumId' => -1,
+                    'NumBeitraege' => $num_beitraege,
+                    'StempelLetzter' => 0,
+                    'Titel' => 'Posteingang',
+                    'Inhalt' => 'Alles was seit Deinem Letzten Logout neu geschrieben wurde');
+    zeichne_forum ($param);
   }
 
   mysql_close ($db);
