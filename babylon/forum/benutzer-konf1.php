@@ -188,7 +188,7 @@
                          Alternativ wird direkt in die Beitr&auml;ge gesprungen so als h&auml;tte man in der Baumansicht "Alle Beitr&auml;ge auf ein Mal anzeigen" gew&auml;hlt<p></td>
               </tr>
               <tr>
-                <td><input type="checkbox" name="baum_zeige\"';
+                <td><input type="checkbox" name="baum_zeigen"';
   if ($K_BaumZeigen == 'j')
     echo ' "checked"';
   echo ">Beitragsbaum anzeigen</input></td>
