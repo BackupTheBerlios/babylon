@@ -56,7 +56,7 @@
                  'beitraege_je_seite');
 
   reset ($vars);
-  while ($var = current ("$vars"))
+  while ($var = current ($vars))
   {
     $val = intval ($_POST["$var"]);
     if (!$val)
