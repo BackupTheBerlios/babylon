@@ -21,7 +21,7 @@ echo '    Das System ist jetzt schon voll Lauff&auml;hig. Wir passen es im folge
     Besucher anmeden wollen angezeigt werden.<p>
    
     Gehe dann ins <a href="../forum-anlegen.php">Forum und lege die Unterforen</a> an.
-    Hier wird Dir eine Liste mit den 32 zur verf&uunl;gung stehenden Foren angezeigt. Gib den
+    Hier wird Dir eine Liste mit den 32 zur verf&uuml;gung stehenden Foren angezeigt. Gib den
     Titel des Forums und eine kurze Beschreibung an und w&auml;hle dann aus, an welcher
     Position das Forum stehen soll. Du solltest Dir als vorher &uuml;berlegen, welche Foren
     Du anlegen willst. Lege diese dann am besten so ab, dass zwischen den Foren freie
