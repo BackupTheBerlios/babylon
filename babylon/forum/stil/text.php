@@ -116,7 +116,7 @@ function zeichne_beitrag ($param)
   $zeit = date ("H.i:s", $StempelLetzter);
   $autor = str_pad (substr (strip_tags ($Autor), 0, 68), 69);
   $thema = str_pad (substr (strip_tags ($Thema), 0, 80), 80, " ", STR_PAD_BOTH);
-  $inhalt = wordwrap (strip_tags ($Inhalt), 80);
+  $inhalt = wordwrap (preg_replace ('/<img src="smileys\/\w+\.png" alt="(...)">/', '\\1', str_replace ("<br />", "\n", $Inhalt)), 80);
   
     echo "<tr><td><pre>\n";
     if ($Erster)
