@@ -1,5 +1,5 @@
 INSERT INTO `Konf` VALUES (1, 'B_version', 0, 0, NULL, 'i');
-INSERT INTO `Konf` VALUES (2, 'B_subversion', 0, 4, NULL, 'i');
+INSERT INTO `Konf` VALUES (2, 'B_subversion', 0, 8, NULL, 'i');
 INSERT INTO `Konf` VALUES (3, 'B_wartung_start', 0, 0, NULL, 'i');
 INSERT INTO `Konf` VALUES (4, 'B_wartung_ende', 0, 0, NULL, 'i');
 INSERT INTO `Konf` VALUES (5, 'B_betreiber', 0, 0, 'Projekt', 't');
