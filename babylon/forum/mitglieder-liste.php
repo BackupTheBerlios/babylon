@@ -41,15 +41,15 @@
             <tr>';
     
     if (strcmp ($wahl, $w) != 0)
-      echo "       <td><a href=\"mitglieder-liste.php?kopf_wahl=$w&kopf_sort=$sort\">$k</a></td>";
+      echo "       <td><a href=\"mitglieder-liste.php?kopf_wahl=$w&amp;kopf_sort=$sort\">$k</a></td>";
     else
     {
       $sel = $sort == 'h' ? 'sel_rauf' : 'sel_runter';
       $db_wahl = $db_auswahl[$x];
       echo "
-                   <td><a href=\"mitglieder-liste.php?kopf_wahl=$w&kopf_sort=$nsort\">$k</a></td>
+                   <td><a href=\"mitglieder-liste.php?kopf_wahl=$w&amp;kopf_sort=$nsort\">$k</a></td>
                    <td>
-                     <a href=\"mitglieder-liste.php?kopf_wahl=$w&kopf_sort=$nsort\">
+                     <a href=\"mitglieder-liste.php?kopf_wahl=$w&amp;kopf_sort=$nsort\">
                        <img src=\"/grafik/$sel.png\" alt=\"\" border=\"0\">
                      </a>
                    </td>";
