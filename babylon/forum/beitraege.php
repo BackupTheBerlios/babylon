@@ -226,7 +226,7 @@
         if (isset ($_GET['vorschau']) and $_GET['vorschau'] == 'j')
         {
           include ('beitraege-vorschau.php');
-	  $vorschau = beitrag_vorschau_inhalt ($BenutzerId);
+	        $vorschau = beitrag_vorschau_inhalt ($BenutzerId);
           $vorschau_inhalt = beitrag_pharsen ($vorschau);
           beitrag_vorschau ($vorschau_inhalt);
         }

@@ -39,7 +39,7 @@ else
     
   $erg = mysql_query ("SELECT Benutzer
                        FROM Benutzer
-                       WHERE Benutzer = \"$benutzer\"")
+                       WHERE Benutzer = '$benutzer'")
            or die ('F0033: Benutzerdaten konnten nicht abgeglichen werden');
   if (mysql_num_rows ($erg) > 0)
   {
@@ -53,7 +53,7 @@ else
     $stempel = time ();
       
     mysql_query ("INSERT INTO Benutzer (Benutzer, VName, NName, Passwort, EMail, Anmeldung)
-                  VALUES (\"$benutzer\", \"$vname\", \"$nname\", \"$pass\", \"$email\", \"$stempel\")")
+                  VALUES ('$benutzer', '$vname', '$nname', '$pass', '$email', '$stempel')")
       or die ("F0034: Benutzerdatensatz konnte nicht angelegt werden.");
     mysql_close ($db);
     include("gz-foren.php");

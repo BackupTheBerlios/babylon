@@ -131,6 +131,7 @@ if ($K_Egl)
                                          '$text')")
       or fehler (__FILE__, __LINE__, 0, 'Strang konnte nicht angelegt werden');
     $sid = mysql_insert_id ();
+    $bid = $sid;
     mysql_query ("UPDATE Beitraege
                   SET StrangId = $sid
                   WHERE BeitragId = $sid")
@@ -241,6 +242,40 @@ if ($K_Egl)
                   AutorLetzter = '$Benutzer'
                 WHERE ThemaId = '$tid' AND BeitragTyp = 2")
     or fehler (__FILE__, __LINE__, 0, 'Z&auml;hler konnten nicht aktualisiert werden');
+    
+// ########################
+// ## Rss aktuallisieren ##
+// ########################
+
+  mysql_query ("LOCK TABLES Rss WRITE")
+    or fehler (__FILE__, __LINE__,0,'WRITE-lock auf die Rss-Tabelle konnte nicht gesetzt werden');
+
+// aeltester Eintrag
+  $erg = mysql_query ("SELECT MIN(Stempel)
+                       FROM Rss
+                       WHERE Stempel > 0")
+    or fehler(__FILE__, __LINE__,0,'Der &auml;llteste Inhalt der Rss-Tabelle konnte nicht ermittelt werden');
+    
+  $zeile = mysql_fetch_row ($erg);
+  $st = $zeile[0];
+  
+  $titel = substr (htmlentities ($titel, ENT_QUOTES), 0, 255);
+  $autor = substr (htmlentities ($Benutzer, ENT_QUOTES), 0, 255);
+  $seite = 'http://' . $_SERVER['SERVER_NAME'] . "/forum/beitraege.php?fid=$fid&amp;tid=$tid&amp;sid=$sid&amp;bid=$bid";
+  $inhalt = substr (htmlentities ($text, ENT_QUOTES), 0, 1024);
+  
+  $erg = mysql_query ("UPDATE Rss
+                       SET Titel = '$titel',
+                         Autor = '$autor',
+                         Link = '$seite',
+                         Inhalt = '$inhalt',
+                         Stempel = '$stempel'
+                       WHERE Stempel = '$st'
+                       LIMIT 1")
+    or fehler(__FILE__, __LINE__,0,'Der &auml;llteste Inhalt der Rss-Tabelle konnte nicht aktuallisiert werden');
+  mysql_query ("UNLOCK TABLES")  
+    or fehler(__FILE__, __LINE__,0,'WRITE-lock konnte von der Rss-Tabelle nicht entfernt werden');
+
 
 mysql_close ($db);
 
