@@ -104,7 +104,7 @@
         </tr>
         <tr>
           <td colspan=\"4\" align=\"left\" class=\"col-hell\" width=\"100%\">$inhalt</td>
-        </tr>";
+        </tr><tr><td><br></td></tr>";
     }
     echo '</table>
         </td>
