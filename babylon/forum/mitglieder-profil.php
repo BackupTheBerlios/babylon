@@ -72,6 +72,7 @@
   if ($profil[10])
     if ($B_profil_links)
     {
+      include ('benutzer-eingaben.php');
       if (email_adresse_gueltig ($profil[10]))
         echo "<a href=\"mailto:$profil[10]\">$profil[10]</a>";
       else
