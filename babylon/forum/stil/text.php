@@ -25,7 +25,7 @@ function zeichne_forum ($param)
   $ForumId = $param['ForumId'];
   $Titel = $param['Titel'];
   $Inhalt = $param['Inhalt'];
-  setlocale (LC_TIME, 'de_DE');
+  setlocale (LC_ALL, 'de_DE@euro', 'de_DE', 'de', 'ge');
   $datum = strftime ("%d.%m.%y", $param['StempelLetzter']);
   $zeit = date ("H.i:s", $param['StempelLetzter']);
   $titel = str_pad (substr (strip_tags ($Titel), 0, 58), 59);
@@ -71,7 +71,7 @@ function zeichne_thema ($param)
   $NumGelesen = $param['NumGelesen'];
   $BaumZeigen = $param['BaumZeigen'];
   
-  setlocale (LC_TIME, 'de_DE');
+  setlocale (LC_ALL, 'de_DE@euro', 'de_DE', 'de', 'ge');
   $datum = strftime ("%d.%m.%y", $StempelLetzter);
   $zeit = date ("H.i:s", $StempelLetzter);
   $autor = str_pad (substr (strip_tags ($Autor), 0, 58), 59);
@@ -111,7 +111,7 @@ function zeichne_beitrag ($param)
   $Egl = $param['Egl'];
   $Atavar = $param['Atavar'];
 
-  setlocale (LC_TIME, 'de_DE');
+  setlocale (LC_ALL, 'de_DE@euro', 'de_DE', 'de', 'ge');
   $datum = strftime ("%d.%m.%y", $StempelLetzter);
   $zeit = date ("H.i:s", $StempelLetzter);
   $autor = str_pad (substr (strip_tags ($Autor), 0, 68), 69);
