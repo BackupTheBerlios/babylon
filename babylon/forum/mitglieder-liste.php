@@ -17,7 +17,6 @@
   $K_Schreiben = 0;
   $K_Admin = 0;
   $K_AdminForen = 0;
-  $K_Stil = "std";
   $K_Signatur ="";
   $K_SprungSpeichern = 0;
   $K_BaumZeigen = 'j';
@@ -29,6 +28,8 @@
   $msiepng = msie_png ();
   include ("leiste-oben.php");
 
+  $K_Stil = $B_standart_stil;
+  
   $db = db_verbinden ();    
   benutzer_daten_forum ($BenutzerId, $Benutzer, $K_Egl, $K_Lesen, $K_Schreiben, $K_Admin,
                         $K_AdminForen, $K_ThemenJeSeite, $K_BeitraegeJeSeite,

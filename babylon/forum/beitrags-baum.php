@@ -85,7 +85,6 @@ function strang_ausgeben (&$daten, $sid, $saetze, $tiefe, $m)
   $K_AdminForen = 0;
   $K_ThemenJeSeite = 6;
   $K_BeitraegeJeSeite = 3;
-  $K_Stil = "std";
   $K_Signatur = "";
   $K_SprungSpeichern = 0;
   $K_BaumZeigen = 'j';
@@ -104,6 +103,8 @@ function strang_ausgeben (&$daten, $sid, $saetze, $tiefe, $m)
   include ("../gemeinsam/benutzer-daten.php");
   include_once ("konf/konf.php");
   include ("leiste-oben.php");
+
+  $K_Stil = $B_standart_stil;
 
   $db = db_verbinden ();    
   benutzer_daten_forum ($BenutzerId, $Benutzer, $K_Egl, $K_Lesen, $K_Schreiben, $K_Admin,
