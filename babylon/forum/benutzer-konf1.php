@@ -80,8 +80,7 @@
           <td>';
 
   // ##### Signatur #####
-  $signatur = str_replace ("<br />", "", $K_Signatur);
-  $signatur = ereg_replace ("(<img src=\"smileys)(.*)(.png\" alt=\")(.*)(\">)", "\\4", $signatur);
+  $signatur = stripslashes (str_replace ("<br />", "\n", $K_Signatur));
   echo '            <table>
               <tr>
                 <td><h3>Signatur</h3></td>

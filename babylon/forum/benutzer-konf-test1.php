@@ -39,7 +39,7 @@ if (isset ($_POST['speichern']))
       
   // ##### Signatur #####
   if (isset ($_POST['signatur']))
-    $SIGNATUR = addslashes (beitrag_pharsen ($_POST['signatur']));
+    $SIGNATUR = addslashes (beitrag_pharsen_ohne_smilies ($_POST['signatur']));
   else
     $SIGNATUR = '';
   // ##### Themen / Beitraege Je Seite #####
