@@ -85,7 +85,7 @@
       </tr>';
 
   include ('leiste-unten.php');
-  leiste_unten ();
+  leiste_unten (NULL);
 
   echo '    </table>
   </body>
