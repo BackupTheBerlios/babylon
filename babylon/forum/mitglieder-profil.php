@@ -106,9 +106,31 @@
           </tr>
           <tr>
             <td colspan=\"3\">
-              Email: $profil[10]<br>
-              Homepage: $profil[11]
-            </td>
+              Email: ";
+  if ($profil[10])
+    if ($B_profil_links)
+    {
+      if (preg_match ('/.*@.*\..*/', $profil[10]))
+        echo "<a href=\"mailto:$profil[10]\">$profil[10]</a>";
+      else
+        echo "$profil[10]";
+    }
+    else
+      echo "$profil[10]";             
+  
+  echo "<br>            Homepage: ";
+  
+  if ($profil[11])
+    if ($B_profil_links)
+    {
+      if (preg_match ('/http:\/\/.*/', $profil[11]))
+        echo "<a href=\"$profil[11]\">$profil[11]</a>";
+      else
+        echo "<a href=\"http://$profil[11]\">$profil[11]</a>";
+    }
+    else
+      echo "$profil[11]";
+  echo "          </td>
           </tr>
         </table>";
 
