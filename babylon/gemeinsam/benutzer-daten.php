@@ -110,16 +110,19 @@ function benutzer_daten_persoenlich (&$BenutzerId, &$K_Egl, &$K_Stil,
   $K_NName = $zeile[4];
 }
 
-function benutzer_daten_profil (&$BenutzerId, &$Benutzer, &$K_Egl, &$K_Stil,
-                                &$P_NameZeigen, &$P_Ort,
-                                &$P_EMail, &$P_Homepage)
+function benutzer_daten_profil (&$BenutzerId, &$Benutzer, &$K_Egl,
+                                &$K_Stil, &$P_NameZeigen, &$P_Nachricht,
+                                &$P_NachrichtAnonym, &$P_Ort, &$P_EMail,
+                                &$P_Homepage)
 {
   $id = -1;
   $sw = -1;
   if (!benutzer_cookie ($K_Egl, $id, $sw))
     return;
     
-  $erg = mysql_query ("SELECT Benutzer, KonfStil, ProfilNameZeigen, ProfilOrt, ProfilEMail, ProfilHomepage
+  $erg = mysql_query ("SELECT Benutzer, KonfStil, ProfilNameZeigen,
+                              NachrichtAnnehmen, NachrichtAnnehmenAnonym, ProfilOrt,
+                              ProfilEMail, ProfilHomepage
                        FROM Benutzer
                        WHERE BenutzerId = \"$id\" AND Cookie = \"$sw\"  AND Eingeloggt = 'j'")
     or fehler (__FILE__, __LINE__, 0, 'Profildaten konnten nicht aus der Dantenbank gelesen werden');
@@ -135,9 +138,11 @@ function benutzer_daten_profil (&$BenutzerId, &$Benutzer, &$K_Egl, &$K_Stil,
   $Benutzer = stripslashes ($zeile[0]);
   $K_Stil = $zeile[1];
   $P_NameZeigen = $zeile[2];
-  $P_Ort = stripslashes ($zeile[3]);
-  $P_EMail = stripslashes ($zeile[4]);
-  $P_Homepage = stripslashes ($zeile[5]);
+  $P_Nachricht = $zeile[3];
+  $P_NachrichtAnonym = $zeile[4];
+  $P_Ort = stripslashes ($zeile[5]);
+  $P_EMail = stripslashes ($zeile[6]);
+  $P_Homepage = stripslashes ($zeile[7]);
 }
 
 function benutzer_daten_mitglied (&$K_Mitglied)

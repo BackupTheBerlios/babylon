@@ -23,13 +23,15 @@ if (isset ($_POST['speichern']))
   include_once ('konf/konf.php');
   include_once ('../gemeinsam/benutzer-daten.php');
   include ('./benutzer-eingaben.php');
+  include_once ('fehler.php');
   
-  benutzer_daten_profil ($BenutzerId, $Benutzer, $K_Egl, $K_Stil,
-                         $P_NameZeigen, $P_Ort,
-                         $P_EMail, $P_Homepage);
+  benutzer_daten_profil ($BenutzerId, $Benutzer, $K_Egl,
+                         $K_Stil, $P_NameZeigen, $P_Nachricht,
+                         $P_NachrichtAnonym, $P_Ort, $P_EMail,
+                         $P_Homepage);
 
   if (!$K_Egl)
-    die ('Zugriff verweigert');
+    fehler (NULL, 0, 1, 'Zugriff verweigert');
 
   if (!empty ($_FILES['atavar']['tmp_name']))
   {
@@ -55,6 +57,10 @@ if (isset ($_POST['speichern']))
     }
 
     $name_zeigen = (isset ($_POST['name_zeigen'])) ? 'j' : 'n';
+    $nachricht = (isset ($_POST['nachricht'])) ? 'j' : 'n';
+    $nachricht_anonym = (isset ($_POST['nachricht_anonym'])) ? 'j' : 'n';
+    if ($nachricht_anonym == 'j')
+      $nachricht = 'j';
     $ort = (strlen ($_POST['ort'])) ? addslashes ($_POST['ort']) : '';
     $homepage = (strlen ($_POST['homepage'])) ? addslashes ($_POST['homepage']) : '';
     $email = (strlen ($_POST['email'])) ? addslashes ($_POST['email']) : '';
@@ -63,11 +69,13 @@ if (isset ($_POST['speichern']))
                   SET Atavar = '$atavar',
                       AtavarData= '$bild',
                       ProfilNameZeigen = '$name_zeigen',
+                      NachrichtAnnehmen = '$nachricht',
+                      NachrichtAnnehmenAnonym = '$nachricht_anonym',
                       ProfilOrt = '$ort',
                       ProfilEMail = '$email',
                       ProfilHomepage = '$homepage'
                   WHERE BenutzerId = '$BenutzerId'")
-      or die ('Profildaten konnte nicht aktuallisiert werden.');
+      or fehler (__FILE__, __LINE__, 0, 'Profildaten konnte nicht aktuallisiert werden.');
   }
 }
 $zu = isset ($_POST['speichern']) ? 'benutzer-konf3' : 'foren';
