@@ -62,8 +62,22 @@
   css_setzen ();
 
   echo "    <title>$titel</title>
-  </head>
-  <body>\n";
+  </head>\n";
+
+  if (isset ($skript) && $skript == 'j')
+  {
+    if (1 << $fid & $K_Schreiben and $K_Egl)
+    {
+      if ($neu)
+        echo "<body onLoad=\"document.eform.titel.focus()\">\n";
+      else
+        echo "<body onLoad=\"document.eform.text.focus()\">\n";
+    }
+    else
+      echo "<body>\n";
+  }
+  else
+    echo "<body>\n";
   
   wartung_ankuendigung ();
   leiste_oben ($K_Egl, $B_startseite_link);

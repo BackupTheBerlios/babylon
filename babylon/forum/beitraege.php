@@ -36,7 +36,7 @@
 
     if ($K_Egl)
     {
-      echo "    <form action=\"beitrag-senden.php\" method=\"post\">\n";
+      echo "    <form action=\"beitrag-senden.php\" method=\"post\" name=\"eform\">\n";
       // benoetigen wir fuer die "bei antwort-mail funktion
       benutzer_daten_persoenlich ($foo, $foo, $foo, $K_EMail, $foo, $foo, $foo);
     }
