@@ -39,11 +39,11 @@
     <form action=\"forum-anlegen-test.php\" method=\"post\"
       <tr>
         <td>Titel</td>
-        <td><input name=\"titel\" type=\"text\" size=\"30\" maxlength=\"255\" value=\"$_POST['titel']\"><p></td>
+        <td><input name=\"titel\" type=\"text\" size=\"30\" maxlength=\"255\" value=\"$_POST[titel]\"><p></td>
       </tr>
       <tr>
         <td>Beschreibung</td>
-        <td><input name=\"inhalt\" type=\"text\" size=\"30\" maxlength=\"255\" value=\"$_POST['inhalt']\"></td>
+        <td><input name=\"inhalt\" type=\"text\" size=\"30\" maxlength=\"255\" value=\"$_POST[inhalt]\"></td>
       </tr>
       <tr>
         <td>
