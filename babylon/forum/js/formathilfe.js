@@ -36,7 +36,7 @@ function formate_ausgeben (typ)
 
 function tabelle_formate_erstellen ()
 {
-  document.writeln ("<\/td><td><img src=\"d.png\" width=\"24\" height=\"1\"<\/td><td>");
+  document.writeln ("<\/td><td><img src=\"../grafik/dummy.png\" width=\"24\" height=\"1\"<\/td><td>");
   document.writeln ("<table>");
   for (y = 0; y < 3; y++)
   {
