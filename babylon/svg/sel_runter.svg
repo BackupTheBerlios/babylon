@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   id="svg1"
+   sodipodi:version="0.32"
+   inkscape:version="0.38.1"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   width="210mm"
+   height="297mm"
+   sodipodi:docbase="/home/det/misc/babylon/svg"
+   sodipodi:docname="sel_runter.svg">
+  <defs
+     id="defs3">
+    <linearGradient
+       id="linearGradient831">
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1.0000000;"
+         offset="0.0000000"
+         id="stop832" />
+      <stop
+         style="stop-color:#000000;stop-opacity:1.0000000;"
+         offset="1.0000000"
+         id="stop833" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient826">
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1.0000000;"
+         offset="0.0000000"
+         id="stop827" />
+      <stop
+         style="stop-color:#ffffff;stop-opacity:0.18032786;"
+         offset="1.0000000"
+         id="stop828" />
+    </linearGradient>
+    <linearGradient
+       xlink:href="#linearGradient826"
+       id="linearGradient829" />
+    <linearGradient
+       xlink:href="#linearGradient831"
+       id="linearGradient830"
+       x1="0.99946791"
+       y1="0.54442102"
+       x2="0.026311111"
+       y2="0.53849822" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.61399264"
+     inkscape:cx="526.86243"
+     inkscape:cy="395.67399"
+     inkscape:window-width="984"
+     inkscape:window-height="701"
+     inkscape:window-x="32"
+     inkscape:window-y="0" />
+  <polygon
+     sodipodi:type="star"
+     style="fill:url(#linearGradient829);fill-opacity:0.75000000;fill-rule:evenodd;stroke:url(#linearGradient830);stroke-width:7.9012482;stroke-dasharray:none;"
+     id="polygon825"
+     sodipodi:sides="3"
+     sodipodi:r2="28.800333"
+     points="277.83641,423.27145 253.98206,379.46109 230.12770,335.65074 279.99576,336.89744 329.86382,338.14414 303.85011,380.70779 277.83641,423.27145 "
+     sodipodi:arg2="1"
+     sodipodi:arg1="0"
+     inkscape:flatsided="true"
+     transform="matrix(0.000000,2.374779,-2.845465,0.000000,1423.968,162.0797)"
+     sodipodi:r1="140"
+     sodipodi:cx="220"
+     sodipodi:cy="370" />
+</svg>
