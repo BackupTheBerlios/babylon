@@ -209,10 +209,10 @@ td.reiter_inaktiv {
 }
 
 th.ueber {
-  font-size: 10px;
+  font-size: 12px;
   font-weight: bold;
   color: #ffff00;
-  background-image: url("nandb-input.png");
+  background-image: url("nandb-inputg.png");
   background-repeat: repeat-x;
   white-space:nowrap;
   padding: 3px;
