@@ -1,0 +1,9 @@
+CREATE TABLE `Konf` (
+  `KonfId` int(1) unsigned NOT NULL auto_increment,
+  `Schluessel` varchar(255) default NULL,
+  `Gruppe` int(1) unsigned default '0',
+  `WertInt` int(1) unsigned default '0',
+  `WertText` text,
+  `Typ` char(1) default 'i',
+   PRIMARY KEY  (`KonfId`)
+) TYPE=MyISAM;
