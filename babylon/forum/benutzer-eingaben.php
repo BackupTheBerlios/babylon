@@ -39,6 +39,6 @@ function benutzer_eingabe_test ($var_tmp, $var_text, $min, $max, $fehler, $leer)
 
 function email_adresse_gueltig ($adresse)
 {
-  return preg_match ('/^[a-z0-9]+[a-z0-9._-]*@([a-z0-9_-]{2,}\.)+[a-z]{2,}/', $adresse);
+  return preg_match ('/^[a-z0-9]+[a-z0-9._-]*@([a-z0-9_-]{2,}\.)+[a-z]{2,}$/', $adresse);
 }
 ;?>
