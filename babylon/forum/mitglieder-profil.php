@@ -47,7 +47,8 @@
 
   $erg = mysql_query ("SELECT BenutzerId, Benutzer, VName, NName, Anmeldung, Beitraege,
                               Themen, LetzterBeitrag, Atavar, ProfilNameZeigen,
-                              ProfilEMail, ProfilHomepage, ProfilOrt
+                              ProfilEMail, ProfilHomepage, ProfilOrt,
+                              NachrichtAnnehmen, NachrichtAnnehmenAnonym
                        FROM Benutzer
                        WHERE Benutzer = \"$alias\"")
     or die ('Profildaten konnten nicht ermittelt werden');
@@ -137,6 +138,47 @@
   echo '          </td>
           </tr>
         </table>';
+
+  if ($profil[13] == 'n')
+    echo "<p>$profil[1] m&ouml;chte keine privaten Nachrichten per E-Mail erhalten";
+  else
+  {
+
+      echo "<h3>Private Nachricht an $profil[1]</h3>
+            <form action=\"private-nachricht.php\" method=\"post\">
+            <textarea name=\"text\" cols=\"80\" rows=\"4\"></textarea><br>
+            <table>
+              <tr>
+                <td>
+                  <button type=\"submit\" accesskey=\"s\">
+                    <table>
+                      <tr>
+                        <td>
+                          <img src=\"/grafik/Schicken$msiepng.png\" width=\"24\" height=\"24\" alt=\"\">
+                         </td>
+                         <td>
+                           Nachricht abschicken<br>
+                           <font size=\"-4\">(Alt+s)</font>
+                         </td>
+                       </tr>
+                     </table>
+                  </button>
+                </td>";
+    if ($profil[14] == 'n')
+      echo "<td>
+      <font size=\"-2\">$profil[1] hat nur der Zusendung nicht anonymer E-Mails zugestimmt.<br>
+      Mit dem Absenden einer Nachricht an $profil[1] stimmst Du ausdr&uuml;cklich zu,<br>
+      dass Dein realer Name und Deine E-Mail Adresse an $profil[1] weiter gegeben werden darf.</font><br>
+            </td>";
+    else
+      echo "<td>
+              <input type=\"checkbox\" name=\"Anonym\">Nachricht Anonym verschicken</input>
+            </td>";
+    echo "</tr>
+        </table>
+        <input type=\"hidden\" name=\"Empfaenger\" value=\"$profil[0]\">
+      </form>";
+  }
 
   include ('leiste-unten.php');
   leiste_unten ();
