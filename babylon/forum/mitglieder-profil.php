@@ -24,6 +24,7 @@
   $K_BaumZeigen = 'j';
 
   include ('../gemeinsam/benutzer-daten.php');
+  include ('benutzer-eingaben.php');
   include_once ('../gemeinsam/msie.php');
   $msiepng = msie_png ();
   include ('leiste-oben.php');
@@ -113,7 +114,7 @@
   if ($profil[10])
     if ($B_profil_links)
     {
-      if (preg_match ('/.*@.*\..*/', $profil[10]))
+      if (email_adresse_gueltig ($profil[10]))
         echo "<a href=\"mailto:$profil[10]\">$profil[10]</a>";
       else
         echo "$profil[10]";
