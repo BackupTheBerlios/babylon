@@ -166,30 +166,47 @@
 
     if ($saetze > $bjs)
     {
-      echo "<div align=\"center\">";
+      echo "    <div align=\"center\">";
       $seiten = ceil ($saetze / $bjs);
       $vor = max ($akt_seite - 5, 0);
       $nach = min ($akt_seite + 6, $seiten);
-     
+    
+    // vorige Seite
+      if ($akt_seite > 0)
+      {
+        $i = ($akt_seite -1) * $bjs;
+        echo"<a href=\"beitraege.php?fid=$fid&amp;tid=$tid&amp;sid=$sid&amp;bid=$bids[$i]\">neuere</a>&nbsp;&nbsp;";
+      }
+    // noch was vor den Dargestellten vorhanden?
       if ($vor > 0)
-        echo '... ';
+        echo '...';
+    // die Seiten vor der aktuellen
       for ($x = $vor; $x < $akt_seite; $x++)
       {
         $i = $x * $bjs;
         $j = $x +1;
         echo"&nbsp;<a href=\"beitraege.php?fid=$fid&amp;tid=$tid&amp;sid=$sid&amp;bid=$bids[$i]\">$j</a>&nbsp;";
       }
+    // die aktuelle Seite
       $i = $akt_seite + 1;
       echo "<b>$i</b> ";
+    // die Seiten nach der aktuellen
       for ($x = $akt_seite + 1; $x < $nach; $x++)
       {
         $i = $x * $bjs;
         $j = $x +1;
         echo"&nbsp;<a href=\"beitraege.php?fid=$fid&amp;tid=$tid&amp;sid=$sid&amp;bid=$bids[$i]\">$j</a>&nbsp;";
       }
+    // noch was nach den Dargestellten vorhanden?
       if ($nach < $seiten)
-        echo ' ...';
- 
+        echo '...';
+    // naechste Seite
+      if ($akt_seite +1  < $seiten)
+      {
+        $i = ($akt_seite +1) * $bjs;
+        echo"&nbsp;&nbsp;<a href=\"beitraege.php?fid=$fid&amp;tid=$tid&amp;sid=$sid&amp;bid=$bids[$i]\">&auml;ltere</a>";
+      }
+      
       echo "</div>\n";
     }
 
