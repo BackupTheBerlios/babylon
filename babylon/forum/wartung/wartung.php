@@ -102,27 +102,58 @@
           array_push ($verz, $datei);
       closedir ($handle);
 
+      $verfuegbar = false;
       reset ($verz);
       while ($datei = current ($verz))
       {
+        $zeigen = false;
         $pfad = "module/$datei";
         include "$pfad";
         $modul = preg_replace ('/module\/(\w+).php/', '\\1', $pfad);
+        $min_version = $modul . '_min_version';
+        $max_version = $modul . '_max_version';
         $titel = $modul . '_titel';
         $beschreibung = $modul . '_beschreibung';
+
+        
+        if (($B_version == 0 && $B_subversion >= 8) || $B_version > 0)
+        {
+          if (function_exists ($min_version))
+          {
+            $minv = call_user_func ($min_version);
+            $maxv = call_user_func ($max_version);
+            if ($B_version >= $minv[0]
+                && $B_version <= $maxv[0]
+                && $B_subversion >= $min[1]
+                && $B_subversion <= $maxv[1])
+            {
+              $zeigen = true;
+              $verfuegbar = true;
+            }
+          }
+        }
+        else
+          $zeigen = true;
+
+        if ($zeigen)
+        {
+          echo "<h3>
+                  <a href=\"modul-aufrufen.php?modul=$modul\">";
+          call_user_func ($titel);
+          echo '</a>
+              </h3>';
       
-        echo "<h3>
-                <a href=\"modul-aufrufen.php?modul=$modul\">";
-        call_user_func ($titel);
-        echo '</a>
-            </h3>';
-      
-        call_user_func ($beschreibung);
-        echo '<p>';
-      
+          call_user_func ($beschreibung);
+          echo '<p>';
+          $verfuegbar = true;
+        }
         next ($verz);
       }
     }
+
+    if (!$verfuegbar)
+      echo '<h3>Es stehen keine Wartunsmodule zur Verf&uuml;gung die angewandt werden k&ouml;nnten</h3>';
+    
     echo '<form action="wartung-deaktivieren.php" method="post">
       <button>Wartungsmodus<br>beenden</button>
     </form>';
