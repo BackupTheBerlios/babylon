@@ -35,14 +35,14 @@
     mysql_close ($db);
     
     $nachricht = "Dies ist das $B_betreiber Forum\n
-Jemand, wahrscheinlich Du hat bantragt, dass Dein Passwort geaendert
-wird. Hierzu wurde vom Forum folgendes neues Passwort fuer dich
+Jemand, wahrscheinlich Du hat beantragt, dass Dein Passwort geaendert
+wird. Hierzu wurde vom Forum folgendes neues Passwort fuer Dich
 generiert:\n
 \t" . $neues_passwort .
-"\n\nUm dieses Passwort zu aktivieren begib dich bitte innerhalb der kommenden
+"\n\nUm dieses Passwort zu aktivieren begib Dich bitte innerhalb der kommenden
 24 Stunden in das $B_betreiber Forum und logge Dich unter diesem Passwort ein. Da
 aus Sicherheitsgruenden dieses Passwort maximal 24 Stunden gueltig ist
-wirst Du dort dazu aufgefordert dir ein neues Passwort zuzulegen.\n
+wirst Du dort dazu aufgefordert Dir ein neues Passwort zuzulegen.\n
 Solltest Du kein neues Passwort beantragt haben versucht evtl. jemand Deinen
 Zugang zu komprometieren. Bitte wende dich in diesem Fall an den Seitenmeister
 dieser Seiten.";
@@ -61,7 +61,7 @@ dieser Seiten.";
   <h2>Passwort Versand</h2>
   Ein neues Passwort wurde an $_POST[email] versandt!<p>
 
-  Bitte aktiviere es innerhalb der kommenden 24 Stunden indem Du dich mit diesem Passwort einloggst.<p>
+  Bitte aktiviere es innerhalb der kommenden 24 Stunden indem Du Dich mit diesem Passwort einloggst.<p>
 
   <a href=\"foren.php\">Zur&uuml;ck zu den Foren</a>
 </body>
