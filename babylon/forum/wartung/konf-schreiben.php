@@ -34,6 +34,7 @@ function konf_schreiben ($var, $wert)
   else if ($zeile[0] == 't')
   {
     $typ = 'WertText';
+    $var = addslashes ($var);
      mysql_query ("UPDATE Konf
                   SET WertText = \"$wert\"
                   WHERE Schluessel = \"$var\"")
