@@ -22,7 +22,7 @@ function leiste_oben ($egl, $startseite_link)
          </tr>';
   echo "            <tr>
               <td>
-                <a href=\"../index.php\"><img src=\"/grafik/forum-logo$msiepng.png\" border=\"0\" alt=\"$startseite_link\"></a>
+                <a href=\"../index.php\" title=\"$startseite_link\"><img src=\"/grafik/forum-logo$msiepng.png\" border=\"0\" alt=\"$startseite_link\"></a>
               </td>
             </tr>
           </table>
