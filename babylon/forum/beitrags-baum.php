@@ -27,6 +27,7 @@ function strang_ausgeben (&$daten, $sid, $saetze, $tiefe, $m)
   {
     $datum = strftime ("%d.%b.%Y", $daten[$i][7]);
     $zeit = date ("H.i:s", $daten[$i][7]);
+    $inhalt = stripslashes ($daten[$i][5]);
 
 //    $t = ($tiefe * 20) % 500;
 //    echo "<img src=\"/grafik/dummy.png\" width=\"$t\" height=\"1\" alt=\"\">
@@ -34,10 +35,10 @@ function strang_ausgeben (&$daten, $sid, $saetze, $tiefe, $m)
 //    bid:{$daten[$i][2]}  {$daten[$i][5]} {$daten[$i][6]} $datum $zeit inhalt:{$daten[$i][8]}</a><br>";
 
     $aus1 = "$baum<a class=\"baum\"
-             href=\"beitraege.php?fid=$_GET[fid]&tid={$daten[$i][0]}&sid={$daten[$i][1]}&bid={$daten[$i][2]}\">{$daten[$i][5]}";
+             href=\"beitraege.php?fid=$_GET[fid]&tid={$daten[$i][0]}&sid={$daten[$i][1]}&bid={$daten[$i][2]}\">$inhalt";
     $aus2 = "{$daten[$i][6]} $datum $zeit</a><br>";
     echo $aus1;
-    $lg = strlen ($daten[$i][5]) + strlen ($aus2) + strlen ($baum);
+    $lg = strlen ($inhalt) + strlen ($aus2) + strlen ($baum);
 
   // FIXME evtl die maximale Spaltenanzahl aus der Benutzerkonfiguration holen
     if ($lg < 120)
@@ -48,10 +49,11 @@ function strang_ausgeben (&$daten, $sid, $saetze, $tiefe, $m)
     echo $aus2;
     // hier sollten wir noch die richtige laenge berechnen; ausserdem sollte das thema ggfs ein wenig
     // eingekuerzt werden um seltener umbrueche machen zu muessen
-    if (strlen ($baum) >= 60)
+//    if (strlen ($baum) >= 60)
+    if ($lg > 116)
       $baum = '';
     else
-      $baum .= '   ';
+      $baum .= '  ';
 
   // hier sammeln wir die weiteren Kinder ...
     if ($daten[$i][3] == 'j')
