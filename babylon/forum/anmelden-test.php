@@ -27,11 +27,15 @@ else if (strcmp ($_POST[passwort1], $_POST[passwort2]))
 // FIXME hier muss noch der email test kommen  
   else
   {
+#    $db = mysql_connect ("localhost", "det", "zottel")
+#      or die ("<b>F0032: Es konnte keine Verbindung zur Datenbank hergestellt werden</b>");
+#    mysql_select_db ("pflug_forum")
+#      or die ("Datenbank konnte nicht ausgew&auml;hlt werden");
     $db = db_verbinden();
     $benutzer = addslashes ($_POST[benutzer]);
     $vname = addslashes ($_POST[vname]);
     $nname = addslashes ($_POST[nname]);
-    $email = addslashes ([$_POST[email]);
+    $email = addslashes ($_POST[email]);
     
     $erg = mysql_query ("SELECT Benutzer FROM Benutzer WHERE Benutzer = \"$benutzer\"")
              or die ("F0033: Benutzerdaten konnten nicht abgeglichen werden");
@@ -47,7 +51,7 @@ else if (strcmp ($_POST[passwort1], $_POST[passwort2]))
       $stempel = time ();
       
       mysql_query ("INSERT INTO Benutzer (Benutzer, VName, NName, Passwort, EMail, Anmeldung)
-                    VALUES ($benutzer, $vname, $nname, $pass, $email, $stempel)")
+                    VALUES (\"$benutzer\", \"$vname\", \"$nname\", \"$pass\", \"$email\", \"$stempel\")")
         or die ("F0034: Benutzerdatensatz konnte nicht angelegt werden.");
       mysql_close ($db);
 
