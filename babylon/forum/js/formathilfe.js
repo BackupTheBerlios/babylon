@@ -1,3 +1,10 @@
+/* Copyright 2003, 2004, 2005 Detlef Reichl <detlef!reichl()gmx!org>
+   Diese Datei gehoert zum Babylon-Forum (babylon.berlios.de).
+   
+   Babylon ist Freie Software. Du bist berechtigt sie nach Vorgabe der
+   GNU-GPL Version 2 zu nutzen und/oder modifizieren und/oder weiterzugeben.
+   Lies die Datei COPYING fuer weitere Informationen hierzu. */
+
 function _einfuegen (text, cursor)
 {
   var feld = document.getElementsByName("text")[0]
@@ -31,10 +38,10 @@ function _einfuegen (text, cursor)
 formate = new Array (2);
 formate[0] = new Array ("&gt;", "<b></b>", "<i></i>", "<tt></tt>",
                         "&lt;", "<table border=\"1\"></table>", "<tr></tr>", "<td></td>",
-		                  "&amp;", "<ul></ul>", "<ol></ol>", "<li></li>");
+                        "&amp;", "<ul></ul>", "<ol></ol>", "<li></li>");
 formate[1] = new Array ("&gt;", "<b>fett<\/b>", "<i>kursiv<\/i>", "<tt>Maschine<\/tt>",
                         "&lt;", "Tabelle", "Tabellenreihe", "Tabellenzelle",
-			               "&amp;", "unsortierte Liste", "sortierte Liste", "Listenelement");
+                        "&amp;", "unsortierte Liste", "sortierte Liste", "Listenelement");
 formate[2] = new Array (4, 3, 3, 4,
                         4, 18, 4, 4,
                         5, 4, 4, 4);2
@@ -46,7 +53,7 @@ function formate_ausgeben (typ)
 
 function tabelle_formate_erstellen ()
 {
-  document.writeln ("<td><img src=\"../grafik/dummy.png\" width=\"24\" height=\"1\"<\/td><td>");
+  document.writeln ("<img src=\"../grafik/dummy.png\" width=\"24\" height=\"1\"<\/td><td>");
   document.writeln ("<table>");
   for (y = 0; y < 3; y++)
   {
@@ -58,7 +65,7 @@ function tabelle_formate_erstellen ()
     }
     document.writeln ("<\/tr>");
   }
-  document.writeln ("<\/table><\/td>");
+  document.writeln ("<\/table>");
 }
 
 smilies = new Array (2);

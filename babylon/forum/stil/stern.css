@@ -67,6 +67,24 @@ div.zitat {
   padding: 6px;
 }
 
+div.code-eingabe {
+  background-color: #20244a;
+  padding: 2px;
+  border-color: #3c138f;
+  border-width:2px;
+  border-style: inset;
+}
+
+div.code-bereich {
+  background-color: #eeeeee;
+  padding: 0px;
+  margin: 12px;
+  border-color: #3c138f;
+  border-width:2px;
+  border-style: inset;
+  font-size:80%;
+}
+
 h1,h2,h3,h4,h5,h6,sub {
   color: #c4a7ff;
 }

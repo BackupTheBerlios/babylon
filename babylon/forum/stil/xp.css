@@ -121,6 +121,23 @@ div.atavar {
   padding: 0px;
 }
 
+div.code-eingabe {
+  background-color: #dde8ff;
+  padding: 2px;
+  border-color: #ffffff;
+  border-width:2px;
+  border-style: inset;
+}
+
+div.code-bereich {
+  background-color: #eeeeee;
+  padding: 0px;
+  margin: 12px;
+  border-color: #ffffff;
+  border-width:2px;
+  border-style: inset;
+  font-size:80%;
+}
 
 a:active {
   color: #BF8649;

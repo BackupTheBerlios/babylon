@@ -1,5 +1,5 @@
 <?PHP;
-/* Copyright 2003, 2004 Detlef Reichl <detlef!reichl()gmx!org>
+/* Copyright 2003, 2004, 2005 Detlef Reichl <detlef!reichl()gmx!org>
    Diese Datei gehoert zum Babylon-Forum (babylon.berlios.de).
    
    Babylon ist Freie Software. Du bist berechtigt sie nach Vorgabe der
@@ -36,7 +36,7 @@
 
     if ($K_Egl)
     {
-      echo "    <form action=\"beitrag-senden.php\" method=\"post\" name=\"eform\">\n";
+      echo "    <form action=\"beitrag-senden.php\" method=\"post\" name=\"eform\" onsubmit=\"textarea_zeile_aktualisieren()\">\n";
       // benoetigen wir fuer die "bei antwort-mail funktion
       benutzer_daten_persoenlich ($foo, $foo, $foo, $K_EMail, $foo, $foo, $foo);
     }
@@ -64,7 +64,7 @@
 
       // Wir extrahieren die bids von den Beitraegen die wir darstellen wollen
       if ($bid == -1)
-        $beitraege = array_slice ($bids, 0, $bjs);
+        $bids_darstellung = array_slice ($bids, 0, $bjs);
       else
       {
        $i = 0;
@@ -80,7 +80,7 @@
         // wir wollen immer auf saubere Seitengrenzen springen
         $akt_seite = intval (floor ($i / $bjs));
         $i = $akt_seite * $bjs;
-        $beitraege = array_slice ($bids, $i, $bjs);
+        $bids_darstellung = array_slice ($bids, $i, $bjs);
       }
 
       $erg = mysql_query ("SELECT Titel
@@ -92,7 +92,7 @@
       $thema = stripslashes ($zeile[0]);
       
       $bid_sprung = $bid;
-      $bids_holen = implode (' OR BeitragId = ', $beitraege);
+      $bids_holen = implode (' OR BeitragId = ', $bids_darstellung);
       $arg = $ansicht == 't' ? "ThemaId = $tid " : "StrangId = $sid";
       $beitraege = mysql_query ("SELECT BeitragId, Autor, StempelLetzter, Inhalt, Gesperrt
                                  FROM Beitraege
@@ -231,6 +231,16 @@
           beitrag_vorschau ($vorschau_inhalt);
         }
 
+//  ###########################
+//  # Titel oder Inhalt fehlt #
+//  ###########################
+
+        if (isset ($_GET['bemerkung']) and strlen ($_GET['bemerkung']))
+        {
+          echo '<tr><td><h2>';
+          echo stripslashes ($_GET['bemerkung']);
+          echo "</h2></td></tr>\n";
+        }
 
 //  ################
 //  # Titeleingabe #
@@ -259,29 +269,29 @@
           <table>
             <tr>
               <td>
-                <a name=\"textarea\"></a>\n";
+                <a name=\"textarea\"></a>
+                <input type=\"hidden\" name=\"textarea_zeile\" id=\"textarea_zeile\" value=\"-1\">
+                <textarea id=\"text\" name=\"text\" cols=\"80\" rows=\"12\">\n";
         if (isset ($_GET['vorschau']) and $_GET['vorschau'] == 'j')
           beitrag_vorschau_textarea (beitrag_pharsen_ohne_smilies ($vorschau));
         else
         {
-          echo "                <textarea name=\"text\" cols=\"80\" rows=\"12\">";
-
 //  ##########
 //  # Zitate #
 //  ##########
 
           if (isset ($zitat_inhalt))
           {
-            $zitat = str_replace ("<br />", "\n", $zitat_inhalt);
+            $zitat = htmlentities (str_replace ("<br />", "\n", $zitat_inhalt));
             $zitat = preg_replace ('/<img src="smileys\/\w+\.png" alt="(...)">/', '\\1', $zitat);
             $zitat_datum = strftime ("%d.%b.%Y", $zitat_stempel);
             $zitat_zeit = date ("H.i", $zitat_stempel);
 
             echo "<div class=\"zitat\"><b>$zitat_autor tat am $zitat_datum um $zitat_zeit der Welt folgendes kund:</b><p>$zitat</div>";
           }
+         }
           echo "</textarea>
                 <p>\n";
-         }
 
 //  ##########################
 //  # Smielie-Schaltflaechen #
@@ -364,11 +374,49 @@
                     tabelle_formate_erstellen ();
                   //-->
                 </script>
-              </td>
-              <td>
                 <noscript>
                 <font size=\"-1\">Mit aktivem JavaScript erh&auml;ltst Du diverse Formatierungshilfen</font>
                 </noscript>
+              </td>
+            </tr>\n";
+
+//  ###############
+//  # Codebereich #
+//  ###############
+         $codesprachen = "bash,C,cpp,HTML,Java,JavaScript,lisp,PHP,Perl,Python,Text";
+         echo "            <tr>
+              <td colspan=\"3\">
+                <div>
+                  <script type=\"text/javascript\">
+                    <!--
+                      codebereich_init ('$codesprachen');
+                    // -->
+                  </script>
+                  <noscript>
+                    <br>
+                    Code
+                    <div id=\"codediv\" class=\"code-eingabe\">
+                      <table id=\"codetable\" width=\"100%\" cellpadding=\"6\" border=\"0\">
+                        <tr width=\"100%\">
+                          <td>
+                            <textarea id=\"codearea\" name=\"codearea\" cols=\"80\" rows=\"5\"></textarea>
+                          </td>
+                          <td width=\"100%\">
+                            Sprache
+                            <br>
+                            <select id=\"codelang\" name=\"codelang\" size=\"1\">";
+         $spracharray = explode (',', $codesprachen);
+         foreach ($spracharray as $sprache)
+           echo "<option value=\"$sprache\">$sprache</option>";
+         echo "                            </select>
+                            <p>
+                            <button>einfuegen!</button>
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
+                  </noscript>
+                </div>
               </td>
             </tr>
           </table>

@@ -174,7 +174,20 @@ function zeichne_beitrag ($param)
     </tr>
     <tr>
       <td colspan=2 style=\"background-image:url(stil/stern30-2.png)\"></td>
-      <td colspan=7 bgcolor=\"#212248\">$Inhalt</td>
+      
+      
+      <td colspan=7>
+        <table border=\"0\" cellspacing=\"0\" cellpadding=\"0\"  width=\"100%\">
+          <tr>\n";
+    if ($Atavar > -1)
+      echo"     <td bgcolor=\"#212248\" valign=\"top\">
+                  <img src=\"atavar-ausgeben.php?atavar=$Atavar\" border=\"2\">
+                </td>";
+    echo "            <td bgcolor=\"#212248\" width=\"100%\" valign=\"top\">$Inhalt</td>
+          </tr>
+        </table>
+      </td>
+      
       <td colspan=2 style=\"background-image:url(stil/stern3a-2.png)\"></td>
     </tr>
   </table>
@@ -182,6 +195,9 @@ function zeichne_beitrag ($param)
     <tr>
       <td><img src=\"stil/stern40-2.png\"></td>
       </td><td style=\"background-image:url(stil/stern43-2.png)\">";
+      
+//            <td colspan=7 bgcolor=\"#212248\">$Inhalt</td>
+      
     if ($erster)
       echo "<font size=\"-1\"><nobr><input type=\"radio\" name=\"eltern\" value=$BeitragId checked>Antworten auf diesen Beitrag</input></nobr>";
     else

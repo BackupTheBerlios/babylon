@@ -37,8 +37,6 @@ function beitrag_vorschau (&$beitrag)
 
 function beitrag_vorschau_textarea (&$beitrag)
 {
-  $vorschau = str_replace ("&", "&amp;", stripslashes (str_replace ("<br />", "\n", $beitrag)));
-  echo "                  <textarea name=\"text\" cols=\"80\" rows=\"12\"\">$vorschau</textarea><p>\n";
-
+  echo str_replace ("&", "&amp;", stripslashes (str_replace ("<br />", "\n", $beitrag)));
 }
 ?>

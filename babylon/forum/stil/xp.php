@@ -131,18 +131,15 @@ function zeichne_beitrag ($param)
             </tr>
             <tr>\n";
   if ($Atavar > -1)
-  {
     echo"              <td class=\"col-dunkel\" valign=\"top\">
                 <div class=\"atavar\">
                   <img src=\"atavar-ausgeben.php?atavar=$Atavar\">
                 </div>
               </td>
               <td class=\"col-hell\" valign=\"top\" colspan=\"2\" width=\"100%\">$Inhalt</td>\n";
-  }
   else
-   {
     echo"              <td class=\"col-hell\" valign=\"top\" colspan=\"3\" width=\"100%\">$Inhalt</td>\n";
-  } 
+
   echo "            </tr>
           </table>
         </td>
@@ -152,12 +149,12 @@ function zeichne_beitrag ($param)
   if ($Egl)
   {
       echo "      <tr>
-        <td><font size=\"-1\"><input type=\"radio\" name=\"eltern\" value=$BeitragId";
+        <td><font size=\"-1\"><input type=\"radio\" name=\"eltern\" value=\"$BeitragId\"";
                 
       if ($Erster)
         echo ' checked';
       echo ">Antworten auf diesen Beitrag</font></td>
-        <td align=\"right\"><font size=\"-1\"><button type=\"submit\" name=\"zid\" value=$BeitragId>zitieren</button></font></td>
+        <td align=\"right\"><font size=\"-1\"><button type=\"submit\" name=\"zid\" value=\"$BeitragId\">zitieren</button></font></td>
       </tr>\n";
   }
 }

@@ -1,5 +1,5 @@
 <?PHP;
-/* Copyright 2003, 2004 Detlef Reichl <detlef!reichl()gmx!org>
+/* Copyright 2003, 2004, 2005 Detlef Reichl <detlef!reichl()gmx!org>
    Diese Datei gehoert zum Babylon-Forum (babylon.berlios.de).
    
    Babylon ist Freie Software. Du bist berechtigt sie nach Vorgabe der
@@ -19,38 +19,64 @@
   
   echo "    <table class=\"themen\">\n";
   
-  $erg = mysql_query ("SELECT NumBeitraege
-                       FROM Beitraege
-                       WHERE BeitragTyp = 1 AND ForumId = $fid")
-    or die ('F0056: Beitragszahl konnte nicht ermittelt werden');
-  $zeile = mysql_fetch_row ($erg);
-  $saetze = $zeile[0];
-  
   $tjs = $K_ThemenJeSeite;
   $tid_sprung = $tid;
+  
+  // FIXME wird nicht mehr gebraucht ??
   // wir kommen direkt aus den foren und setzend die tid auf 2^31 -1;
   // so gehen wir bestimmt hinter den letzten satz
-  if ($tid == -1)
-    $tid = 0xffffffff;
+//  if ($tid == -1)
+//    $tid = 0xffffffff;
 
-
-  // die Themen die wir darstellen wollen
-  $gesperrt = $K_Admin & 1 << $fid ? '' : 'AND Gesperrt  = \'n\'';
-   
-  $beitraege = mysql_query ("SELECT ThemaId, Autor, AutorLetzter, StempelLetzter, Titel,
-                               NumBeitraege, NumGelesen, Gesperrt
-                             FROM Beitraege
-                             WHERE BeitragTyp = 2
-                               AND ForumId = $fid
-                               AND ThemaId <= $tid
-                               $gesperrt
-                             ORDER BY StempelLetzter DESC
-                             LIMIT $tjs")
+  // erst mal alle Themen eines Forums holen
+  $gesperrt = $K_Admin & 1 << $fid ? '' : "AND Gesperrt  = 'n'";
+  $erg = mysql_query ("SELECT ThemaId
+                       FROM Beitraege
+                       WHERE BeitragTyp = 2
+                         AND ForumId = $fid
+                       $gesperrt
+                       ORDER BY StempelLetzter DESC")
     or die ('F0057: Themen konnten nicht gelesen werden');
  
- 
+  $saetze = mysql_num_rows ($erg);
+  $tids = array();
+  while ($zeile = mysql_fetch_row ($erg))
+    $tids[] = $zeile[0];
+  reset ($tids);
+
+
+  // Wir extrahieren die Themen die wir darstellen wollen
+  if ($tid == -1)
+    $tids_darstellung = array_slice ($tids, 0, $tjs);
+  else
+  {
+    $i = 0;
+    while ($val = current ($tids))
+    {
+      if ($val == $tid)
+        break;
+      next ($tids);
+      $i++;
+    }
+    if ($val != $tid)
+      die ('Illegale tid uebergeben');
+    // wir wollen immer auf saubere Seitengrenzen springen
+    $akt_seite = intval (floor ($i / $tjs));
+    $i = $akt_seite * $tjs;
+    $tids_darstellung = array_slice ($tids, $i, $tjs);
+  }
+
+
+  $tids_holen = implode (' OR ThemaId = ', $tids_darstellung);
+  $themen = mysql_query ("SELECT ThemaId, Autor, AutorLetzter, StempelLetzter, Titel, NumBeitraege, NumGelesen, Gesperrt
+                             FROM Beitraege
+                             WHERE BeitragTyp = 2
+                               AND (ThemaId = $tids_holen)
+                             ORDER BY BeitragId DESC")
+    or die ('F0023: Themen konnten nicht gelesen werden');
+
   $erster = TRUE;
-  while ($zeile = mysql_fetch_row ($beitraege))
+  while ($zeile = mysql_fetch_row ($themen))
   {
     $baum = $K_BaumZeigen == 'j' ? TRUE : FALSE;
     $titel = stripslashes ($zeile[4]);
@@ -85,113 +111,58 @@
   } 
   echo "          </table>\n";
 
-   $limit = $tjs * 6;
-  // wir holen die Themen nach dem gewuenschten Satz, fuer die Seitenumschalter;
-  // ausreichend fuer 5 Seiten ...
-  $erg = mysql_query ("SELECT ThemaId
-                       FROM Beitraege
-                       WHERE BeitragTyp = 2 AND ForumId = $fid AND ThemaId <= $tid AND Gesperrt = 'n'
-                       ORDER BY StempelLetzter DESC
-                       LIMIT $limit")
-    or die ('F0058: ThemenIds f&uuml;r die Seitenumschalter konnten nicht geholt werden');
 
-  $zeilen = mysql_num_rows ($erg);
-  if ($zeilen > $tjs)
+//  #####################
+//  # die Seitenauswahl #
+//  #####################
+
+  if ($saetze > $tjs)
   {
-    // wir ueberlesen den kompletten ersten satz daten, da sie ja schon dargestellt sind
-    for ($i = 0; $i < $tjs; $i++)
-      mysql_fetch_row ($erg);
-    $i = 0;
-    $n = 0;
-    while ($zeile = mysql_fetch_row ($erg))
+    echo "    <div align=\"center\">";
+    $seiten = ceil ($saetze / $tjs);
+    $vor = max ($akt_seite - 5, 0);
+    $nach = min ($akt_seite + 6, $seiten);
+  
+  // vorige Seite
+    if ($akt_seite > 0)
     {
-      if (($i % $tjs) == 0)
-      {
-        $tids_nach[$n] = $zeile[0];
-        $n++;
-      }
-      $i++;
+      $i = ($akt_seite -1) * $tjs;
+      echo"<a href=\"themen.php?fid=$fid&amp;tid=$tids[$i]\">neuere</a>&nbsp;&nbsp;";
     }
-    if ($zeilen < $limit)
-      $folgethemen = $zeilen - ($tjs - 1);
-    else
+  // noch was vor den Dargestellten vorhanden?
+    if ($vor > 0)
+      echo '...';
+  // die Seiten vor der aktuellen
+    for ($x = $vor; $x < $akt_seite; $x++)
     {
-      $folge = mysql_query ("SELECT ThemaId
-                             FROM Beitraege
-                             WHERE BeitragTyp = 2 AND ForumId = $fid AND ThemaId < $tid AND Gesperrt = 'n'
-                             ORDER BY StempelLetzter DESC");
-      $folgethemen = mysql_num_rows ($folge) - ($tjs - 1);
+      $i = $x * $tjs;
+      $j = $x +1;
+      echo"&nbsp;<a href=\"themen.php?fid=$fid&amp;tid=$tids[$i]\">$j</a>&nbsp;";
     }
-  }
-  else
-    $folgethemen = 0;
-
-  // ... und dann holen wir auch noch die Themen die davor liegen
-  $limit = $tjs * 5;
-  $erg = mysql_query ("SELECT ThemaId
-                       FROM Beitraege
-                       WHERE BeitragTyp = 2 AND ForumId = $fid AND ThemaId > $tid AND Gesperrt = 'n'
-                       ORDER BY StempelLetzter DESC
-                       LIMIT $limit")
-    or die ('F0059: Die Themen Id\'s konnten nicht ermittelt werden');
-  if (mysql_num_rows ($erg) > 0)
-  {
-    $i = 0;
-    $n = 0;
-    while ($zeile = mysql_fetch_row ($erg))
+  // die aktuelle Seite
+    $i = $akt_seite + 1;
+    echo "<b>$i</b> ";
+  // die Seiten nach der aktuellen
+    for ($x = $akt_seite + 1; $x < $nach; $x++)
     {
-      if ($i % $tjs == 0)
-      {
-        $tids_vor[$n] = $zeile[0];
-        $n++;
-      }
-      $i++;
+      $i = $x * $tjs;
+      $j = $x +1;
+      echo"&nbsp;<a href=\"themen.php?fid=$fid&amp;tid=$tids[$i]\">$j</a>&nbsp;";
     }
-  }
-
-  mysql_close ($db);
-
-  // die Seitenauswahl
-    if ($saetze > $tjs)
-  {
-    echo "      <div align=\"center\">\n";
-
-    $seiten = ceil ($saetze/ $tjs);
-    $aktuelle_seite = floor(($saetze - $folgethemen - 1) / $tjs) + 1;
-
-    if (isset ($tids_vor))
+  // noch was nach den Dargestellten vorhanden?
+    if ($nach < $seiten)
+      echo '...';
+  // naechste Seite
+    if ($akt_seite +1  < $seiten)
     {
-      if (($saetze - $folgethemen - $tjs) > $tjs * 5)
-       echo '...';
+      $i = ($akt_seite +1) * $tjs;
+      echo"&nbsp;&nbsp;<a href=\"themen.php?fid=$fid&amp;tid=$tids[$i]\">&auml;ltere</a>";
+    }
     
-      $seiten_vor = sizeof ($tids_vor);
-      $i = $aktuelle_seite - $seiten_vor;
-      foreach ($tids_vor as $tids)
-      {
-        echo "&nbsp;<a href=\"themen.php?fid=$fid&amp;tid=$tids\">$i</a>&nbsp; ";
-        $i++;
-      }
-    }
-
-    echo "$aktuelle_seite ";
-    
-    if (isset ($tids_nach))
-    {    
-      $i = $aktuelle_seite + 1;
-      foreach ($tids_nach as $tids)
-      {
-        echo "&nbsp;<a href=\"themen.php?fid=$fid&amp;tid=$tids\">$i</a>&nbsp; ";
-        $i++;
-      }
-
-      if ($folgethemen > $tjs * 5)
-        echo '...';
-    }
     echo "</div>\n";
   }
-  // das wars mit den Themen...
 
-  
+
   if ($K_Egl)
   {
     echo "    <form action=\"beitraege.php\" method=\"post\">

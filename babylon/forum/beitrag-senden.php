@@ -1,12 +1,11 @@
 <?PHP;
-/* Copyright 2003, 2004 Detlef Reichl <detlef!reichl()gmx!org>
+/* Copyright 2003, 2004, 2005 Detlef Reichl <detlef!reichl()gmx!org>
    Diese Datei gehoert zum Babylon-Forum (babylon.berlios.de).
    
    Babylon ist Freie Software. Du bist berechtigt sie nach Vorgabe der
    GNU-GPL Version 2 zu nutzen und/oder modifizieren und/oder weiterzugeben.
    Lies die Datei COPYING fuer weitere Informationen hierzu. */
 
-// FIXME Beitraege die keinen Titel oder keinen Inhalt haben zurueck weisen
 function interner_fehler ($db)
 {
   echo '<h2>F001: Entweder bist Du nicht eingeloggt, dann d&uuml;rftest Du aber nicht
@@ -41,7 +40,7 @@ $tid = 0;
 $sid = 0;
 $bid = 0;
 $zid = 0;
-$neu = FALSE;
+$neu = 0;
 include ('get-post.php');
 
 if (id_von_get_post ($fid, $tid, $sid, $bid, $zid, $neu))
@@ -71,39 +70,42 @@ if (is_int (intval ($e_tmp)))
 else
   fehler (__FILE__, __LINE__, 1, '&UUml;bergebenen Daten sind ung&uuml;ltig');
 
-if (isset ($_POST['vorschau']))
+if ((isset ($_POST['vorschau']) and $_POST['vorschau'] == 'j') or (isset ($_POST['codearea']) and strlen ($_POST['codearea'])))
 {
-  if (!$K_Egl)
-    fehler (__FILE__, __LINE__, 1, 'Zwichenablage fuer die Vorschau wurde nicht aktualisiert, da nicht eingeloggt');
-  
-  $text = addslashes ($_POST['text']);
-  mysql_query ("UPDATE Benutzer
-                SET Ablage = '$text'
-                WHERE BenutzerId = '$BenutzerId'")
-    or fehler (__FILE__, __LINE__, 0, 'Zwischenablage fuer die Vorschau konnte nicht aktualisiert werden');
-  $vorschau = 'j';
-  $titel = substr (strip_tags ($_POST['titel']), 0, 50);
-  include ('gz-beitraege.php');
+  include ('vorschau.php');
+  vorschau ($K_Egl, $BenutzerId, $fid, $tid, $sid, $bid, $zid, $neu, '');
 }
-else if (isset ($_POST['zid']))
+
+if (isset ($_POST['zid']))
 {
   $zid = $_POST['zid'];
   include ('gz-beitraege.php');
 }
-else if ($K_Egl)
+
+if ($K_Egl)
 {
   $stempel = time ();
   // allen Muell raus
-  $text = addslashes (beitrag_pharsen ($_POST['text'], $erlaubte_tags));
+  $text = addslashes (beitrag_pharsen (trim ($_POST['text']), $erlaubte_tags));
+  if (!strlen ($text))
+  {
+    include ('vorschau.php');
+    vorschau ($K_Egl, $BenutzerId, $fid, $tid, $sid, $bid, $zid, $neu, 'Bitte den Beitrag ausf&uuml;llen');
+  }
+  
 
 // VIEL ZU VIEL DATENBANKZUGRIFFE.....
 
-// FIXME da man in Zukunft bei einer Antwort den Titel eines Beitrags aendern
-// koennen soll muessen wir uns hier noch etwas anderes einfallen lassen...
-  if (isset ($_POST['titel']))
+  if ($neu)
   {
     // Thema anlegen
-    $titel = addslashes (substr (strip_tags ($_POST['titel']), 0, 50));
+    $titel = addslashes (substr (strip_tags (trim ($_POST['titel'])), 0, 50));
+    if (!strlen ($titel))
+    {
+      include ('vorschau.php');
+      vorschau ($K_Egl, $BenutzerId, $fid, $tid, $sid, $bid, $zid, $neu, 'Bitte einen Titel angeben');
+    }
+    
     mysql_query ("INSERT INTO Beitraege (BeitragTyp, ForumId, Titel,
                                          NumBeitraege, Autor, StempelStart,
                                          StempelLetzter)

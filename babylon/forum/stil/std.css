@@ -35,6 +35,24 @@ div.konfiguration {
   padding: 6px;
 }
 
+div.code-eingabe {
+  background-color: #f2f1c4;
+  padding: 2px;
+  border-color: #ffffff;
+  border-width:2px;
+  border-style: inset;
+}
+
+div.code-bereich {
+  background-color: #eeeeee;
+  padding: 0px;
+  margin: 12px;
+  border-color: #ffffff;
+  border-width:2px;
+  border-style: inset;
+  font-size:80%;
+}
+
 div.zitat {
   border-color: #ffffff;
   border-width:2px;

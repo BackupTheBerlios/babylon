@@ -13,7 +13,7 @@ function leiste_unten ($suchtext, $version, $subversion)
   else
     $suche = '';
 
-  echo '    <table>
+  echo '    <table width="100%">
       <tr>
         <td width="33%" height="100%" valign="bottom">';
 

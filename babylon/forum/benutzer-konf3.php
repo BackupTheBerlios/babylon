@@ -1,5 +1,5 @@
 <?PHP;
-/* Copyright 2003, 2004 Detlef Reichl <detlef!reichl()gmx!org>
+/* Copyright 2003, 2004, 2005 Detlef Reichl <detlef!reichl()gmx!org>
    Diese Datei gehoert zum Babylon-Forum (babylon.berlios.de).
    
    Babylon ist Freie Software. Du bist berechtigt sie nach Vorgabe der
@@ -24,7 +24,7 @@
   benutzer_daten_profil ($BenutzerId, $Benutzer, $K_Egl,
                          $K_Stil, $P_NameZeigen, $P_Nachricht,
                          $P_NachrichtAnonym, $P_Ort, $P_EMail,
-                         $P_Homepage);
+                         $P_Homepage, $P_Atavar);
 
 
   if (!$K_Egl)
@@ -118,7 +118,7 @@
           <td colspan=\"2\">";
           if (isset ($_GET['atavar_format']))
             echo 'Das gew&auml;hlte Dateiformat wird nicht unterst&uuml;tzt.<br>
-                  Bitte lade nur Bilder im Jpeg-Format hoch.';
+                  Nur Bilder im Jpeg-, PNG-, und Gif-Format sind erlaubt.';
           else if (isset ($_GET['atavar_groesse']))
             echo "Das gew&auml;hlte Atavar ist zu gro&szlig;<br>
                   maximal:<br>
@@ -126,7 +126,8 @@
                   Breite: $B_atavar_max_breite Pixel<br>
                   H&ouml;he: $B_atavar_max_hoehe Pixel";
           else
-            echo "    <img src=\"atavar-ausgeben.php?atavar=$BenutzerId\">";
+            if ($P_Atavar == 'j')
+              echo "    <img src=\"atavar-ausgeben.php?atavar=$BenutzerId\"><button name=\"atavar_loeschen\">Atavar l&ouml;schen</button>";
           echo "           </td>
         </tr>
         <tr><td colspan=\"3\"><img src=\"/grafik/dummy.png\" width=\"1\" height=\"20\"></td></tr>

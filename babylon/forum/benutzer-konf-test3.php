@@ -1,5 +1,5 @@
 <?PHP;
-/* Copyright 2003, 2004 Detlef Reichl <detlef!reichl()gmx!org>
+/* Copyright 2003, 2004, 2005 Detlef Reichl <detlef!reichl()gmx!org>
    Diese Datei gehoert zum Babylon-Forum (babylon.berlios.de).
    
    Babylon ist Freie Software. Du bist berechtigt sie nach Vorgabe der
@@ -26,7 +26,7 @@
   benutzer_daten_profil ($BenutzerId, $Benutzer, $K_Egl,
                          $K_Stil, $P_NameZeigen, $P_Nachricht,
                          $P_NachrichtAnonym, $P_Ort, $P_EMail,
-                         $P_Homepage);
+                         $P_Homepage, $P_Atavar);
 
   if (!$K_Egl)
     fehler (NULL, 0, 1, 'Zugriff verweigert');
@@ -35,24 +35,26 @@
   {
     $atavar_datei = $_FILES['atavar']['tmp_name'];
     $atavar_groesse = $_FILES['atavar']['size'];
-    $info = getimagesize ($datei);
+    $info = getimagesize ($atavar_datei);
     $breite = $info[0];
     $hoehe = $info[1];
     $typ = $info[2];
   }
-  if ($atavar_groesse > ($B_atavar_max_kb * 1024) or $breite > $B_atavar_max_breite or $hoehe > $B_atavar_max_hoehe)
+  if (isset ($atavar_groesse) and ($atavar_groesse > ($B_atavar_max_kb * 1024) or $breite > $B_atavar_max_breite or $hoehe > $B_atavar_max_hoehe))
     $zu_arg = 'atavar_groesse=';
-  else if ($typ > 2)
+  else if (isset ($typ) and ($typ < 1 or $typ > 3))
     $zu_arg = 'atavar_format=';
   else
   {
-    $atavar = 'n';
+    $atavar = '';
     $bild = NULL;
-    if (!empty ($_FILES['atavar']['tmp_name']))
+    if (isset ($atavar_groesse))
     { 
        $bild = addslashes(fread(fopen($atavar_datei, 'r'), $atavar_groesse));
-       $atavar = 'j';
+       $atavar = "Atavar = 'j', AtavarData = '" . $bild . "',";
     }
+    if (isset ($_POST['atavar_loeschen']))
+      $atavar = "Atavar = 'n', AtavarData = '',";
 
     $name_zeigen = (isset ($_POST['name_zeigen'])) ? 'j' : 'n';
     $nachricht = (isset ($_POST['nachricht'])) ? 'j' : 'n';
@@ -64,8 +66,7 @@
     $email = (strlen ($_POST['email'])) ? addslashes ($_POST['email']) : '';
 
     mysql_query ("UPDATE Benutzer
-                  SET Atavar = '$atavar',
-                      AtavarData= '$bild',
+                  SET $atavar
                       ProfilNameZeigen = '$name_zeigen',
                       NachrichtAnnehmen = '$nachricht',
                       NachrichtAnnehmenAnonym = '$nachricht_anonym',

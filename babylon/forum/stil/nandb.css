@@ -129,6 +129,24 @@ div.zitat {
   padding: 6px;
 }
 
+div.code-eingabe {
+  background-color: #777777;
+  padding: 2px;
+  border-color: #999999;
+  border-width:2px;
+  border-style: inset;
+}
+
+div.code-bereich {
+  background-color: #eeeeee;
+  padding: 0px;
+  margin: 12px;
+  border-color: #999999;
+  border-width:2px;
+  border-style: inset;
+  font-size:80%;
+}
+
 img.stil_auswahl {
   border-color: #ffffff;
   border-width: 2px;

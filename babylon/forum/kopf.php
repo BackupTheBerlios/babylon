@@ -55,8 +55,10 @@
   metadata ($_SERVER['SCRIPT_FILENAME']);
 
   if (isset ($skript) && $skript == 'j')
-    echo "  <script src=\"js/formathilfe.js\" type=\"text/javascript\"></script>\n";
-
+  {
+    echo "  <script src=\"js/formathilfe.js\" type=\"text/javascript\"></script>
+  <script src=\"js/codebereich.js\" type=\"text/javascript\"></script>\n";
+  }
   $stil_datei = "stil/$K_Stil.php";
   include ($stil_datei);
   css_setzen ();
@@ -69,9 +71,9 @@
       && $K_Egl
       && $neu
       && $_GET['vorschau'] != 'j')
-    echo "<body onLoad=\"document.eform.titel.focus()\">\n";
+    echo "  <body onLoad=\"document.eform.titel.focus()\">\n";
   else
-    echo "<body>\n";
+    echo "  <body>\n";
   
   wartung_ankuendigung ();
   leiste_oben ($K_Egl, $B_startseite_link);
