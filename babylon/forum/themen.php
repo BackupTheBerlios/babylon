@@ -87,6 +87,7 @@
   $saetze = $zeile[0];
   
   $tjs = $K_ThemenJeSeite;
+  $tid_sprung = $tid;
   // wir kommen direkt aus den foren und setzend die tid auf 2^31 -1;
   // so gehen wir bestimmt hinter den letzten satz
   if ($tid == -1)
@@ -125,6 +126,22 @@
                     'BaumZeigen' => $baum);
     zeichne_thema ($param);
     $erster = FALSE;
+    
+   // Administrator fuer dieses Forum?
+    if ($K_Admin & 1 << $fid)
+    {
+      $sperren = $zeile[7] == 'j' ? 'n' : 'j';
+      $grafik = $sperren == 'n' ? 'gesperrt' : 'lesbar';
+      
+      echo "<tr>
+          <td colspan=\"4\">
+            <div class=\"admin-leiste\">
+              <a href=\"thema-sperren.php?fid=$fid&tid=$zeile[0]&tid_sprung=$tid_sprung&sperren=$sperren\">Lesbar
+              <img src=\"/grafik/$grafik.png\" border=\"0\" alt=\"$grafik\"></a>
+            </div>
+          </td>
+        </tr>";
+    }
   } 
    echo '          </table>
         </td>
