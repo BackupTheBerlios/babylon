@@ -1,5 +1,5 @@
-<?PHP;
-/* Copyright 2003, 2004 Detlef Reichl <detlef!reichl()gmx!org>
+<?php
+/* Copyright 2003, 2004, 2005 Detlef Reichl <detlef!reichl()gmx!org>
    Diese Datei gehoert zum Babylon-Forum (babylon.berlios.de).
    
    Babylon ist Freie Software. Du bist berechtigt sie nach Vorgabe der
@@ -113,7 +113,7 @@ function benutzer_daten_persoenlich (&$BenutzerId, &$K_Egl, &$K_Stil,
 function benutzer_daten_profil (&$BenutzerId, &$Benutzer, &$K_Egl,
                                 &$K_Stil, &$P_NameZeigen, &$P_Nachricht,
                                 &$P_NachrichtAnonym, &$P_Ort, &$P_EMail,
-                                &$P_Homepage)
+                                &$P_Homepage, &$P_Atavar)
 {
   $id = -1;
   $sw = -1;
@@ -122,7 +122,7 @@ function benutzer_daten_profil (&$BenutzerId, &$Benutzer, &$K_Egl,
     
   $erg = mysql_query ("SELECT Benutzer, KonfStil, ProfilNameZeigen,
                               NachrichtAnnehmen, NachrichtAnnehmenAnonym, ProfilOrt,
-                              ProfilEMail, ProfilHomepage
+                              ProfilEMail, ProfilHomepage, Atavar
                        FROM Benutzer
                        WHERE BenutzerId = \"$id\" AND Cookie = \"$sw\"  AND Eingeloggt = 'j'")
     or fehler (__FILE__, __LINE__, 0, 'Profildaten konnten nicht aus der Dantenbank gelesen werden');
@@ -143,6 +143,7 @@ function benutzer_daten_profil (&$BenutzerId, &$Benutzer, &$K_Egl,
   $P_Ort = stripslashes ($zeile[5]);
   $P_EMail = stripslashes ($zeile[6]);
   $P_Homepage = stripslashes ($zeile[7]);
+  $P_Atavar = $zeile[8];
 }
 
 function benutzer_daten_mitglied (&$K_Mitglied)
@@ -193,4 +194,3 @@ function benutzer_daten_recht (&$BenutzerId, &$K_Grafik, &$K_Links)
   $K_Grafik = $zeile[1];
 }
 ?>
-

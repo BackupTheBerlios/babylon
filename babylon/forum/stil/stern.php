@@ -1,7 +1,7 @@
-<?PHP;
+<?php
 // StilName = Stern
 
-/* Copyright 2003, 2004 Detlef Reichl <detlef!reichl()gmx!org>
+/* Copyright 2003, 2004, 2005 Detlef Reichl <detlef!reichl()gmx!org>
    Diese Datei gehoert zum Babylon-Forum (babylon.berlios.de).
    
    Babylon ist Freie Software. Du bist berechtigt sie nach Vorgabe der

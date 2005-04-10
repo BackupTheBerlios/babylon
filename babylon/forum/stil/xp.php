@@ -1,8 +1,8 @@
-<?PHP;
+<?php
 
 // StilName = XPerimental
 
-/* Copyright 2003, 2004 Detlef Reichl <detlef!reichl()gmx!org>
+/* Copyright 2003, 2004, 2005 Detlef Reichl <detlef!reichl()gmx!org>
    Diese Datei gehoert zum Babylon-Forum (babylon.berlios.de).
    
    Babylon ist Freie Software. Du bist berechtigt sie nach Vorgabe der
@@ -51,7 +51,7 @@ function zeichne_forum ($param)
 function zeichne_thema ($param)
 {
   $Erster = $param['Erster'];
-  $ForumId = $param['$ForumId'];
+  $ForumId = $param['ForumId'];
   $ThemaId = $param['ThemaId'];
   $Autor = $param['Autor'];
   $AutorURL = rawurlencode ($Autor);

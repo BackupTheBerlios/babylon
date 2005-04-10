@@ -1,4 +1,4 @@
-<?PHP;
+<?php
 // StilName = Nuts'n'Bolts
 
 /* Copyright 2003, 2004 Detlef Reichl <detlef!reichl()gmx!org>

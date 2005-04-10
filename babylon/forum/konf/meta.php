@@ -1,4 +1,4 @@
-<?PHP;
+<?php
 /* Copyright 2003, 2004, 2005 Detlef Reichl <detlef!reichl()gmx!org>
    Diese Datei gehoert zum Babylon-Forum (babylon.berlios.de).
    
@@ -19,4 +19,4 @@ echo"    <meta name=\"author\" content=\"niemand\">
     <meta http-equiv=\"expires\" content=\"0\">
     <link rel=\"shortcut icon\" href=\"/grafik/favicon.ico\">\n";
 }
-;?>
+?>
