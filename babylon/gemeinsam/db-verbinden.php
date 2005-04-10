@@ -20,4 +20,3 @@ function db_verbinden ()
   return $db;
 }
 ?>
-
