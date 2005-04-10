@@ -1,4 +1,4 @@
-<?PHP;
+<?php
 /* Copyright 2003, 2004, 2005 Detlef Reichl <detlef!reichl()gmx!org>
    Diese Datei gehoert zum Babylon-Forum (babylon.berlios.de).
    
@@ -22,16 +22,18 @@ else
 
 echo "<script type=\"text/javascript\">
       <!--
-      window.location.href = \"beitraege.php?fid=$fid&tid=$tid&sid=$sid&bid=$bid&zid=$zid&titel=$titel&vorschau=$vorschau&bemerkung=$bemerkung&neu=$neu$vb$textarea\";
+        window.location.href = \"beitraege.php?fid=$fid&tid=$tid&sid=$sid&bid=$bid&zid=$zid&titel=$titel&vorschau=$vorschau&bemerkung=$bemerkung&neu=$neu$vb$textarea\";
 
       //-->
       </script>
-      
       <noscript>
-      <meta http-equiv=\"refresh\" content=\"0; URL=beitraege.php?fid=$fid&tid=$tid&sid=$sid&bid=$bid&zid=$zid&titel=$titel&vorschau=$vorschau&bemerkung=$bemerkung&neu=$neu$vb$textarea\">
-      <title></title></head><body>
-      <a href=\"beitraege.php?fid=$fid&tid=$tid&sid=$sid&bid=$bid&zid=$zid&titel=$titel&vorschau=$vorschau&bemerkung=$bemerkung&neu=$neu$vb$textarea\">Weiter...</a>
+        <meta http-equiv=\"refresh\" content=\"0; URL=beitraege.php?fid=$fid&tid=$tid&sid=$sid&bid=$bid&zid=$zid&titel=$titel&vorschau=$vorschau&bemerkung=$bemerkung&neu=$neu$vb$textarea\">
       </noscript>
+      <title></title>
+    </head>
+<body>
+  <a href=\"beitraege.php?fid=$fid&tid=$tid&sid=$sid&bid=$bid&zid=$zid&titel=$titel&vorschau=$vorschau&bemerkung=$bemerkung&neu=$neu$vb$textarea\">Weiter...</a>
+
 </body>
 </html>";
 die ();

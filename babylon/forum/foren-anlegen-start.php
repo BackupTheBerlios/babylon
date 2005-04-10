@@ -1,5 +1,5 @@
-<?PHP;
-/* Copyright 2003, 2004 Detlef Reichl <detlef!reichl()gmx!org>
+<?php
+/* Copyright 2003, 2004, 2005 Detlef Reichl <detlef!reichl()gmx!org>
    Diese Datei gehoert zum Babylon-Forum (babylon.berlios.de).
    
    Babylon ist Freie Software. Du bist berechtigt sie nach Vorgabe der
@@ -36,3 +36,4 @@
     die ('F&uuml;r die bestehende Forumsversion kann dieses Modul nicht angewandt werden');
 
   die ('Das Forenger&uuml;st wurden erstellt');
+?>

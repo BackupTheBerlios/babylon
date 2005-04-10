@@ -1,4 +1,4 @@
-<?PHP;
+<?php
 /* Copyright 2003, 2004 Detlef Reichl <detlef!reichl()gmx!org>
    Diese Datei gehoert zum Babylon-Forum (babylon.berlios.de).
    
@@ -44,4 +44,3 @@ $mail_text
       mail("$vname $nname <$email>", "Antwort auf Deinen Beitrag im $B_betreiber Forum", $nachricht, $kopf);
 }
 ;?>
-

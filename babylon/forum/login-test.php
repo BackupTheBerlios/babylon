@@ -1,4 +1,4 @@
-<?PHP;
+<?php
 /* Copyright 2003, 2004 Detlef Reichl <detlef!reichl()gmx!org>
    Diese Datei gehoert zum Babylon-Forum (babylon.berlios.de).
    
@@ -97,4 +97,4 @@ else
   echo "<h2>Benutzer \"$benutzer\" nicht bekannt!<br>Oder falsches Passwort</h2><p>";
   include ('login.php');
 }
-;?>
+?>

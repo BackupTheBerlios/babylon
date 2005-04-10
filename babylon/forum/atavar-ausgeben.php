@@ -1,4 +1,4 @@
-<?PHP;
+<?php
 /* Copyright 2004 Detlef Reichl <detlef!reichl()gmx!org>
    Diese Datei gehoert zum Babylon-Forum (babylon.berlios.de).
    
@@ -21,4 +21,4 @@ if (mysql_num_rows ($erg))
   Header ('Content-type:image/jpg');
   echo $zeile[0];
 }
-;?>
+?>

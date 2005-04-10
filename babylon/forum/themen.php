@@ -1,4 +1,4 @@
-<?PHP;
+<?php
 /* Copyright 2003, 2004, 2005 Detlef Reichl <detlef!reichl()gmx!org>
    Diese Datei gehoert zum Babylon-Forum (babylon.berlios.de).
    
@@ -8,6 +8,7 @@
 
   $titel = 'Forum / Themen';
   include_once ('kopf.php');
+  include_once ('fehler.php');
 
   if (!((1 << $fid & $K_Lesen) or (1 << $fid & $B_leserecht)))
   {
@@ -36,70 +37,72 @@
                          AND ForumId = $fid
                        $gesperrt
                        ORDER BY StempelLetzter DESC")
-    or die ('F0057: Themen konnten nicht gelesen werden');
+    or fehler (__FILE__, __LINE__, 0, 'Themen konnten nicht gelesen werden');
  
   $saetze = mysql_num_rows ($erg);
-  $tids = array();
-  while ($zeile = mysql_fetch_row ($erg))
-    $tids[] = $zeile[0];
-  reset ($tids);
-
-
-  // Wir extrahieren die Themen die wir darstellen wollen
-  if ($tid == -1)
-    $tids_darstellung = array_slice ($tids, 0, $tjs);
-  else
+  if ($saetze > 0)
   {
-    $i = 0;
-    while ($val = current ($tids))
+    $tids = array();
+    while ($zeile = mysql_fetch_row ($erg))
+      $tids[] = $zeile[0];
+    reset ($tids);
+
+
+    // Wir extrahieren die Themen die wir darstellen wollen
+    if ($tid == -1)
+      $tids_darstellung = array_slice ($tids, 0, $tjs);
+    else
     {
-      if ($val == $tid)
-        break;
-      next ($tids);
-      $i++;
+      $i = 0;
+      while ($val = current ($tids))
+      {
+        if ($val == $tid)
+          break;
+        next ($tids);
+        $i++;
+      }
+       if ($val != $tid)
+        die ('Illegale tid uebergeben');
+      // wir wollen immer auf saubere Seitengrenzen springen
+      $akt_seite = intval (floor ($i / $tjs));
+      $i = $akt_seite * $tjs;
+      $tids_darstellung = array_slice ($tids, $i, $tjs);
     }
-    if ($val != $tid)
-      die ('Illegale tid uebergeben');
-    // wir wollen immer auf saubere Seitengrenzen springen
-    $akt_seite = intval (floor ($i / $tjs));
-    $i = $akt_seite * $tjs;
-    $tids_darstellung = array_slice ($tids, $i, $tjs);
-  }
 
 
-  $tids_holen = implode (' OR ThemaId = ', $tids_darstellung);
-  $themen = mysql_query ("SELECT ThemaId, Autor, AutorLetzter, StempelLetzter, Titel, NumBeitraege, NumGelesen, Gesperrt
-                             FROM Beitraege
-                             WHERE BeitragTyp = 2
-                               AND (ThemaId = $tids_holen)
-                             ORDER BY BeitragId DESC")
-    or die ('F0023: Themen konnten nicht gelesen werden');
+    $tids_holen = implode (' OR ThemaId = ', $tids_darstellung);
+    $themen = mysql_query ("SELECT ThemaId, Autor, AutorLetzter, StempelLetzter, Titel, NumBeitraege, NumGelesen, Gesperrt
+                               FROM Beitraege
+                               WHERE BeitragTyp = 2
+                                 AND (ThemaId = $tids_holen)
+                               ORDER BY BeitragId DESC")
+      or fehler (__FILE__, __LINE__, 0, 'Themen konnten nicht gelesen werden');
 
-  $erster = TRUE;
-  while ($zeile = mysql_fetch_row ($themen))
-  {
-    $baum = $K_BaumZeigen == 'j' ? TRUE : FALSE;
-    $titel = stripslashes ($zeile[4]);
-    $param = array ('Erster' => $erster,
-                    'ForumId' => $fid,
-                    'ThemaId' => $zeile[0],
-                    'Autor' => $zeile[1],
-                    'AutorLetzter' => $zeile[2],
-                    'StempelLetzter' => $zeile[3],
-                    'Titel' => $titel,
-                    'NumBeitraege' => $zeile[5],
-                    'NumGelesen' => $zeile[6],
-                    'BaumZeigen' => $baum);
-    zeichne_thema ($param);
-    $erster = FALSE;
-    
-   // Administrator fuer dieses Forum?
-    if ($K_Admin & 1 << $fid)
+    $erster = TRUE;
+    while ($zeile = mysql_fetch_row ($themen))
     {
-      $sperren = $zeile[7] == 'j' ? 'n' : 'j';
-      $grafik = $sperren == 'n' ? 'gesperrt' : 'lesbar';
+      $baum = $K_BaumZeigen == 'j' ? TRUE : FALSE;
+      $titel = stripslashes ($zeile[4]);
+      $param = array ('Erster' => $erster,
+                      'ForumId' => $fid,
+                      'ThemaId' => $zeile[0],
+                      'Autor' => $zeile[1],
+                      'AutorLetzter' => $zeile[2],
+                      'StempelLetzter' => $zeile[3],
+                      'Titel' => $titel,
+                      'NumBeitraege' => $zeile[5],
+                      'NumGelesen' => $zeile[6],
+                      'BaumZeigen' => $baum);
+      zeichne_thema ($param);
+      $erster = FALSE;
+    
+     // Administrator fuer dieses Forum?
+      if ($K_Admin & 1 << $fid)
+      {
+        $sperren = $zeile[7] == 'j' ? 'n' : 'j';
+        $grafik = $sperren == 'n' ? 'gesperrt' : 'lesbar';
       
-      echo "<tr>
+        echo "<tr>
           <td colspan=\"4\">
             <div class=\"admin-leiste\">
               <a href=\"thema-sperren.php?fid=$fid&tid=$zeile[0]&tid_sprung=$tid_sprung&sperren=$sperren\">Lesbar
@@ -107,10 +110,10 @@
             </div>
           </td>
         </tr>";
+      }
     }
-  } 
+  }
   echo "          </table>\n";
-
 
 //  #####################
 //  # die Seitenauswahl #

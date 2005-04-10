@@ -1,4 +1,4 @@
-<?PHP;
+<?php
 /* Copyright 2003, 2004 Detlef Reichl <detlef!reichl()gmx!org>
    Diese Datei gehoert zum Babylon-Forum (babylon.berlios.de).
    
@@ -41,4 +41,4 @@ function email_adresse_gueltig ($adresse)
 {
   return preg_match ('/^[a-zA-Z0-9]+[a-zA-Z0-9._-]*@([a-zA-Z0-9_-]{2,}\.)+[a-zA-Z]{2,}$/', $adresse);
 }
-;?>
+?>

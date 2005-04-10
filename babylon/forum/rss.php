@@ -1,4 +1,4 @@
-<?PHP;
+<?php
 /* Copyright 2005 Detlef Reichl <detlef!reichl()gmx!org>
    Diese Datei gehoert zum Babylon-Forum (babylon.berlios.de).
    
@@ -61,4 +61,4 @@
 
   // rss Abschluss
   echo "</rss>\n";
-;?>
+?>

@@ -1,4 +1,4 @@
-<?PHP;
+<?php
 /* Copyright 2003, 2004 Detlef Reichl <detlef!reichl()gmx!org>
    Diese Datei gehoert zum Babylon-Forum (babylon.berlios.de).
    
@@ -122,7 +122,6 @@ echo "  <h2>Anmelden</h2>
   {
     echo 'Du hast auf diese Seite keine Zugriffsrechte';
   }
+echo '</body>
+</html>';
 ?>  
-</body>
-</html>
-

@@ -1,4 +1,4 @@
-<?PHP;
+<?php
 /* Copyright 2003, 2004 Detlef Reichl <detlef!reichl()gmx!org>
    Diese Datei gehoert zum Babylon-Forum (babylon.berlios.de).
    
@@ -38,4 +38,4 @@ echo "  <img src=\"/grafik/dummy.png\" width=\"1\" height=\"40\" border=\"0\" al
   </table>
 </body>
 </html>";
-
+?>

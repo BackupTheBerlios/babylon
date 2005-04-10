@@ -1,4 +1,4 @@
-<?PHP;
+<?php
 /* Copyright 2004 Detlef Reichl <detlef!reichl()gmx!org>
    Diese Datei gehoert zum Babylon-Forum (babylon.berlios.de).
    
@@ -77,4 +77,4 @@
   
   wartung_ankuendigung ();
   leiste_oben ($K_Egl, $B_startseite_link);
-;?>
+?>

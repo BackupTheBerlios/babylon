@@ -1,4 +1,4 @@
-<?PHP;
+<?php
 /* Copyright 2003, 2004 Detlef Reichl <detlef!reichl()gmx!org>
    Diese Datei gehoert zum Babylon-Forum (babylon.berlios.de).
    
@@ -8,6 +8,10 @@
 
 function leiste_oben ($egl, $startseite_link)
 {
+  $msie = $_SERVER['DOCUMENT_ROOT'] . '/gemeinsam/msie.php';
+  include_once ($msie);
+  $msiepng = msie_png ();
+
   $startseite_link = htmlentities (stripslashes ($startseite_link));
   echo "    <table width=\"100%\" class=\"leiste-oben\">
       <tr>
@@ -34,7 +38,7 @@ function leiste_oben ($egl, $startseite_link)
         </td>
         <td align=\"right\">
           <form action=\"mitglieder-liste.php\" method=\"post\">
-            <button type=\"submit\" title=\"Die Mitglieder dieses Forums\"><img src=\"/grafik/Mitglieder$msiepng.png\" width=\"24\" height=\"24\" alt=\"\">Die Mitglieder</button>
+            <button type=\"submit\" title=\"Die Mitglieder dieses Forums\"><img src=\"/grafik/Mitglieder$msiepng.png\" width=\"24\" height=\"24\" alt=\"\">Die&nbsp;Mitglieder</button>
           </form>
         </td>\n";
     
@@ -42,7 +46,7 @@ function leiste_oben ($egl, $startseite_link)
   {
     echo "       <td align=\"right\">
          <form action=\"benutzer-konf1.php\" method=\"post\">
-           <button type=\"submit\" title=\"Passe Deine pers&ouml;nlichen\nEinstellungen an\"><img src=\"/grafik/Heim$msiepng.png\" width=\"24\" height=\"24\" alt=\"\">Mein Forum</button>
+           <button type=\"submit\" title=\"Passe Deine pers&ouml;nlichen\nEinstellungen an\"><img src=\"/grafik/Heim$msiepng.png\" width=\"24\" height=\"24\" alt=\"\">Mein&nbsp;Forum</button>
          </form>
        </td>
        <td align=\"right\"><img src=\"/grafik/dummy.png\" width=\"32\" height=\"1\" border=\"0\" alt=\"\"></td>
@@ -57,7 +61,7 @@ function leiste_oben ($egl, $startseite_link)
   
     echo "        <td align=\"right\">
           <form action=\"login.php\" method=\"post\">
-            <button type=\"submit\" title=\"Passe Deine pers&ouml;nlichen\nEinstellungen an\"><img src=\"/grafik/Heim$msiepng.png\" width=\"24\" height=\"24\" alt=\"\">Mein Forum</button>
+            <button type=\"submit\" title=\"Passe Deine pers&ouml;nlichen\nEinstellungen an\"><img src=\"/grafik/Heim$msiepng.png\" width=\"24\" height=\"24\" alt=\"\">Mein&nbsp;Forum</button>
           </form>
         </td>
         <td align=\"right\">

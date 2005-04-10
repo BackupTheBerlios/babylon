@@ -1,4 +1,4 @@
-<?PHP;
+<?php
 /* Copyright 2003, 2004, 2005 Detlef Reichl <detlef!reichl()gmx!org>
    Diese Datei gehoert zum Babylon-Forum (babylon.berlios.de).
    
@@ -82,3 +82,4 @@ function vorschau ($K_Egl, $BenutzerId, $fid, $tid, $sid, $bid, $zid, $neu, $bem
   $titel = rawurlencode (substr (strip_tags (trim ($_POST['titel'])), 0, 50));
   include ('gz-beitraege.php');
 }
+?>
