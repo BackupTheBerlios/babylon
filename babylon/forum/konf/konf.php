@@ -6,7 +6,7 @@
    GNU-GPL Version 2 zu nutzen und/oder modifizieren und/oder weiterzugeben.
    Lies die Datei COPYING fuer weitere Informationen hierzu. */
 
-error_reporting(E_ALL);
+error_reporting(0);
 
   $verbindung = $_SERVER['DOCUMENT_ROOT'] . '/gemeinsam/db-verbinden.php';
   include_once ($verbindung);
