@@ -42,3 +42,4 @@ function id_von_get_post (&$fid, &$tid, &$sid, &$bid, &$zid, &$neu)
   }
   return false;
 }   
+?>
